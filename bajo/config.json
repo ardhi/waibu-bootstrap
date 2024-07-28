@@ -1,0 +1,4 @@
+{
+  "alias": "wbbs",
+  "dependencies": ["waibu-mpa"]
+}

@@ -1,6 +1,6 @@
 # waibu-bootstrap
 
-Plugin name: **waibuBootstrao**, alias: **wbbs**
+Plugin name: **waibuBootstrap**, alias: **wbbs**
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/ardhi/waibu-bootstrap) ![NPM Version](https://img.shields.io/npm/v/waibu-bootstrap)
 

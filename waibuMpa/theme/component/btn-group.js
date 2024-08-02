@@ -1,10 +1,12 @@
 const baseCls = 'btn-group'
 
-async function btnGroup ({ params, reply } = {}) {
-  const attr = params.attr
-  attr.class.push(baseCls)
-  attr.role = 'group'
-  return '.' + baseCls
+const btnGroup = {
+  selector: '.' + baseCls,
+  handler: async function ({ params, reply } = {}) {
+    const attr = params.attr
+    attr.class.push(baseCls)
+    attr.role = 'group'
+  }
 }
 
 export default btnGroup

@@ -1,7 +1,10 @@
+async function afterBuildPage ({ $, reply } = {}) {
+  if (reply.request.darkMode) $('html').attr('data-bs-theme', 'dark')
+}
+
 async function theme (ctx) {
   const css = [
     'waibuBootstrap.virtual:/bootstrap/css/bootstrap.min.css'
-    // 'waibuMpaFontawesome.load:/waibuMpa/theme/css.json'
   ]
   const scripts = [
     'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js'
@@ -14,7 +17,8 @@ async function theme (ctx) {
     name: 'bootstrap',
     css,
     scripts,
-    meta
+    meta,
+    afterBuildPage
   }
 }
 

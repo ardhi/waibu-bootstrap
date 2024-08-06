@@ -18,7 +18,7 @@ const gridCol = {
         if (!width[w]) return undefined
         return `${baseCls}-${s}${width[w]}`
       }), undefined)
-      cols.unshift(`${baseCls}-1`)
+      // cols.unshift(`${baseCls}-1`)
     } else {
       if (width[attr.size]) cols = [`${baseCls}${width[attr.size]}`]
       else cols = [baseCls]

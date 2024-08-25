@@ -9,10 +9,28 @@ async function theme (ctx) {
     name: 'viewport',
     content: 'width=device-width, initial-scale=1'
   }]
+  const hasAttrValues = ['active', 'hover']
+  const getAttrValues = {
+    variant: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark', 'link'],
+    size: ['sm', 'md', 'lg'],
+    'v-align': {
+      prefix: 'align',
+      values: ['top', 'middle', 'bottom']
+    },
+    'h-align': {
+      prefix: 'float',
+      values: ['start', 'end']
+    },
+    't-align': {
+      prefix: 'text',
+      values: ['start', 'end']
+    }
+  }
   return {
     name: 'bootstrap',
     css,
     scripts,
+    component: { hasAttrValues, getAttrValues },
     meta
   }
 }

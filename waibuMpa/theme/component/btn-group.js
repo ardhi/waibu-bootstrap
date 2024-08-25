@@ -1,10 +1,10 @@
-const baseCls = 'btn-group'
+const baseClass = 'btn-group'
 
 const btnGroup = {
-  selector: '.' + baseCls,
+  selector: '.' + baseClass,
   handler: async function ({ params, reply } = {}) {
     const attr = params.attr
-    attr.class.push(baseCls)
+    attr.class.push(baseClass)
     attr.role = 'group'
   }
 }

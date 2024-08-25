@@ -1,9 +1,9 @@
-const baseCls = 'row'
+const baseClass = 'row'
 
 const gridRow = {
-  selector: '.' + baseCls,
+  selector: '.' + baseClass,
   handler: async function ({ params, reply } = {}) {
-    params.attr.class.push(baseCls)
+    params.attr.class.push(baseClass)
   }
 }
 

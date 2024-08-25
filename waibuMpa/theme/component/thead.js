@@ -1,14 +1,11 @@
-const baseCls = 'table'
+const baseClass = 'table'
 
-const tr = {
-  selector: '.table thead',
+const thead = {
+  selector: `.${baseClass} thead`,
   handler: async function ({ params }) {
-    params.tag = 'thead'
-    const attr = params.attr
-    for (const item of ['variant']) {
-      this._getAttr(attr, item, baseCls)
-    }
+    params.baseClass = baseClass
+    params.ezAttrs = ['variant']
   }
 }
 
-export default tr
+export default thead

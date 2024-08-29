@@ -1,4 +1,7 @@
 [{
   "prefix": "bootstrap",
   "root": "node_modules/bootstrap/dist"
+}, {
+  "prefix": "popperjs",
+  "root": "node_modules/@popperjs/core/dist"
 }]

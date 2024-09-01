@@ -1,11 +1,12 @@
-import { opacities } from './_lib.js'
+import { opacities, parseVariant } from './_lib.js'
+
 const directs = ['gradient']
 const variants = ['subtle', 'secondary', 'tertiary']
 
 function background ({ key, params }) {
-  const { uniq, cloneDeep, isEmpty } = this._
+  const { uniq, cloneDeep } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
-  const colors = cloneDeep(this.getAttrValues.variant)
+  const colors = cloneDeep(this.getAttrValues.color)
   colors.push('body', 'black', 'white')
   for (const attr of attrs) {
     const [item, value] = attr.split(':')
@@ -14,14 +15,7 @@ function background ({ key, params }) {
       for (const val of uniq((value ?? '').split(','))) {
         switch (item) {
           case 'opacity': if (opacities.includes(val)) params.attr.class.push(`bg-opacity-${val}`); break
-          case 'color': {
-            const [core, variant] = val.split('-')
-            let v = ''
-            if (colors.includes(core)) v += `bg-${core}`
-            if (variants.includes(variant)) v += `-${variant}`
-            if (!isEmpty(v)) params.attr.class.push(v)
-            break
-          }
+          case 'color': params.attr.class.push(parseVariant.call(this, { cls: 'bg', value: val, values: colors, variants })); break
         }
       }
     }

@@ -9,7 +9,7 @@ import background from './_after-build-tag/background.js'
 import link from './_after-build-tag/link.js'
 import border from './_after-build-tag/border.js'
 import rounded from './_after-build-tag/rounded.js'
-import size from './_after-build-tag/size.js'
+import dim from './_after-build-tag/dim.js'
 import flex from './_after-build-tag/flex.js'
 import display from './_after-build-tag/display.js'
 
@@ -35,7 +35,7 @@ const styles = [
   { key: 'overflow', val: 'overflow{type}{value}', types: ['x', 'y'], values: overflows },
   { key: 'shadow', val: 'shadow{value}', values: ['none', 'sm', 'lg', 'inset'], allowEmpty: true },
   { key: 'position', handler: position },
-  { key: 'size', handler: size },
+  { key: 'dim', handler: dim },
   { key: 'margin', handler: marginPadding },
   { key: 'padding', handler: marginPadding }
 ]

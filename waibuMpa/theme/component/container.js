@@ -1,14 +1,15 @@
-const baseClass = 'container'
+import { breakpoints, parseSimple } from './_after-build-tag/_lib.js'
+const cls = 'container'
 
 const container = {
-  selector: '.' + baseClass,
+  selector: '.' + cls,
   handler: async function ({ params }) {
-    const { has } = this._
-    const attr = params.attr
-    if (has(attr, 'responsive')) attr.class.push(`${baseClass}-fluid`)
-    else if (has(attr, 'size')) this._getAttr(attr, 'size', baseClass)
-    else attr.class.push(baseClass)
-    delete attr.responsive
+    const { has, omit } = this._
+    params.tag = 'div'
+    if (has(params.attr, 'responsive')) params.attr.class.push(`${cls}-fluid`)
+    else if (has(params.attr, 'breakpoint')) params.attr.class.push(parseSimple({ cls, value: params.attr.breakpoint, values: breakpoints }))
+    else params.attr.class.push(cls)
+    params.attr = omit(params.attr, ['responsive', 'breakpoint'])
   }
 }
 

@@ -4,7 +4,7 @@ const thead = {
   selector: `.${baseClass} thead`,
   handler: async function ({ params }) {
     params.baseClass = baseClass
-    params.ezAttrs = ['variant']
+    params.ezAttrs = ['color']
   }
 }
 

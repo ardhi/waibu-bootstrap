@@ -1,6 +1,6 @@
-import { sizes } from './_lib.js'
+import { dims } from './_lib.js'
 
-function size ({ key, params }) {
+function dim ({ key, params }) {
   const { uniq } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
   for (const attr of attrs) {
@@ -12,7 +12,7 @@ function size ({ key, params }) {
           if (value === 'max') params.attr.class.push(`m${value[0]}-100`)
           else if (value === 'viewport') params.attr.class.push(`v${value[0]}-100`)
           else if (value === 'min-viewport') params.attr.class.push(`min-v${value[0]}-100`)
-          else if (sizes.includes(val)) params.attr.class.push(`${value[0]}-${val}`)
+          else if (dims.includes(val)) params.attr.class.push(`${value[0]}-${val}`)
           break
         }
       }
@@ -20,4 +20,4 @@ function size ({ key, params }) {
   }
 }
 
-export default size
+export default dim

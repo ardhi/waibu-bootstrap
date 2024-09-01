@@ -6,7 +6,7 @@ const ovariants = ['hover']
 function link ({ key, params }) {
   const { uniq, cloneDeep, isEmpty } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
-  const colors = cloneDeep(this.getAttrValues.variant)
+  const colors = cloneDeep(this.getAttrValues.color)
   colors.push('body', 'black', 'white')
   for (const attr of attrs) {
     const [item, value] = attr.split(':')

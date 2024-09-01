@@ -27,7 +27,7 @@ const table = {
       { key: 'border', value: setBorder },
       { key: 'strip', value: setStrip },
       { key: 'responsive', value: setResponsive },
-      'variant', 'size', 'v-align', 'hover'
+      'color', 'size', 'v-align', 'hover'
     ]
   }
 }

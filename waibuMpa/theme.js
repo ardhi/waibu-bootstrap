@@ -11,7 +11,7 @@ async function theme (ctx) {
   }]
   const hasAttrValues = ['active', 'hover']
   const getAttrValues = {
-    variant: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark', 'link'],
+    color: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark', 'link'],
     size: ['sm', 'md', 'lg'],
     'v-align': {
       prefix: 'align',

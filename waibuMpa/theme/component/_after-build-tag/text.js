@@ -1,14 +1,15 @@
-import { opacities, heights } from './_lib.js'
+import { breakpoints, opacities, heights, parseVariant } from './_lib.js'
+
 const decorations = ['underline', 'line-through', 'none']
 const transforms = ['lowercase', 'uppercase', 'capitalize', 'monospace']
-const alignments = ['start', 'center', 'break', 'reset']
+const alignments = ['start', 'center', 'break', 'reset', 'end']
 const directs = ['wrap', 'nowrap', 'mark', 'small']
 const variants = ['emphasis', 'secondary', 'tertiary']
 
 function text ({ key, params }) {
-  const { uniq, cloneDeep, isEmpty } = this._
+  const { uniq, cloneDeep } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
-  const colors = cloneDeep(this.getAttrValues.variant)
+  const colors = cloneDeep(this.getAttrValues.color)
   colors.push('body', 'black', 'white')
   for (const attr of attrs) {
     const [item, value] = attr.split(':')
@@ -19,16 +20,10 @@ function text ({ key, params }) {
           case 'decoration': if (decorations.includes(val)) params.attr.class.push(`text-decoration-${val}`); break
           case 'line-height': if (heights.includes(val)) params.attr.class.push(`lh-${val}`); break
           case 'transform': if (transforms.includes(val)) params.attr.class.push(`text-${val}`); break
-          case 'align': if (alignments.includes(val)) params.attr.class.push(`text-${val}`); break
+          case 'align': params.attr.class.push(parseVariant.call(this, { cls: 'text', value: val, values: alignments, variants: breakpoints, prepend: true })); break
           case 'opacity': if (opacities.includes(val)) params.attr.class.push(`text-opacity-${val}`); break
-          case 'color': {
-            const [core, variant] = val.split('-')
-            let v = ''
-            if (colors.includes(core)) v += `text-${core}`
-            if (variants.includes(variant)) v += `-${variant}`
-            if (!isEmpty(v)) params.attr.class.push(v)
-            break
-          }
+          case 'background': if (colors.includes(val)) params.attr.class.push(`text-bg-${val}`); break
+          case 'color': params.attr.class.push(parseVariant.call(this, { cls: 'text', value: val, values: colors, variants })); break
         }
       }
     }

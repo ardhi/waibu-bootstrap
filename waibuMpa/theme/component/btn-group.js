@@ -1,11 +1,14 @@
-const baseClass = 'btn-group'
+const cls = 'btn-group'
 
 const btnGroup = {
-  selector: '.' + baseClass,
+  selector: '.' + cls,
   handler: async function ({ params, reply } = {}) {
-    const attr = params.attr
-    attr.class.push(baseClass)
-    attr.role = 'group'
+    const { has } = this._
+    params.tag = 'div'
+    params.attr.class.push(cls)
+    params.attr.role = 'group'
+    if (has(params.attr, 'label')) params.attr['aria-label'] = params.attr.label
+    delete params.attr.label
   }
 }
 

@@ -5,7 +5,7 @@ const variants = ['subtle', 'secondary', 'tertiary']
 function border ({ key, params }) {
   const { uniq, cloneDeep, isEmpty } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
-  const colors = cloneDeep(this.getAttrValues.variant)
+  const colors = cloneDeep(this.getAttrValues.color)
   colors.push('body', 'black', 'white')
   let hasSide
   for (const attr of attrs) {

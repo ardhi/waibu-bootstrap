@@ -1,13 +1,11 @@
-import { parseVariant, parseSimple, sizes } from './_after-build-tag/_lib.js'
+import { parseVariant, parseSimple, sizes, colors, colorVariants } from './_after-build-tag/_lib.js'
 
 const cls = 'btn'
-const variants = ['outline']
 
 const btn = {
   selector: '.' + cls,
   handler: async function ({ params, reply } = {}) {
     const { has, isEmpty, omit } = this._
-    const colors = this.getAttrValues.color
     params.attr.class.push(cls)
     // tag
     params.tag = has(params.attr, 'href') || params.attr.tag === 'a' ? 'a' : 'button'
@@ -27,7 +25,7 @@ const btn = {
       params.attr.class.push('active')
       params.attr['aria-pressed'] = true
     }
-    params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants, prepend: true }))
+    params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants: colorVariants, prepend: true }))
     params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
     params.attr = omit(params.attr, ['color', 'size', 'active', 'toggle'])
   }

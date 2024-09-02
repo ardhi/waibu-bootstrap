@@ -4,10 +4,10 @@ const accordion = {
   selector: '.' + cls,
   handler: async function ({ params, reply } = {}) {
     const { generateId } = this.plugin.app.bajo
-    const { has } = this._
+    const { has, omit } = this._
     params.tag = 'div'
     params.attr.class.push(cls)
-    if (params.attr.border === 'none') params.attr.class.push('accordion-flush')
+    if (has(params.attr, 'flush')) params.attr.class.push('accordion-flush')
     params.attr.id = has(params.attr, 'id') ? params.attr.id : generateId()
     if (!has(params.attr, 'always-open')) {
       const me = this
@@ -15,7 +15,7 @@ const accordion = {
         me.$(this).find('.accordion-collapse').prop('data-bs-parent', '#' + params.attr.id)
       }).parent().html()
     }
-    delete params.attr['always-open']
+    params.attr = omit(params.attr, ['always-open', 'flush'])
   }
 }
 

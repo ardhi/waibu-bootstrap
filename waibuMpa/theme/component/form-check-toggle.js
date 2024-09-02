@@ -1,23 +1,15 @@
 import { buildFormLabel, buildFormCheckToggle } from './_lib.js'
+import { parseVariant, colors } from './_after-build-tag/_lib.js'
+const variants = ['outline']
 
 export async function build (item, { params, reply } = {}) {
-  const { has, omit } = this._
   const { groupAttrs } = this.mpa
-  const colors = [...this.getAttrValues.variant]
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
   const contents = []
   attr._.id = params.attr.id ?? this.plugin.app.bajo.generateId()
-  if (has(attr._, 'color')) {
-    const [core, variant] = attr._.color.split(':')
-    if (colors.includes(core)) {
-      const cls = ['btn']
-      if (['outline'].includes(variant)) cls.push(variant)
-      cls.push(core)
-      attr.label.class.push(cls.join('-'))
-    }
-  }
-  attr._ = omit(attr._, ['color'])
+  attr.label.class.push(parseVariant.call(this, { cls: 'btn', value: attr._.color, values: colors, variants, prepend: true }))
+  delete attr._.color
 
   contents.push(await item.call(this, attr))
   contents.push(await buildFormLabel.call(this, attr, undefined, 'btn'))

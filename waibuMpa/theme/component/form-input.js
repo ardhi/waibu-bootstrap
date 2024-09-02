@@ -2,7 +2,7 @@ import { buildFormHint, buildFormLabel, buildFormInput } from './_lib.js'
 import { sizes } from './_after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, attr, params } = {}) {
-  const { trim, filter, has, omit, pull } = this._
+  const { trim, filter, has, omit, pull, find } = this._
   const me = this
   const addons = []
   const isLabel = has(params.attr, 'label')
@@ -12,10 +12,9 @@ export async function handleInput ({ handler, attr, params } = {}) {
     attr._.placeholder = attr._.label
     attr._ = omit(attr._, ['rows'])
   }
-  this.$(`<div>${trim(params.html ?? '')}</div>`).find('[addons]').each(function () {
-    const position = this.attribs.addons === 'append' ? 'append' : 'prepend'
-    me.$(this).removeAttr('addons')
-    const html = trim(me.$(this).prop('outerHTML'))
+  this.$(`<div>${trim(params.html ?? '')}</div>`).find('[addon]').each(function () {
+    const position = this.attribs.addon
+    const html = trim(me.$(this).html())
     addons.push({ position, html })
   })
   const result = {
@@ -36,7 +35,8 @@ export async function handleInput ({ handler, attr, params } = {}) {
         me.$(parent).children().each(function () {
           if (this.name === 'input' && ['checkbox', 'radio'].includes(this.attribs.type)) me.$(this).addClass('form-check-input')
           else if (this.name === 'button') {
-            me.$(this).addClass('btn btn-outline-secondary')
+            const hasCls = find(me.mpa.attrToArray(this.attribs.class ?? ''), c => c.includes('btn-'))
+            if (!hasCls) me.$(this).addClass('btn btn-outline-secondary')
             isBtn = true
           }
         })
@@ -48,7 +48,6 @@ export async function handleInput ({ handler, attr, params } = {}) {
   if (!isLabelFloating && isLabel) contents.push(await buildFormLabel.call(this, attr))
   if (result.prepend.length === 0 && result.append.length === 0) {
     contents.push(result.input)
-    contents.push(await buildFormLabel.call(this, attr))
   } else if (isLabelFloating) {
     pull(attr.wrapper.class, 'form-floating')
     attr.wrapper.class.push('input-group')

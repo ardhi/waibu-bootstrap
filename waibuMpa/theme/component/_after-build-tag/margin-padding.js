@@ -1,6 +1,6 @@
-import { directions, widths } from './_lib.js'
+import { aligns, widths } from './_lib.js'
 
-const sides = ['x', 'y', 'all', ...directions]
+const sides = ['x', 'y', 'all', ...aligns]
 const sizes = ['0', 'auto', ...widths]
 
 function marginPadding ({ key, params }) {

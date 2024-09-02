@@ -1,4 +1,4 @@
-import { positions, directions, poses } from './_lib.js'
+import { positions, aligns, poses } from './_lib.js'
 const zes = ['n1', '0', '1', '2', '3']
 
 function position ({ key, params }) {
@@ -15,7 +15,7 @@ function position ({ key, params }) {
     if (arrangeStart && arrangeEnd) {
       const [prop1, pos1] = arrangeStart.split('-')
       const [prop2, pos2] = arrangeEnd.split('-')
-      if (directions.includes(prop1) && poses.includes(pos1) && directions.includes(prop2) && poses.includes(pos2)) {
+      if (aligns.includes(prop1) && poses.includes(pos1) && aligns.includes(prop2) && poses.includes(pos2)) {
         params.attr.class.push(`${prop1}-${pos1} ${prop2}-${pos2}`)
         if (translateMiddle) {
           let val = 'translate-middle'

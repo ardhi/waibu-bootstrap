@@ -1,15 +1,15 @@
-import { levels, weights, fstyles } from './_lib.js'
+import { levels, weights, fstyles, parseSimple } from './_lib.js'
 
 function font ({ key, params }) {
   const { uniq } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
   for (const attr of attrs) {
-    const [item, value] = attr.split(':')
-    for (const val of uniq((value ?? '').split(','))) {
+    const [item, val] = attr.split(':')
+    for (const value of uniq((val ?? '').split(','))) {
       switch (item) {
-        case 'size': if (levels.includes(val)) params.attr.class.push(`fs-${val}`); break
-        case 'weight': if (weights.includes(val)) params.attr.class.push(`fw-${val}`); break
-        case 'style': if (fstyles.includes(val)) params.attr.class.push(`fst-${val}`); break
+        case 'size': params.attr.class.push(parseSimple.call(this, { cls: 'fs', value, values: levels })); break
+        case 'weight': params.attr.class.push(parseSimple.call(this, { cls: 'fw', value, values: weights })); break
+        case 'style': params.attr.class.push(parseSimple.call(this, { cls: 'fst', value, values: fstyles })); break
       }
     }
   }

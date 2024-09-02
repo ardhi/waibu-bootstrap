@@ -83,7 +83,8 @@ async function _afterBuildTag (tag, { params, reply, el, locals }) {
       if (key.includes(k)) omitted.push(key)
     }
   }
-  params.attr = omit(params.attr, omitted)
+  params.attr = omit(params.attr, ['tag', 'color', 'dismissible', 'size', 'split',
+    'dir', 'menu', 'divider', 'header', 'auto-close', 'offset', ...omitted])
 }
 
 export default _afterBuildTag

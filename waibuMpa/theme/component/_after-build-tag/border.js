@@ -1,29 +1,21 @@
-import { opacities, widths } from './_lib.js'
+import { opacities, widths, colors, parseVariant, parseSimple } from './_lib.js'
 const sides = ['top', 'end', 'bottom', 'start', 'all']
 const variants = ['subtle', 'secondary', 'tertiary']
 
 function border ({ key, params }) {
-  const { uniq, cloneDeep, isEmpty } = this._
+  const { uniq } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
-  const colors = cloneDeep(this.getAttrValues.color)
-  colors.push('body', 'black', 'white')
+  const borderColors = ['body', 'black', 'white', ...colors]
   let hasSide
   for (const attr of attrs) {
-    const [item, value] = attr.split(':')
+    const [item, val] = attr.split(':')
     if (item === 'side') hasSide = true
-    for (const val of uniq((value ?? '').split(','))) {
+    for (const value of uniq((val ?? '').split(','))) {
       switch (item) {
-        case 'side': if (sides.includes(val)) params.attr.class.push(`border${val === 'all' ? '' : ('-' + val)}`); break
-        case 'width': if (widths.includes(val)) params.attr.class.push(`border-${val}`); break
-        case 'opacity': if (opacities.includes(val)) params.attr.class.push(`border-opacity-${val}`); break
-        case 'color': {
-          const [core, variant] = val.split('-')
-          let v = ''
-          if (colors.includes(core)) v += `border-${core}`
-          if (variants.includes(variant)) v += `-${variant}`
-          if (!isEmpty(v)) params.attr.class.push(v)
-          break
-        }
+        case 'side': if (sides.includes(val)) params.attr.class.push(`border${value === 'all' ? '' : ('-' + value)}`); break
+        case 'width': params.attr.class.push(parseSimple.call(this, { cls: 'border', value, values: widths })); break
+        case 'opacity': params.attr.class.push(parseSimple.call(this, { cls: 'border-opacity', value, values: opacities })); break
+        case 'color': params.attr.class.push(parseVariant.call(this, { cls: 'border', value, values: borderColors, variants })); break
       }
     }
   }

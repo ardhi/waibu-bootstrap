@@ -1,17 +1,17 @@
-import { directions, widths } from './_lib.js'
-const types = ['circle', 'pill', ...directions]
+import { aligns, widths, parseSimple } from './_lib.js'
+const types = ['circle', 'pill', ...aligns]
 
 function rounded ({ key, params }) {
   const { uniq } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
   let hasType
   for (const attr of attrs) {
-    const [item, value] = attr.split(':')
+    const [item, val] = attr.split(':')
     if (item === 'type') hasType = true
-    for (const val of uniq((value ?? '').split(','))) {
+    for (const value of uniq((val ?? '').split(','))) {
       switch (item) {
         case 'type': if (types.includes(val)) params.attr.class.push(`rounded${val === 'all' ? '' : ('-' + val)}`); break
-        case 'width': if (widths.includes(val)) params.attr.class.push(`rounded-${val}`); break
+        case 'width': params.attr.class.push(parseSimple.call(this, { cls: 'rounded', value, values: widths })); break
       }
     }
   }

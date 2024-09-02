@@ -4,11 +4,11 @@ function dislay ({ key, params }) {
   const { uniq, isEmpty } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
   for (const attr of attrs) {
-    const [item, value] = attr.split(':')
-    for (const val of uniq((value ?? '').split(','))) {
+    const [item, val] = attr.split(':')
+    for (const value of uniq((val ?? '').split(','))) {
       switch (item) {
         case 'type': {
-          const [core, bp] = val.split('-')
+          const [core, bp] = value.split('-')
           let v = []
           if (breakpoints.includes(bp)) v.push(bp)
           if (displays.includes(core)) v.push(core)

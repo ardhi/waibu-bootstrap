@@ -13,24 +13,24 @@ const type = {
   order: orders
 }
 
-function border ({ key, params }) {
+function flex ({ key, params }) {
   const { uniq, isEmpty } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
   const inline = attrs.includes('inline')
   let hasFlex = false
   for (const attr of attrs) {
-    const [item, value] = attr.split(':')
+    const [item, val] = attr.split(':')
     if (item === 'breakpoint') hasFlex = true
-    for (const val of uniq((value ?? '').split(','))) {
+    for (const value of uniq((val ?? '').split(','))) {
       switch (item) {
         case 'fill':
         case 'wrap':
         case 'nowrap': {
-          if (!val) params.attr.class.push(`flex-${item}`)
-          else if (breakpoints.includes(val)) params.attr.class.push(`flex-${val}-${item}`)
+          if (!value) params.attr.class.push(`flex-${item}`)
+          else if (breakpoints.includes(val)) params.attr.class.push(`flex-${value}-${item}`)
           break
         }
-        case 'breakpoint': if (breakpoints.includes(value)) params.attr.class.push(`d-${value}-${inline ? 'inline-' : ''}flex`); break
+        case 'breakpoint': if (breakpoints.includes(val)) params.attr.class.push(`d-${val}-${inline ? 'inline-' : ''}flex`); break
         case 'grow':
         case 'shrink':
         case 'dir':
@@ -39,7 +39,7 @@ function border ({ key, params }) {
         case 'align-self':
         case 'align-content':
         case 'justify-content': {
-          const [core, bp] = val.split('-')
+          const [core, bp] = value.split('-')
           let v = []
           if (breakpoints.includes(bp)) v.push(bp)
           if (type[item].includes(core)) v.push(core)
@@ -59,4 +59,4 @@ function border ({ key, params }) {
   if (!hasFlex) params.attr.class.unshift(inline ? 'd-inline-flex' : 'd-flex')
 }
 
-export default border
+export default flex

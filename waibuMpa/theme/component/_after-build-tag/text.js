@@ -1,4 +1,4 @@
-import { breakpoints, opacities, heights, parseVariant } from './_lib.js'
+import { breakpoints, opacities, heights, parseVariant, parseSimple, colors } from './_lib.js'
 
 const decorations = ['underline', 'line-through', 'none']
 const transforms = ['lowercase', 'uppercase', 'capitalize', 'monospace']
@@ -7,23 +7,22 @@ const directs = ['wrap', 'nowrap', 'mark', 'small']
 const variants = ['emphasis', 'secondary', 'tertiary']
 
 function text ({ key, params }) {
-  const { uniq, cloneDeep } = this._
+  const { uniq } = this._
   const attrs = this.mpa.attrToArray(params.attr[key])
-  const colors = cloneDeep(this.getAttrValues.color)
-  colors.push('body', 'black', 'white')
+  const textColors = ['body', 'black', 'white', ...colors]
   for (const attr of attrs) {
-    const [item, value] = attr.split(':')
-    if (!value && directs.includes(item)) params.attr.class.push(['mark', 'small'].includes(item) ? item : `text-${item}`)
+    const [item, val] = attr.split(':')
+    if (!val && directs.includes(item)) params.attr.class.push(['mark', 'small'].includes(item) ? item : `text-${item}`)
     else {
-      for (const val of uniq((value ?? '').split(','))) {
+      for (const value of uniq((val ?? '').split(','))) {
         switch (item) {
-          case 'decoration': if (decorations.includes(val)) params.attr.class.push(`text-decoration-${val}`); break
-          case 'line-height': if (heights.includes(val)) params.attr.class.push(`lh-${val}`); break
-          case 'transform': if (transforms.includes(val)) params.attr.class.push(`text-${val}`); break
+          case 'decoration': params.attr.class.push(parseSimple.call(this, { cls: 'text-decoration', value, values: decorations })); break
+          case 'line-height': params.attr.class.push(parseSimple.call(this, { cls: 'lh', value, values: heights })); break
+          case 'transform': params.attr.class.push(parseSimple.call(this, { cls: 'text', value, values: transforms })); break
           case 'align': params.attr.class.push(parseVariant.call(this, { cls: 'text', value: val, values: alignments, variants: breakpoints, prepend: true })); break
-          case 'opacity': if (opacities.includes(val)) params.attr.class.push(`text-opacity-${val}`); break
-          case 'background': if (colors.includes(val)) params.attr.class.push(`text-bg-${val}`); break
-          case 'color': params.attr.class.push(parseVariant.call(this, { cls: 'text', value: val, values: colors, variants })); break
+          case 'opacity': params.attr.class.push(parseSimple.call(this, { cls: 'text-opacity', value, values: opacities })); break
+          case 'background': params.attr.class.push(parseSimple.call(this, { cls: 'text-bg', value, values: textColors })); break
+          case 'color': params.attr.class.push(parseVariant.call(this, { cls: 'text', value: val, values: textColors, variants })); break
         }
       }
     }

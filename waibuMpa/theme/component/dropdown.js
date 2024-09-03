@@ -17,6 +17,8 @@ const dropdown = {
     const me = this
     let button = ''
     const hasSplitter = has(params.attr, 'split')
+    const menuOnly = has(params.attr, 'menu-only')
+    if (menuOnly) params.attr['menu-tag'] = 'div'
     const btnParams = {
       attr: merge(attr, {
         class: ['dropdown-toggle'],
@@ -46,7 +48,7 @@ const dropdown = {
       params: btnParams,
       reply
     })
-    const hasTag = has(params.attr, 'tag-menu')
+    const hasTag = has(params.attr, 'menu-tag')
     let menuHtml = params.html
     if (hasTag) {
       const items = []
@@ -61,18 +63,23 @@ const dropdown = {
       menuHtml = items.join('\n')
     }
     const menu = await this.buildTag({
-      tag: hasTag ? params.attr['tag-menu'] : 'ul',
+      tag: hasTag ? params.attr['menu-tag'] : 'ul',
       params: {
         attr: {
           class: [
             'dropdown-menu',
             parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.menu, values: dirs, variants: breakpoints, prepend: true })
-          ]
+          ],
+          style: menuOnly ? 'display:block;' : ''
         },
         html: menuHtml
       }
     })
-    params.html = [button, btn, menu].join('\n')
+    if (menuOnly) {
+      params.html = menu
+      params.noTag = true
+    } else params.html = [button, btn, menu].join('\n')
+    params.attr = omit(params.attr, ['menu-only', 'menu-tag'])
   }
 }
 

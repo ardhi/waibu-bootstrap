@@ -18,7 +18,8 @@ const alert = {
     if (!isEmpty(html)) params.html = html
     if (has(params.attr, 'dismissible')) {
       params.attr.class.push('alert-dismissible', 'fade', 'show')
-      params.html += `\n<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="${reply.request.t('Close')}"></button`
+      const attr = { 'data-bs-dismiss': 'alert' }
+      params.html += await this.buildTag({ tag: 'btnClose', params: { attr }, reply })
     }
   }
 }

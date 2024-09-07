@@ -2,7 +2,7 @@ import { buildFormLabel, buildFormCheckToggle } from './_lib.js'
 import { parseVariant, colors } from './_after-build-tag/_lib.js'
 const variants = ['outline']
 
-export async function build (item, { params, reply } = {}) {
+export async function build (item, params = {}) {
   const { groupAttrs } = this.mpa
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
@@ -18,10 +18,10 @@ export async function build (item, { params, reply } = {}) {
   params.html = contents.join('\n')
 }
 
-async function formCheckToggle ({ params, reply } = {}) {
+async function formCheckToggle (params = {}) {
   const { has } = this._
-  if (!has(params.attr, 'label')) params.attr.label = reply.request.t('Toggle Check')
-  await build.call(this, buildFormCheckToggle, { params, reply })
+  if (!has(params.attr, 'label')) params.attr.label = params.req.t('Toggle Check')
+  await build.call(this, buildFormCheckToggle, params)
 }
 
 export default formCheckToggle

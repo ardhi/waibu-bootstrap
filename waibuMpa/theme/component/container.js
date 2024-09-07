@@ -3,7 +3,7 @@ const cls = 'container'
 
 const container = {
   selector: '.' + cls,
-  handler: async function ({ params }) {
+  handler: async function (params = {}) {
     const { has, omit } = this._
     params.tag = 'div'
     if (has(params.attr, 'responsive')) params.attr.class.push(`${cls}-fluid`)

@@ -4,8 +4,9 @@ const cls = 'alert'
 
 const alert = {
   selector: '.' + cls,
-  handler: async function ({ params, reply } = {}) {
-    const { has, isEmpty } = this._
+  handler: async function (params = {}) {
+    const { isEmpty } = this._
+    const { req, reply } = params
     params.tag = 'div'
     params.attr.class.push(cls)
     params.attr.role = 'alert'
@@ -16,10 +17,10 @@ const alert = {
       if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(this.name)) me.$(this).addClass('alert-heading')
     }).parent().html()
     if (!isEmpty(html)) params.html = html
-    if (has(params.attr, 'dismissible')) {
+    if (params.attr.dismissible) {
       params.attr.class.push('alert-dismissible', 'fade', 'show')
       const attr = { 'data-bs-dismiss': 'alert' }
-      params.html += await this.buildTag({ tag: 'btnClose', params: { attr }, reply })
+      params.html += await this.buildTag({ tag: 'btnClose', attr, req, reply })
     }
   }
 }

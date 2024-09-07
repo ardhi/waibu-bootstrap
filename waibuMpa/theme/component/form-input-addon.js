@@ -1,7 +1,6 @@
-async function formInputAddon ({ params, reply } = {}) {
-  const { has } = this._
+async function formInputAddon (params = {}) {
   params.tag = 'div'
-  params.attr.addon = has(params.attr, 'prepend') ? 'prepend' : 'append'
+  params.attr.addon = params.attr.prepend ? 'prepend' : 'append'
 }
 
 export default formInputAddon

@@ -5,7 +5,7 @@ for (let i = 1; i < 13; i++) width[i] = `-${i}`
 
 const gridCol = {
   selector: `[class^=${baseClass}]`,
-  handler: async function ({ params, reply } = {}) {
+  handler: async function (params = {}) {
     const { omit, map, without } = this._
     const { attrToArray } = this.mpa
 

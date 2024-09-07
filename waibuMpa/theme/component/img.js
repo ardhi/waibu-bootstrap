@@ -1,15 +1,12 @@
-const baseClass = 'img'
+import { parseSimple } from './_after-build-tag/_lib.js'
+const cls = 'img'
 
 const img = {
-  selector: baseClass,
-  handler: async function ({ params, reply } = {}) {
-    params.baseClass = baseClass
-    params.ezAttrs = [
-      { key: 'responsive', value: 'fluid' },
-      { key: 'rounded', baseClass: '' },
-      { key: 'thumbnail', value: 'thumbnail' },
-      'h-align'
-    ]
+  selector: cls,
+  handler: async function (params = {}) {
+    params.cls = cls
+    if (params.attr.responsive) params.attr.class.push(`${cls}-fluid`)
+    params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.thumbnail, values: ['thumbnail'] }))
   }
 }
 

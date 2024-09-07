@@ -1,31 +1,42 @@
-const cls = 'collapse'
+function collectAttr (params, item) {
+  const { pick, merge } = this._
+  return merge(pick(params.attr, ['color']), {
+    'data-bs-toggle': 'collapse',
+    'data-bs-target': item ? ('#' + item.id) : '.multi-collapse'
+  })
+}
 
-const collapse = {
-  selector: '.' + cls,
-  handler: async function ({ params, reply } = {}) {
-    const { has } = this._
-    const { generateId } = this.plugin.app.bajo
-    const { groupAttrs } = this.mpa
-
-    const attr = groupAttrs(params.attr, ['trigger'])
-    params.noTag = true
-    attr._.class.push(cls)
-    attr._.id = has(attr._, 'id') ? attr._.id : generateId()
-    let btn
-    if (has(attr._, 'trigger')) {
-      const wrap = has(attr.trigger, 'wrapper') ? attr.trigger.wrapper : 'p'
-      const prepend = `<${wrap}>`
-      const append = `</${wrap}>`
-      attr.trigger['data-bs-toggle'] = 'collapse'
-      attr.trigger['data-bs-target'] = '#' + attr._.id
-      btn = await this.buildTag({ tag: 'btn', params: { prepend, append, attr: attr.trigger, html: attr._.trigger } })
-    }
-    const collapse = await this.buildTag({ tag: 'div', params: { attr: attr._, html: params.html } })
-
-    const items = [collapse]
-    if (btn) items.unshift(btn)
-    params.html = items.join('\n')
+async function collapse (params = {}) {
+  const { merge, isString } = this._
+  const items = []
+  const me = this
+  const contents = this.$(`<div>${params.html}</div>`).children().each(function () {
+    const classes = me.mpa.attrToArray(this.attribs.class)
+    items.push({
+      id: this.attribs.id,
+      label: isString(this.attribs.label) ? this.attribs.label : this.attribs.id,
+      show: classes.includes('show')
+    })
+    me.$(this).removeAttr('label')
+    if (params.attr.toggleAll) me.$(this).addClass('multi-collapse')
+  }).parent().html()
+  params.tag = isString(params.attr.tag) ? params.attr.tag : 'div'
+  params.html = []
+  for (const item of items) {
+    const attr = collectAttr.call(this, params, item)
+    params.html.push(await this.buildTag({ tag: 'btn', attr, html: item.label }))
   }
+  if (params.attr.toggleAll) {
+    const attr = collectAttr.call(this, params)
+    params.html.push(await this.buildTag({ tag: 'btn', attr, html: params.req.t('Toggle All') }))
+  }
+  params.html = params.html.join('\n')
+  if (params.attr.group) {
+    params.attr.label = !isString(params.attr.group) ? params.req.t('Collapse') : params.attr.group
+    params.html = await this.buildTag(merge({}, params, { tag: 'btnGroup' }))
+    params.noTag = true
+  }
+  params.append = contents
 }
 
 export default collapse

@@ -9,10 +9,10 @@ function dim ({ key, params }) {
       switch (item) {
         case 'height':
         case 'width': {
-          if (val === 'max') params.attr.class.push(`m${val[0]}-100`)
-          else if (val === 'viewport') params.attr.class.push(`v${val[0]}-100`)
-          else if (val === 'min-viewport') params.attr.class.push(`min-v${val[0]}-100`)
-          else if (dims.includes(value)) params.attr.class.push(`${val[0]}-${val}`)
+          if (value === 'max') params.attr.class.push(`m${item[0]}-100`)
+          else if (value === 'viewport') params.attr.class.push(`v${item[0]}-100`)
+          else if (value === 'min-viewport') params.attr.class.push(`min-v${item[0]}-100`)
+          else if (dims.includes(value)) params.attr.class.push(`${item[0]}-${value}`)
           break
         }
       }

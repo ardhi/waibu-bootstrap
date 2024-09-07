@@ -1,4 +1,4 @@
-async function heading ({ params, reply } = {}) {
+async function heading (params = {}) {
   const { omit, has } = this._
   const type = params.attr.type ?? '1'
   params.tag = 'h' + type

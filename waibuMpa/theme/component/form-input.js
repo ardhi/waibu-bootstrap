@@ -66,13 +66,13 @@ export async function handleInput ({ handler, attr, params } = {}) {
     if (result.prepend.length > 0) html.push(result.prepend.join('\n'))
     html.push(result.input)
     if (result.append.length > 0) html.push(result.append.join('\n'))
-    contents.push(await this._render('div', { params: { attr: _attr, html: html.join('\n') } }))
+    contents.push(await this._render({ tag: 'div', attr: _attr, html: html.join('\n') }))
   }
   if (has(params.attr, 'hint')) contents.push(await buildFormHint.call(this, attr))
   return contents
 }
 
-export async function build (handler, { params, reply } = {}) {
+export async function build (handler, params = {}) {
   const { generateId } = this.plugin.app.bajo
   const { has, omit } = this._
   const { groupAttrs } = this.mpa
@@ -87,8 +87,8 @@ export async function build (handler, { params, reply } = {}) {
     datalist = attr._.datalist
     attr._.list = generateId()
     attr._ = omit(attr._, ['datalist'])
-    const args = { attr: { id: attr._.list, options: datalist }, html: '' }
-    const cmp = await this.buildTag({ tag: 'datalist', params: args, reply })
+    const args = { tag: 'datalist', attr: { id: attr._.list, options: datalist }, html: '', reply: params.reply, req: params.req }
+    const cmp = await this.buildTag(args)
     contents.push(cmp)
   }
   params.attr = attr.wrapper
@@ -96,8 +96,8 @@ export async function build (handler, { params, reply } = {}) {
   params.html = contents.join('\n')
 }
 
-async function formInput ({ params, reply } = {}) {
-  await build.call(this, buildFormInput, { params, reply })
+async function formInput (params = {}) {
+  await build.call(this, buildFormInput, params)
 }
 
 export default formInput

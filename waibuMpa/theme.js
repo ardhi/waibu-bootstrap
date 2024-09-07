@@ -5,6 +5,7 @@ async function theme (ctx) {
   const scripts = [
     'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js'
   ]
+  if (this.app.waibuExtra) scripts.push('waibuExtra.virtual:/holderjs/holder.min.js')
   const meta = [{
     name: 'viewport',
     content: 'width=device-width, initial-scale=1'

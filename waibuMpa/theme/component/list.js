@@ -1,7 +1,7 @@
 const baseClass = 'list'
 
 const list = {
-  handler: async function ({ params, reply, el } = {}) {
+  handler: async function (params = {}) {
     const { has, isEmpty, omit } = this._
     params.baseClass = baseClass
     params.tag = has(params.attr, 'ordered') ? 'ol' : 'ul'
@@ -11,12 +11,11 @@ const list = {
     }
     params.attr = omit(params.attr, ['type', 'ordered'])
   },
-  after: async function ({ params, reply, el } = {}) {
+  after: async function (params = {}) {
     const $ = this.$
     if (params.attr.type === 'list-inline') {
-      $(el).children('li, c\\:list-item').each(function () {
+      $(params.el).children('li, c\\:list-item').each(function () {
         $(this).addClass('list-inline-item')
-        $(this).text('--------------------')
       })
     }
   }

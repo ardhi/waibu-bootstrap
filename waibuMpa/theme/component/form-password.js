@@ -1,9 +1,9 @@
 import { buildFormInput } from './_lib.js'
 import { build } from './form-input.js'
 
-async function formPassword ({ params, reply } = {}) {
+async function formPassword (params = {}) {
   params.attr.type = 'password'
-  await build.call(this, buildFormInput, { params, reply })
+  await build.call(this, buildFormInput, params)
 }
 
 export default formPassword

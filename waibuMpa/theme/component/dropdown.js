@@ -6,9 +6,9 @@ const autoCloses = ['true', 'false', 'inside', 'outside']
 
 const dropdown = {
   selector: '.' + cls,
-  handler: async function ({ params, reply } = {}) {
-    const { pick, merge, has, cloneDeep, omit } = this._
-    params.tag = has(params.attr, 'tag') ? params.attr.tag : 'div'
+  handler: async function (params = {}) {
+    const { pick, merge, isString, cloneDeep, omit } = this._
+    params.tag = isString(params.attr.tag) ? params.attr.tag : 'div'
     const [dir, variant] = (params.attr.dir ?? 'down').split('-')
     const xcls = ['drop' + parseSimple.call(this, { value: dir, values: dirs })]
     if (variants.includes(variant)) xcls.push(`${xcls[0]}-${variant}`)
@@ -16,41 +16,38 @@ const dropdown = {
     const attr = pick(params.attr, ['color', 'href', 'tag', 'disabled', 'size'])
     const me = this
     let button = ''
-    const hasSplitter = has(params.attr, 'split')
-    const menuOnly = has(params.attr, 'menu-only')
-    if (menuOnly) params.attr['menu-tag'] = 'div'
+    if (params.attr.menuOnly) params.attr.menuTag = 'div'
     const btnParams = {
       attr: merge(attr, {
         class: ['dropdown-toggle'],
         type: 'button',
-        'data-bs-toggle': 'dropdown',
-        'aria-expanded': false
+        dataBsToggle: 'dropdown',
+        ariaExpanded: false
       }),
-      html: hasSplitter ? '<span class="visually-hidden">Toggle Dropdown</span>' : (params.attr.label ?? '')
+      html: params.attr.split ? '<span class="visually-hidden">Toggle Dropdown</span>' : (params.attr.label ?? '')
     }
-    if (has(params.attr, 'offset')) btnParams.attr['data-bs-offset'] = params.attr.offset
-    if (has(params.attr, 'auto-close') && autoCloses.includes(params.attr['auto-close'])) btnParams.attr['data-bs-auto-close'] = params.attr['auto-close']
-    if (hasSplitter) {
+    if (params.attr.offset) btnParams.attr['data-bs-offset'] = params.attr.offset
+    if (params.attr.autoClose && autoCloses.includes(params.attr.autoClose)) btnParams.attr.dataBsAutoClose = params.attr.autoClose
+    if (params.attr.split) {
       btnParams.attr.class.push('dropdown-toggle-split')
       const buttonParams = cloneDeep(btnParams)
-      buttonParams.attr = omit(buttonParams.attr, ['class', 'data-bs-toggle', 'aria-expanded', 'data-bs-auto-close', 'data-bs-offset'])
+      buttonParams.attr = omit(buttonParams.attr, ['class', 'dataBsToggle', 'ariaExpanded', 'dataBsAutoClose', 'dataBsOffset'])
       buttonParams.html = params.attr.label ?? ''
-      button = await this.buildTag({
+      button = await this.buildTag(merge(buttonParams, {
         tag: 'btn',
-        params: buttonParams,
-        reply
-      })
+        reply: params.reply,
+        req: params.req
+      }))
       // xcls.shift()
       params.attr.class = ['btn-group', ...xcls]
     }
-    const btn = await this.buildTag({
+    const btn = await this.buildTag(merge(btnParams, {
       tag: 'btn',
-      params: btnParams,
-      reply
-    })
-    const hasTag = has(params.attr, 'menu-tag')
+      reply: params.reply,
+      req: params.req
+    }))
     let menuHtml = params.html
-    if (hasTag) {
+    if (params.attr.menuTag) {
       const items = []
       this.$(`<div>${params.html}</div>`).children().each(function () {
         const children = me.$(this).children()
@@ -63,23 +60,20 @@ const dropdown = {
       menuHtml = items.join('\n')
     }
     const menu = await this.buildTag({
-      tag: hasTag ? params.attr['menu-tag'] : 'ul',
-      params: {
-        attr: {
-          class: [
-            'dropdown-menu',
-            parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.menu, values: dirs, variants: breakpoints, prepend: true })
-          ],
-          style: menuOnly ? 'display:block;' : ''
-        },
-        html: menuHtml
-      }
+      tag: isString(params.attr.menuTag) ? params.attr.menuTag : 'ul',
+      attr: {
+        class: [
+          'dropdown-menu',
+          parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.menu, values: dirs, variants: breakpoints, prepend: true })
+        ],
+        style: params.attr.menuOnly ? 'display:block;' : ''
+      },
+      html: menuHtml
     })
-    if (menuOnly) {
+    if (params.attr.menuOnly) {
       params.html = menu
       params.noTag = true
     } else params.html = [button, btn, menu].join('\n')
-    params.attr = omit(params.attr, ['menu-only', 'menu-tag'])
   }
 }
 

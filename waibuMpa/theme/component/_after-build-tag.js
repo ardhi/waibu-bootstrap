@@ -22,15 +22,15 @@ const styles = [
   { key: 'border', handler: border },
   { key: 'rounded', handler: rounded },
   { key: 'heading', val: 'h{value}', values: levels, forceTag: ['p'] },
-  { key: 'heading-display', val: 'display{value}', values: levels, forceTag: 'h1' },
+  { key: 'headingDisplay', val: 'display{value}', values: levels, forceTag: 'h1' },
   { key: 'background', handler: background },
   { key: 'display', handler: display },
   { key: 'flex', handler: flex },
-  { key: 'v-align', val: 'alugn{value}', values: vAligns },
+  { key: 'vAlign', val: 'alugn{value}', values: vAligns },
   { key: 'float', val: 'float{type}{value}', values: floats, types: breakpoints },
-  { key: 'user-select', val: 'user-select{value}', values: ['all', ...peEvents] },
-  { key: 'pointer-event', val: 'pointer-event{value}', values: peEvents },
-  { key: 'object-fit', val: 'object-fit{type}{value}', values: fits, types: breakpoints, tags: ['img', 'video', 'iframe', 'embed', 'audio', 'canvas', 'object'] },
+  { key: 'userSelect', val: 'user-select{value}', values: ['all', ...peEvents] },
+  { key: 'pointerEvent', val: 'pointer-event{value}', values: peEvents },
+  { key: 'objectFit', val: 'object-fit{type}{value}', values: fits, types: breakpoints, tags: ['img', 'video', 'iframe', 'embed', 'audio', 'canvas', 'object'] },
   { key: 'opacity', val: 'opacity{value}', values: opacities },
   { key: 'overflow', val: 'overflow{type}{value}', types: ['x', 'y'], values: overflows },
   { key: 'shadow', val: 'shadow{value}', values: ['none', 'sm', 'lg', 'inset'], allowEmpty: true },
@@ -40,7 +40,7 @@ const styles = [
   { key: 'padding', handler: marginPadding }
 ]
 
-async function _afterBuildTag (tag, { params, reply, el, locals }) {
+async function _afterBuildTag (tag, params) {
   const { has, omit, map, isEmpty } = this._
   const keys = map(styles, 'key')
   const omitted = []
@@ -83,8 +83,12 @@ async function _afterBuildTag (tag, { params, reply, el, locals }) {
       if (key.includes(k)) omitted.push(key)
     }
   }
-  params.attr = omit(params.attr, ['tag', 'color', 'dismissible', 'size', 'split',
-    'dir', 'menu', 'divider', 'header', 'auto-close', 'offset', ...omitted])
+  params.attr = omit(params.attr, ['tag', 'color', 'dismissible', 'size', 'split', 'active',
+    'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll', 'flush',
+    'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
+    'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'autoClose', 'menuTag', 'inline',
+    'reverse',
+    ...omitted])
 }
 
 export default _afterBuildTag

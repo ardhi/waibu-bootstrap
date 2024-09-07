@@ -1,7 +1,7 @@
 import { buildFormSelect } from './_lib.js'
 import { handleInput } from './form-input.js'
 
-async function formSelect ({ params, reply } = {}) {
+async function formSelect (params = {}) {
   const { groupAttrs } = this.mpa
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])

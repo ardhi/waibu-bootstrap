@@ -2,7 +2,7 @@ const baseClass = 'row'
 
 const gridRow = {
   selector: '.' + baseClass,
-  handler: async function ({ params, reply } = {}) {
+  handler: async function (params = {}) {
     params.attr.class.push(baseClass)
   }
 }

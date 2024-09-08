@@ -9,8 +9,11 @@ async function formSelect (params = {}) {
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
   attr._.id = isString(params.attr.id) ? params.attr.id : generateId()
   const contents = await handleInput.call(this, { handler: buildFormSelect, params, attr })
-  params.attr = attr.wrapper
-  params.tag = 'div'
+  if (params.attr.wrapper === 'none') params.noTag = true
+  else {
+    params.attr = attr.wrapper
+    params.tag = 'div'
+  }
   params.html = contents.join('\n')
 }
 

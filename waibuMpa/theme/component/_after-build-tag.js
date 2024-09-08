@@ -87,11 +87,11 @@ async function _afterBuildTag (tag, params) {
       if (key.includes(k)) omitted.push(key)
     }
   }
-  params.attr = omit(params.attr, ['tag', 'color', 'dismissible', 'size', 'split', 'ordered',
+  params.attr = omit(params.attr, ['color', 'dismissible', 'size', 'split', 'ordered',
     'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
     'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'autoClose', 'menuTag',
-    'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal',
+    'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
     ...omitted])
 }
 

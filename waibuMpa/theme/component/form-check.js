@@ -16,8 +16,11 @@ export async function build (item, params = {}) {
   contents.push(await item.call(this, attr))
   if (params.attr.label) contents.push(await buildFormLabel.call(this, attr, undefined, 'form-check-label'))
   if (params.attr.hint) contents.push(await buildFormHint.call(this, attr))
-  params.attr = attr.wrapper
-  params.tag = 'div'
+  if (params.attr.wrapper === 'none') params.noTag = true
+  else {
+    params.attr = attr.wrapper
+    params.tag = 'div'
+  }
   params.html = contents.join('\n')
 }
 

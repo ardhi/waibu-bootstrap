@@ -11,9 +11,9 @@ function setStrip (params) {
 }
 
 function setResponsive (params) {
-  let cls = `${params.cls}-responsive`
-  if (params.attr.responsive) cls += '-' + params.attr.responsive
-  params.prepend = `<div class="${cls}">`
+  let xcls = `${cls}-responsive`
+  if (params.attr.responsive) xcls += '-' + params.attr.responsive
+  params.prepend = `<div class="${xcls}">`
   params.append = '</div>'
 }
 

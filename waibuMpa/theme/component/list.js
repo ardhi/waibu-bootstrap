@@ -21,6 +21,8 @@ const list = {
             })
             me.$(this).addClass(color).removeAttr('child-color')
           }
+          if (me.$(this).find('.badge').length > 0) me.$(this).addClass('d-flex justify-content-between align-items-center')
+          me.$(this).find('label.form-check-label').addClass('stretched-link ms-1')
         }).parent().html()
         params.attr.class.push(parseVariant.call(this, {
           cls: `${cls}-${params.attr.type}-horizontal`,

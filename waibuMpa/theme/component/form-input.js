@@ -90,8 +90,11 @@ export async function build (handler, params = {}) {
     const cmp = await this.buildTag(args)
     contents.push(cmp)
   }
-  params.attr = attr.wrapper
-  params.tag = 'div'
+  if (params.attr.wrapper === 'none') params.noTag = true
+  else {
+    params.attr = attr.wrapper
+    params.tag = 'div'
+  }
   params.html = contents.join('\n')
 }
 

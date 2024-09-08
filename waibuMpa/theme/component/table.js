@@ -1,4 +1,4 @@
-const baseClass = 'table'
+const cls = 'table'
 
 function setBorder (params) {
   if (params.attr.border === 'none') params.attr.class.push('table-borderless')
@@ -11,24 +11,19 @@ function setStrip (params) {
 }
 
 function setResponsive (params) {
-  let cls = `${params.baseClass}-responsive`
+  let cls = `${params.cls}-responsive`
   if (params.attr.responsive) cls += '-' + params.attr.responsive
   params.prepend = `<div class="${cls}">`
   params.append = '</div>'
 }
 
 const table = {
-  selector: '.' + baseClass,
+  selector: '.' + cls,
   handler: async function ({ params }) {
-    params.attr.class.push(baseClass)
-    params.baseClass = baseClass
-
-    params.ezAttrs = [
-      { key: 'border', value: setBorder },
-      { key: 'strip', value: setStrip },
-      { key: 'responsive', value: setResponsive },
-      'color', 'size', 'v-align', 'hover'
-    ]
+    params.attr.class.push(cls)
+    if (params.attr.border) setBorder.call(this, params)
+    if (params.attr.strip) setStrip.call(this, params)
+    if (params.attr.responsive) setResponsive.call(this, params)
   }
 }
 

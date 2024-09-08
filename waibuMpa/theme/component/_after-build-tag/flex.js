@@ -14,8 +14,8 @@ const type = {
 }
 
 function flex ({ key, params }) {
-  const { uniq, isEmpty } = this._
-  const attrs = this.mpa.attrToArray(params.attr[key])
+  const { uniq, isEmpty } = this.plugin.app.bajo.lib._
+  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const inline = attrs.includes('inline')
   let hasFlex = false
   for (const attr of attrs) {

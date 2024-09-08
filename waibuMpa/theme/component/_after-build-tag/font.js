@@ -1,8 +1,8 @@
 import { levels, weights, fstyles, parseSimple } from './_lib.js'
 
 function font ({ key, params }) {
-  const { uniq } = this._
-  const attrs = this.mpa.attrToArray(params.attr[key])
+  const { uniq } = this.plugin.app.bajo.lib._
+  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   for (const attr of attrs) {
     const [item, val] = attr.split(':')
     for (const value of uniq((val ?? '').split(','))) {

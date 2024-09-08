@@ -4,8 +4,8 @@ const directs = ['gradient']
 const variants = ['subtle', 'secondary', 'tertiary']
 
 function background ({ key, params }) {
-  const { uniq } = this._
-  const attrs = this.mpa.attrToArray(params.attr[key])
+  const { uniq } = this.plugin.app.bajo.lib._
+  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const bgColors = ['body', 'black', 'white', ...colors]
   for (const attr of attrs) {
     const [item, val] = attr.split(':')

@@ -1,10 +1,9 @@
-const baseClass = 'table'
+const cls = 'table'
 
 const tbody = {
-  selector: `.${baseClass} tbody`,
+  selector: `.${cls} tbody`,
   handler: async function (params = {}) {
-    params.baseClass = baseClass
-    params.ezAttrs = [{ key: 'divider', value: 'group-divider' }]
+    if (params.attr.divider) params.attr.class.push('group-divider')
   }
 }
 

@@ -4,7 +4,7 @@ const accordionItem = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { generateId } = this.plugin.app.bajo
-    const { isString } = this._
+    const { isString } = this.plugin.app.bajo.lib._
     params.tag = 'div'
     params.attr.class.push(cls)
     const id = isString(params.attr.id) ? params.attr.id : generateId()

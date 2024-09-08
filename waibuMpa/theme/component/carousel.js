@@ -3,8 +3,9 @@ const cls = 'carousel'
 const carousel = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isEmpty, isString } = this._
+    const { isEmpty, isString } = this.plugin.app.bajo.lib._
     const { generateId } = this.plugin.app.bajo
+    const { attrToArray } = this.plugin.app.waibuMpa
     params.tag = 'div'
     params.attr.class.push(cls, 'slide')
     params.attr.id = isString(params.attr.id) ? params.attr.id : generateId()
@@ -15,7 +16,7 @@ const carousel = {
     const me = this
     let activeItem = 0
     this.$(params.html).children().each(function (idx) {
-      const classes = me.mpa.attrToArray(this.attribs.class)
+      const classes = attrToArray(this.attribs.class)
       if (classes.includes('active')) activeItem = idx
     })
     params.html = this.$(params.html).children().each(function (idx) {

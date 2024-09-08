@@ -2,11 +2,12 @@ import { buildFormHint, buildFormLabel, buildFormInput } from './_lib.js'
 import { sizes } from './_after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, attr, params } = {}) {
-  const { trim, filter, has, omit, pull, find } = this._
+  const { trim, filter, has, omit, pull, find } = this.plugin.app.bajo.lib._
+  const { attrToArray } = this.plugin.app.waibuMpa
   const me = this
   const addons = []
   const isLabel = has(params.attr, 'label')
-  const isLabelFloating = has(attr.label, 'floating') && isLabel
+  const isLabelFloating = attr.label.floating && isLabel
   if (isLabelFloating) {
     attr.wrapper.class.push('form-floating')
     attr._.placeholder = attr._.label
@@ -35,7 +36,7 @@ export async function handleInput ({ handler, attr, params } = {}) {
         me.$(parent).children().each(function () {
           if (this.name === 'input' && ['checkbox', 'radio'].includes(this.attribs.type)) me.$(this).addClass('form-check-input')
           else if (this.name === 'button') {
-            const hasCls = find(me.mpa.attrToArray(this.attribs.class ?? ''), c => c.includes('btn-'))
+            const hasCls = find(attrToArray(this.attribs.class ?? ''), c => c.includes('btn-'))
             if (!hasCls) me.$(this).addClass('btn btn-outline-secondary')
             isBtn = true
           }
@@ -51,7 +52,7 @@ export async function handleInput ({ handler, attr, params } = {}) {
   } else if (isLabelFloating) {
     pull(attr.wrapper.class, 'form-floating')
     attr.wrapper.class.push('input-group')
-    if (has(attr._, 'size') && sizes.includes(attr._.size)) attr.wrapper.class.push(`input-group-${attr._.size}`)
+    if (attr._.size && sizes.includes(attr._.size)) attr.wrapper.class.push(`input-group-${attr._.size}`)
     const _attr = { class: ['form-floating'] }
     const html = []
     const label = await buildFormLabel.call(this, attr)
@@ -61,21 +62,20 @@ export async function handleInput ({ handler, attr, params } = {}) {
     contents.push(html.join('\n'))
   } else {
     const _attr = { class: ['input-group'] }
-    if (has(attr._, 'size') && sizes.includes(attr._.size)) _attr.class.push(`input-group-${attr._.size}`)
+    if (attr._.size && sizes.includes(attr._.size)) _attr.class.push(`input-group-${attr._.size}`)
     const html = []
     if (result.prepend.length > 0) html.push(result.prepend.join('\n'))
     html.push(result.input)
     if (result.append.length > 0) html.push(result.append.join('\n'))
     contents.push(await this._render({ tag: 'div', attr: _attr, html: html.join('\n') }))
   }
-  if (has(params.attr, 'hint')) contents.push(await buildFormHint.call(this, attr))
+  if (params.attr.hint) contents.push(await buildFormHint.call(this, attr))
   return contents
 }
 
 export async function build (handler, params = {}) {
   const { generateId } = this.plugin.app.bajo
-  const { has, omit } = this._
-  const { groupAttrs } = this.mpa
+  const { groupAttrs } = this.plugin.app.waibuMpa
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
   attr._.id = params.attr.id ?? this.plugin.app.bajo.generateId()
@@ -83,10 +83,9 @@ export async function build (handler, params = {}) {
   const contents = await handleInput.call(this, { handler, params, attr })
   let datalist
 
-  if (has(attr._, 'datalist') && !['password', 'file', 'checkbox', 'radio'].includes(attr._.type)) {
+  if (attr._.datalist && !['password', 'file', 'checkbox', 'radio'].includes(attr._.type)) {
     datalist = attr._.datalist
     attr._.list = generateId()
-    attr._ = omit(attr._, ['datalist'])
     const args = { tag: 'datalist', attr: { id: attr._.list, options: datalist }, html: '', reply: params.reply, req: params.req }
     const cmp = await this.buildTag(args)
     contents.push(cmp)

@@ -1,8 +1,8 @@
 import { breakpoints, displays } from './_lib.js'
 
 function dislay ({ key, params }) {
-  const { uniq, isEmpty } = this._
-  const attrs = this.mpa.attrToArray(params.attr[key])
+  const { uniq, isEmpty } = this.plugin.app.bajo.lib._
+  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   for (const attr of attrs) {
     const [item, val] = attr.split(':')
     for (const value of uniq((val ?? '').split(','))) {

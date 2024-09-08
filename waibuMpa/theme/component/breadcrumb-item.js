@@ -5,8 +5,6 @@ const breadcrumbItem = {
   handler: async function (params = {}) {
     params.tag = 'li'
     params.attr.class.push(cls)
-    if (params.attr.active) params.attr.class.push('active')
-    delete params.attr.active
   }
 }
 

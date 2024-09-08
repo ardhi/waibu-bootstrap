@@ -3,7 +3,7 @@ const cls = 'collapse'
 const collapseItem = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isString } = this._
+    const { isString } = this.plugin.app.bajo.lib._
     const { generateId } = this.plugin.app.bajo
     params.attr.class.push(cls)
     if (params.attr.showOnStart) params.attr.class.push('show')

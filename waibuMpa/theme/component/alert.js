@@ -5,7 +5,7 @@ const cls = 'alert'
 const alert = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isEmpty } = this._
+    const { isEmpty } = this.plugin.app.bajo.lib._
     const { req, reply } = params
     params.tag = 'div'
     params.attr.class.push(cls)

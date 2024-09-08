@@ -1,5 +1,5 @@
 function collectAttr (params, item) {
-  const { pick, merge } = this._
+  const { pick, merge } = this.plugin.app.bajo.lib._
   return merge(pick(params.attr, ['color']), {
     'data-bs-toggle': 'collapse',
     'data-bs-target': item ? ('#' + item.id) : '.multi-collapse'
@@ -7,11 +7,12 @@ function collectAttr (params, item) {
 }
 
 async function collapse (params = {}) {
-  const { merge, isString } = this._
+  const { merge, isString } = this.plugin.app.bajo.lib._
+  const { attrToArray } = this.plugin.app.waibuMpa
   const items = []
   const me = this
   const contents = this.$(`<div>${params.html}</div>`).children().each(function () {
-    const classes = me.mpa.attrToArray(this.attribs.class)
+    const classes = attrToArray(this.attribs.class)
     items.push({
       id: this.attribs.id,
       label: isString(this.attribs.label) ? this.attribs.label : this.attribs.id,

@@ -15,9 +15,9 @@ const dropdownItem = {
       params.attr.class.push('dropdown-header')
       return
     }
-    for (const item of ['active', 'disabled']) {
-      if (params.attr[item]) params.attr.class.push(item)
-      delete params.attr[item]
+    if (params.attr.disabled) {
+      params.attr.class.push('disabled')
+      delete params.attr.disabled
     }
     params.attr.class.push(cls)
   }

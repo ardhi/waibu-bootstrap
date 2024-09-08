@@ -6,8 +6,8 @@ for (let i = 1; i < 13; i++) width[i] = `-${i}`
 const gridCol = {
   selector: `[class^=${baseClass}]`,
   handler: async function (params = {}) {
-    const { omit, map, without } = this._
-    const { attrToArray } = this.mpa
+    const { map, without } = this.plugin.app.bajo.lib._
+    const { attrToArray } = this.plugin.app.waibuMpa
 
     const attr = params.attr
     let cols = attrToArray(attr.size)
@@ -24,7 +24,6 @@ const gridCol = {
       else cols = [baseClass]
     }
     params.attr.class = attr.class.concat(cols)
-    params.attr = omit(attr, ['size'])
   }
 }
 

@@ -1,23 +1,53 @@
-const baseClass = 'list'
+import { breakpoints, colors, parseVariant } from './_after-build-tag/_lib.js'
+const cls = 'list'
 
 const list = {
+  selector: '.' + cls,
   handler: async function (params = {}) {
-    const { has, isEmpty, omit } = this._
-    params.baseClass = baseClass
-    params.tag = has(params.attr, 'ordered') ? 'ol' : 'ul'
-    if (!isEmpty(params.attr.type)) {
-      params.attr.class.push(`${baseClass}-${params.attr.type}`)
-      params.tag = 'ul'
+    const { isString, omit } = this.plugin.app.bajo.lib._
+    const { objectToAttrs } = this.plugin.app.waibuMpa
+    const me = this
+    params.tag = params.attr.ordered ? 'ol' : 'ul'
+    if (params.attr.actionable) params.tag = 'div'
+    if (isString(params.attr.type)) {
+      params.attr.class.push(`${cls}-${params.attr.type}`)
+      if (params.attr.type === 'group') {
+        params.html = this.$(`<div>${params.html}</div>`).children().each(function () {
+          if (this.attribs['child-color']) {
+            const color = parseVariant.call(me, {
+              cls: `${cls}-${params.attr.type}-item`,
+              value: this.attribs['child-color'],
+              values: colors
+            })
+            me.$(this).addClass(color).removeAttr('child-color')
+          }
+        }).parent().html()
+        params.attr.class.push(parseVariant.call(this, {
+          cls: `${cls}-${params.attr.type}-horizontal`,
+          value: params.attr.horizontal,
+          values: breakpoints
+        }))
+        if (params.attr.border === 'none') {
+          params.attr.class.push(`${cls}-${params.attr.type}-flush`)
+          delete params.attr.border
+        }
+        if (params.attr.ordered) params.attr.class.push(`${cls}-${params.attr.type}-numbered`)
+      }
+      if (params.attr.actionable) params.tag = 'div'
+      const html = []
+      params.html = this.$(`<div>${params.html}</div>`).children().each(function () {
+        if (['group', 'inline'].includes(params.attr.type)) {
+          me.$(this).addClass(`${cls}-${params.attr.type}-item`)
+        }
+        if (params.attr.actionable) {
+          if (params.attr.type === 'group') this.attribs.class += ' list-group-item-action'
+          const attrs = objectToAttrs(this.attribs)
+          html.push(`<a href="#" ${attrs}>${me.$(this).html()}</a>`)
+        }
+      }).parent().html()
+      if (html.length > 0) params.html = html.join('\n')
     }
-    params.attr = omit(params.attr, ['type', 'ordered'])
-  },
-  after: async function (params = {}) {
-    const $ = this.$
-    if (params.attr.type === 'list-inline') {
-      $(params.el).children('li, c\\:list-item').each(function () {
-        $(this).addClass('list-inline-item')
-      })
-    }
+    params.attr = omit(params.attr, ['type'])
   }
 }
 

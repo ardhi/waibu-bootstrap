@@ -5,7 +5,7 @@ const cls = 'btn'
 const btn = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { has, omit } = this._
+    const { has, omit } = this.plugin.app.bajo.lib._
     params.attr.class.push(cls)
     // tag
     params.tag = !!params.attr.href || params.attr.tag === 'a' ? 'a' : 'button'
@@ -21,10 +21,7 @@ const btn = {
       params.attr = omit(params.attr, ['disabled', 'href'])
     }
     if (params.attr.toggle) params.attr.dataBsToggle = 'button'
-    if (params.attr.active) {
-      params.attr.class.push('active')
-      params.attr.ariaPressed = true
-    }
+    if (params.attr.active) params.attr.ariaPressed = true
     params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants: colorVariants, prepend: true }))
     params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
   }

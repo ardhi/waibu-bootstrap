@@ -3,8 +3,8 @@ const sides = ['top', 'end', 'bottom', 'start', 'all']
 const variants = ['subtle', 'secondary', 'tertiary']
 
 function border ({ key, params }) {
-  const { uniq } = this._
-  const attrs = this.mpa.attrToArray(params.attr[key])
+  const { uniq } = this.plugin.app.bajo.lib._
+  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const borderColors = ['body', 'black', 'white', ...colors]
   let hasSide
   for (const attr of attrs) {

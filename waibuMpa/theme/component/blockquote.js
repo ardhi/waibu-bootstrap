@@ -3,7 +3,7 @@ const cls = 'blockquote'
 const blockquote = {
   selector: cls,
   handler: async function (params = {}) {
-    const { isString } = this._
+    const { isString } = this.plugin.app.bajo.lib._
     params.attr.class.push(cls)
     params.cls = cls
     if (isString(params.attr.attribution)) {

@@ -2,8 +2,8 @@ import { buildFormSwitch } from './_lib.js'
 import { build } from './form-check.js'
 
 async function formSwitch (params = {}) {
-  params.attr['wrapper-class'] = params.attr['wrapper-class'] ?? ''
-  params.attr['wrapper-class'] += ' form-switch'
+  params.attr.wrapperClass = params.attr.wrapperClass ?? ''
+  params.attr.wrapperClass += ' form-switch'
   await build.call(this, buildFormSwitch, params)
 }
 

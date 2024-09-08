@@ -1,24 +1,23 @@
 import { sizes } from './_after-build-tag/_lib.js'
 
 function getInputAttr (attr, formControl = true) {
-  const { omit, has } = this._
+  const { omit } = this.plugin.app.bajo.lib._
   if (formControl) attr._.class.push('form-control')
   const _attr = omit(attr._, ['hint', 'label', 'wrapper'])
-  if (has(_attr, 'size') && sizes.includes(_attr.size) && formControl) _attr.class.push(`form-control-${_attr.size}`)
+  if (sizes.includes(_attr.size) && formControl) _attr.class.push(`form-control-${_attr.size}`)
   return omit(_attr, ['size'])
 }
 
 export async function buildFormHint (attr, tag, cls) {
-  const { has } = this._
-  if (!has(attr.hint, 'id') && has(attr._, 'id')) attr.hint.id = attr._.id + '-hint'
+  if (!attr.hint.id && attr._.id) attr.hint.id = attr._.id + '-hint'
   attr.hint.class.push(cls ?? 'form-text')
   return await this._render({ tag: tag ?? 'div', attr: attr.hint, html: attr._.hint })
 }
 
 export async function buildFormLabel (attr, tag, cls) {
-  const { omit, has } = this._
+  const { omit } = this.plugin.app.bajo.lib._
   attr.label.for = attr._.id
-  if (!has(attr.label, 'floating')) attr.label.class.push(cls ?? 'form-label')
+  if (!attr.label.floating) attr.label.class.push(cls ?? 'form-label')
   attr.label = omit(attr.label, ['floating'])
   return await this._render({ tag: tag ?? 'label', attr: attr.label, html: attr._.label })
 }
@@ -90,13 +89,11 @@ export async function buildFormTextarea (attr, html, tag) {
 }
 
 export async function buildFormSelect (attr, html, tag) {
-  const { omit, has, trim } = this._
+  const { omit, trim } = this.plugin.app.bajo.lib._
   attr._.class.push('form-select')
   const _attr = omit(attr._, ['hint', 'label', 'wrapper'])
-  if (has(_attr, 'size')) {
-    if (sizes.includes(_attr.size)) _attr.class.push(`form-select-${_attr.size}`)
-  }
-  if (has(attr._, 'options')) html = this._buildOptions({ attr: _attr, html: '' })
+  if (sizes.includes(_attr.size)) _attr.class.push(`form-select-${_attr.size}`)
+  if (attr._.options) html = this._buildOptions({ attr: _attr, html: '' })
   else {
     const me = this
     const items = []

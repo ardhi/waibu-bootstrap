@@ -3,7 +3,7 @@ import { build } from './form-input.js'
 
 async function formFile (params = {}) {
   params.attr.type = 'range'
-  delete params.attr['label-floating']
+  delete params.attr.labelFloating
   await build.call(this, buildFormRange, params)
 }
 

@@ -11,8 +11,7 @@ export const dirs = ['up', 'down', 'start', 'end']
 export const widths = ['1', '2', '3', '4', '5']
 export const dims = ['25', '50', '75', '100', 'auto']
 export const sizes = ['sm', 'lg']
-export const displays = ['none', 'inline', 'inline-block', 'block', 'grid', 'inline-grid',
-  'table', 'table-cell', 'table-row']
+export const displays = ['none', 'inline', 'inline-block', 'block', 'grid', 'inline-grid', 'table', 'table-cell', 'table-row']
 export const flexes = ['row', 'column', 'row-reverse', 'column-reverse', 'fill', 'shrink', 'grow', 'nowrap', 'wrap', 'wrap-reverse']
 export const justifyContents = ['start', 'end', 'center', 'between', 'around', 'evenly']
 export const alignItems = ['start', 'end', 'center', 'baseline', 'stretch']
@@ -28,7 +27,8 @@ export const colors = ['primary', 'secondary', 'success', 'warning', 'danger', '
 export const colorVariants = ['outline']
 
 export function parseVariant ({ cls = '', value = '', values = [], variants = [], prepend } = {}) {
-  const { isEmpty } = this._
+  const { isEmpty } = this.plugin.app.bajo.lib._
+  if (value === true) return cls
   const [core, variant] = value.split('-')
   const items = []
   if (values.includes(core)) {
@@ -40,7 +40,7 @@ export function parseVariant ({ cls = '', value = '', values = [], variants = []
 }
 
 export function parseSimple ({ cls = '', value = '', values = [] } = {}) {
-  const { isEmpty } = this._
+  const { isEmpty } = this.plugin.app.bajo.lib._
   if (values.includes(value)) return isEmpty(cls) ? value : `${cls}-${value}`
   return ''
 }

@@ -3,7 +3,7 @@ const cls = 'breadcrumb'
 const breadcrumb = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isString } = this._
+    const { isString } = this.plugin.app.bajo.lib._
     params.tag = 'ol'
     params.attr.class.push(cls)
     let divider = ''

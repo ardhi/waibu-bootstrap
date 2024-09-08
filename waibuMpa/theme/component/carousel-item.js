@@ -3,10 +3,9 @@ const cls = 'carousel-item'
 const carouselItem = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isString } = this._
+    const { isString } = this.plugin.app.bajo.lib._
     params.tag = 'div'
     params.attr.class.push(cls)
-    if (params.attr.active) params.attr.class.push('active')
     params.attr.dataBsInterval = params.attr.interval
     if (isString(params.attr.caption)) {
       const captions = ['<div class="carousel-caption d-none d-md-block">']

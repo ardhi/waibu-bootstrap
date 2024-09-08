@@ -2,8 +2,8 @@ import { aligns, widths, parseSimple } from './_lib.js'
 const types = ['circle', 'pill', ...aligns]
 
 function rounded ({ key, params }) {
-  const { uniq } = this._
-  const attrs = this.mpa.attrToArray(params.attr[key])
+  const { uniq } = this.plugin.app.bajo.lib._
+  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   let hasType
   for (const attr of attrs) {
     const [item, val] = attr.split(':')

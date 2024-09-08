@@ -12,10 +12,14 @@ import rounded from './_after-build-tag/rounded.js'
 import dim from './_after-build-tag/dim.js'
 import flex from './_after-build-tag/flex.js'
 import display from './_after-build-tag/display.js'
+import disabled from './_after-build-tag/disabled.js'
+import active from './_after-build-tag/active.js'
 
 const styles = [
   { key: 'visible' },
   { key: 'invisible' },
+  { key: 'active', handler: active },
+  { key: 'disabled', handler: disabled },
   { key: 'text', handler: text },
   { key: 'font', handler: font },
   { key: 'link', handler: link },
@@ -26,7 +30,7 @@ const styles = [
   { key: 'background', handler: background },
   { key: 'display', handler: display },
   { key: 'flex', handler: flex },
-  { key: 'vAlign', val: 'alugn{value}', values: vAligns },
+  { key: 'vAlign', val: 'align{value}', values: vAligns },
   { key: 'float', val: 'float{type}{value}', values: floats, types: breakpoints },
   { key: 'userSelect', val: 'user-select{value}', values: ['all', ...peEvents] },
   { key: 'pointerEvent', val: 'pointer-event{value}', values: peEvents },
@@ -41,7 +45,7 @@ const styles = [
 ]
 
 async function _afterBuildTag (tag, params) {
-  const { has, omit, map, isEmpty } = this._
+  const { omit, map, isEmpty } = this.plugin.app.bajo.lib._
   const keys = map(styles, 'key')
   const omitted = []
   tag = tag ?? params.tag
@@ -49,7 +53,7 @@ async function _afterBuildTag (tag, params) {
   for (const s of styles) {
     let { key, values = [], val, tags = [], types = [] } = s
     if (!val) val = key
-    if (!has(params.attr, key)) continue
+    if (!params.attr[key]) continue
     if (tags.length > 0 && !tags.includes(tag)) {
       omitted.push(key)
       continue
@@ -69,7 +73,7 @@ async function _afterBuildTag (tag, params) {
         if (isEmpty(params.attr[key])) val = val.replace('{value}', '')
         else if (values.includes(params.attr[key])) val = val.replace('{value}', '-' + params.attr[key])
         else val = ''
-        params.attr.class.push(val.replace('{value}', '').replace('{type}', '').replace('{variant}', ''))
+        params.attr.class.push(val.replace('{value}', '').replace('{type}', ''))
       }
     } else params.attr.class.push(val)
     if (s.forceTag) params.tag = s.forceTag
@@ -83,11 +87,11 @@ async function _afterBuildTag (tag, params) {
       if (key.includes(k)) omitted.push(key)
     }
   }
-  params.attr = omit(params.attr, ['tag', 'color', 'dismissible', 'size', 'split', 'active',
-    'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll', 'flush',
+  params.attr = omit(params.attr, ['tag', 'color', 'dismissible', 'size', 'split', 'ordered',
+    'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
-    'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'autoClose', 'menuTag', 'inline',
-    'reverse',
+    'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'autoClose', 'menuTag',
+    'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal',
     ...omitted])
 }
 

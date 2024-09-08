@@ -2,8 +2,8 @@ import { positions, aligns, poses } from './_lib.js'
 const zes = ['n1', '0', '1', '2', '3']
 
 function position ({ key, params }) {
-  const { without } = this._
-  const [type, arrangeStart, arrangeEnd, translateMiddle] = this.mpa.attrToArray(params.attr[key])
+  const { without } = this.plugin.app.bajo.lib._
+  const [type, arrangeStart, arrangeEnd, translateMiddle] = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   if (positions.includes(type)) {
     params.attr.class.push(`position-${type}`)
     if (without(positions, 'static').includes(type) && arrangeStart &&

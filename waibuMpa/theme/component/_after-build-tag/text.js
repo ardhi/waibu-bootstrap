@@ -7,8 +7,8 @@ const directs = ['wrap', 'nowrap', 'mark', 'small']
 const variants = ['emphasis', 'secondary', 'tertiary']
 
 function text ({ key, params }) {
-  const { uniq } = this._
-  const attrs = this.mpa.attrToArray(params.attr[key])
+  const { uniq } = this.plugin.app.bajo.lib._
+  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const textColors = ['body', 'black', 'white', ...colors]
   for (const attr of attrs) {
     const [item, val] = attr.split(':')

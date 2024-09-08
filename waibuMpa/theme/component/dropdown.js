@@ -7,7 +7,7 @@ const autoCloses = ['true', 'false', 'inside', 'outside']
 const dropdown = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { pick, merge, isString, cloneDeep, omit } = this._
+    const { pick, merge, isString, cloneDeep, omit } = this.plugin.app.bajo.lib._
     params.tag = isString(params.attr.tag) ? params.attr.tag : 'div'
     const [dir, variant] = (params.attr.dir ?? 'down').split('-')
     const xcls = ['drop' + parseSimple.call(this, { value: dir, values: dirs })]

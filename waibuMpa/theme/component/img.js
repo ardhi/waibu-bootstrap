@@ -7,6 +7,8 @@ const img = {
     params.cls = cls
     if (params.attr.responsive) params.attr.class.push(`${cls}-fluid`)
     params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.thumbnail, values: ['thumbnail'] }))
+    if (params.attr.holder) params.attr.dataSrc = `holder.js/${params.attr.holder}`
+    delete params.attr.holder
   }
 }
 

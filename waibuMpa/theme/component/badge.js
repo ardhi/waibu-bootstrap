@@ -3,7 +3,7 @@ const cls = 'badge'
 const badge = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isString, omit } = this._
+    const { isString, omit } = this.plugin.app.bajo.lib._
     params.tag = 'span'
     params.cls = cls
     if (isString(params.attr.alt)) params.html += `<span class="visually-hidden">${params.attr.alt}</span>`

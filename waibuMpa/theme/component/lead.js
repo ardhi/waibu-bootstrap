@@ -1,8 +1,11 @@
+const cls = 'lead'
+
 const lead = {
-  selector: '.lead',
+  selector: '.' + cls,
   handler: async function (params = {}) {
-    params.tag = params.attr.tag ?? 'p'
-    params.attr.class.push('lead')
+    const { isString } = this.plugin.app.bajo.lib._
+    params.tag = isString(params.attr.tag) ? params.attr.tag : 'p'
+    params.attr.class.push(cls)
   }
 }
 

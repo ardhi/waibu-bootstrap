@@ -3,7 +3,7 @@ import { parseVariant, colors } from './_after-build-tag/_lib.js'
 const variants = ['outline']
 
 export async function build (item, params = {}) {
-  const { groupAttrs } = this.mpa
+  const { groupAttrs } = this.plugin.app.waibuMpa
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
   const contents = []
@@ -19,7 +19,7 @@ export async function build (item, params = {}) {
 }
 
 async function formCheckToggle (params = {}) {
-  const { has } = this._
+  const { has } = this.plugin.app.bajo.lib._
   if (!has(params.attr, 'label')) params.attr.label = params.req.t('Toggle Check')
   await build.call(this, buildFormCheckToggle, params)
 }

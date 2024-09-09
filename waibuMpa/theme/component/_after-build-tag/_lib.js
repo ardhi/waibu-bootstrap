@@ -39,8 +39,11 @@ export function parseVariant ({ cls = '', value = '', values = [], variants = []
   return items.join('-')
 }
 
-export function parseSimple ({ cls = '', value = '', values = [] } = {}) {
+export function parseSimple ({ cls = '', value = '', values = [], acceptTrue } = {}) {
   const { isEmpty } = this.plugin.app.bajo.lib._
-  if (values.includes(value)) return isEmpty(cls) ? value : `${cls}-${value}`
+  if (values.includes(value) || (acceptTrue && value === true)) {
+    if (isEmpty(cls)) return value
+    return acceptTrue && value === true ? cls : `${cls}-${value}`
+  }
   return ''
 }

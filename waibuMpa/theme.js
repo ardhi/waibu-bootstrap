@@ -3,7 +3,8 @@ async function theme (ctx) {
     'waibuBootstrap.virtual:/bootstrap/css/bootstrap.min.css'
   ]
   const scripts = [
-    'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js'
+    'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js',
+    'waibuBootstrap.asset:/js/init.js'
   ]
   if (this.app.waibuExtra) {
     scripts.push(

@@ -14,10 +14,14 @@ import flex from './_after-build-tag/flex.js'
 import display from './_after-build-tag/display.js'
 import disabled from './_after-build-tag/disabled.js'
 import active from './_after-build-tag/active.js'
+import popover from './_after-build-tag/popover.js'
+import tooltip from './_after-build-tag/tooltip.js'
 
 const styles = [
   { key: 'visible' },
   { key: 'invisible' },
+  { key: 'popover', handler: popover },
+  { key: 'tooltip', handler: tooltip },
   { key: 'active', handler: active },
   { key: 'disabled', handler: disabled },
   { key: 'text', handler: text },
@@ -90,8 +94,9 @@ async function _afterBuildTag (tag, params) {
   params.attr = omit(params.attr, ['color', 'dismissible', 'size', 'split', 'ordered',
     'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
-    'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'autoClose', 'menuTag',
+    'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'menuTag', 'scrollable',
     'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
+    'noKeyboard', 'centered', 'noFade', 'label',
     ...omitted])
 }
 

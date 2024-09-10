@@ -3,6 +3,7 @@ import { buildFormHint, buildFormLabel, buildFormCheck } from './_lib.js'
 export async function build (item, params = {}) {
   const { isEmpty } = this.plugin.app.bajo.lib._
   const { groupAttrs } = this.plugin.app.waibuMpa
+  this._normalizeAttr(params)
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
   const contents = []

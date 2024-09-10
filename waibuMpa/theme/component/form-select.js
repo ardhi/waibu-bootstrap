@@ -3,11 +3,9 @@ import { handleInput } from './form-input.js'
 
 async function formSelect (params = {}) {
   const { groupAttrs } = this.plugin.app.waibuMpa
-  const { isString } = this.plugin.app.bajo.lib._
-  const { generateId } = this.plugin.app.bajo
 
+  this._normalizeAttr(params, { autoId: true })
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
-  attr._.id = isString(params.attr.id) ? params.attr.id : generateId()
   const contents = await handleInput.call(this, { handler: buildFormSelect, params, attr })
   if (params.attr.wrapper === 'none') params.noTag = true
   else {

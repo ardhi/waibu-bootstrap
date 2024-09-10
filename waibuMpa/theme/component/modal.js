@@ -9,9 +9,9 @@ const modal = {
     const { isString, merge, pick, omit } = this.plugin.app.bajo.lib._
     const { generateId } = this.plugin.app.bajo
     const { groupAttrs } = this.plugin.app.waibuMpa
-    params.tag = 'div'
+    this._normalizeAttr(params, { tag: 'div', cls })
     const attr = groupAttrs(params.attr, ['trigger'])
-    params.attr.class.push(cls, params.attr.noFade ? '' : 'fade')
+    params.attr.class.push(params.attr.noFade ? '' : 'fade')
     params.attr = attr._
     params.attr.id = isString(params.attr.id) ? params.attr.id : generateId()
     params.attr.tabIndex = -1
@@ -33,7 +33,7 @@ const modal = {
       fullscreen = parseSimple.call(this, { cls: `${cls}-fullscreen`, value, values: fullscreens, acceptTrue: true })
     }
     params.html = `<div class="modal-dialog${params.attr.scrollable ? ' modal-dialog-scrollable' : ''}` +
-      ` ${parseSimple.call(this, { cls, value: params.attr.size, values: modalSizes })}` +
+      ` ${!params.attr.size ? '' : parseSimple.call(this, { cls, value: params.attr.size, values: modalSizes })}` +
       `${params.attr.centered ? ' modal-dialog-centered' : ''} ${fullscreen}">` +
       `<div class="modal-content">${params.html}</div></div>`
     if (isString(params.attr.trigger)) {

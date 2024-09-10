@@ -20,7 +20,7 @@ function setResponsive (params) {
 const table = {
   selector: '.' + cls,
   handler: async function ({ params }) {
-    params.attr.class.push(cls)
+    this._normalizeAttr(params, { cls })
     if (params.attr.border) setBorder.call(this, params)
     if (params.attr.strip) setStrip.call(this, params)
     if (params.attr.responsive) setResponsive.call(this, params)

@@ -6,6 +6,7 @@ const btn = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { has, omit, isString } = this.plugin.app.bajo.lib._
+    this._normalizeAttr(params, { cls })
     params.attr.class.push(cls)
     // tag
     params.tag = !!params.attr.href || params.attr.tag === 'a' ? 'a' : 'button'
@@ -22,8 +23,8 @@ const btn = {
     }
     if (params.attr.toggle) params.attr.dataBsToggle = 'button'
     if (params.attr.active) params.attr.ariaPressed = true
-    params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants: colorVariants, prepend: true }))
-    params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
+    if (params.attr.color) params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants: colorVariants, prepend: true }))
+    if (params.attr.size) params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
     if (params.attr.modalDismissible) params.attr.dataBsDismiss = 'modal'
     if (isString(params.attr.modalOpen)) {
       params.attr.dataBsTarget = `#${params.attr.modalOpen}`

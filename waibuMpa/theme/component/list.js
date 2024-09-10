@@ -7,7 +7,7 @@ const list = {
     const { isString, omit } = this.plugin.app.bajo.lib._
     const { objectToAttrs } = this.plugin.app.waibuMpa
     const me = this
-    params.tag = params.attr.ordered ? 'ol' : 'ul'
+    this._normalizeAttr(params, { tag: params.attr.ordered ? 'ol' : 'ul' })
     if (params.attr.actionable) params.tag = 'div'
     if (isString(params.attr.type)) {
       params.attr.class.push(`${cls}-${params.attr.type}`)

@@ -16,10 +16,12 @@ import disabled from './_after-build-tag/disabled.js'
 import active from './_after-build-tag/active.js'
 import popover from './_after-build-tag/popover.js'
 import tooltip from './_after-build-tag/tooltip.js'
+import label from './_after-build-tag/label.js'
 
 const styles = [
   { key: 'visible' },
   { key: 'invisible' },
+  { key: 'label', handler: label },
   { key: 'popover', handler: popover },
   { key: 'tooltip', handler: tooltip },
   { key: 'active', handler: active },
@@ -52,8 +54,10 @@ async function _afterBuildTag (tag, params) {
   const { omit, map, isEmpty } = this.plugin.app.bajo.lib._
   const keys = map(styles, 'key')
   const omitted = []
+  params.attr = params.attr ?? {}
   tag = tag ?? params.tag
   if (tag === 'any') tag = params.tag
+
   for (const s of styles) {
     let { key, values = [], val, tags = [], types = [] } = s
     if (!val) val = key
@@ -96,7 +100,7 @@ async function _afterBuildTag (tag, params) {
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
     'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'menuTag', 'scrollable',
     'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
-    'noKeyboard', 'centered', 'noFade', 'label',
+    'noKeyboard', 'centered', 'noFade', 'expandable', 'scrollable',
     ...omitted])
 }
 

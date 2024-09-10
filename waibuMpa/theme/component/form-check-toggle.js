@@ -4,11 +4,12 @@ const variants = ['outline']
 
 export async function build (item, params = {}) {
   const { groupAttrs } = this.plugin.app.waibuMpa
+  this._normalizeAttr(params)
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
   const contents = []
   attr._.id = params.attr.id ?? this.plugin.app.bajo.generateId()
-  attr.label.class.push(parseVariant.call(this, { cls: 'btn', value: attr._.color, values: colors, variants, prepend: true }))
+  if (attr._.color) attr.label.class.push(parseVariant.call(this, { cls: 'btn', value: attr._.color, values: colors, variants, prepend: true }))
   delete attr._.color
 
   contents.push(await item.call(this, attr))

@@ -4,8 +4,8 @@ const cls = 'card-header'
 export async function handler (cls, params = {}) {
   const headings = levels.map(l => `h${l}`)
   const { isString } = this.plugin.app.bajo.lib._
-  params.tag = isString(params.attr.tag) && headings.includes(params.attr.tag) ? params.attr.tag : 'div'
-  params.attr.class.push(cls)
+  const tag = isString(params.attr.tag) && headings.includes(params.attr.tag) ? params.attr.tag : 'div'
+  this._normalizeAttr(params, { tag, cls })
 }
 
 const cardHeader = {

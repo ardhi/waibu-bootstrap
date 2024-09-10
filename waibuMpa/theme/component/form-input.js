@@ -7,7 +7,7 @@ export async function handleInput ({ handler, attr, params } = {}) {
   const me = this
   const addons = []
   const isLabel = has(params.attr, 'label')
-  const isLabelFloating = attr.label.floating && isLabel
+  const isLabelFloating = attr.label && attr.label.floating && isLabel
   if (isLabelFloating) {
     attr.wrapper.class.push('form-floating')
     attr._.placeholder = attr._.label
@@ -76,10 +76,12 @@ export async function handleInput ({ handler, attr, params } = {}) {
 export async function build (handler, params = {}) {
   const { generateId } = this.plugin.app.bajo
   const { groupAttrs } = this.plugin.app.waibuMpa
+  this._normalizeAttr(params, { autoId: true, type: params.attr.type ?? 'text' })
+  if (params.attr.type === 'search') {
+    params.attr.ariaLabel = params.attr.placeholder ?? params.req.t('Search')
+  }
 
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
-  attr._.id = params.attr.id ?? this.plugin.app.bajo.generateId()
-  attr._.type = attr._.type ?? 'text'
   const contents = await handleInput.call(this, { handler, params, attr })
   let datalist
 

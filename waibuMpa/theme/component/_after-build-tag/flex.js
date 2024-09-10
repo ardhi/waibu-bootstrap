@@ -15,6 +15,10 @@ const type = {
 
 function flex ({ key, params }) {
   const { uniq, isEmpty } = this.plugin.app.bajo.lib._
+  if (params.attr[key] === true) {
+    params.attr.class.push('d-flex')
+    return
+  }
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const inline = attrs.includes('inline')
   let hasFlex = false

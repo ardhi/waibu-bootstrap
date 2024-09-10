@@ -4,8 +4,7 @@ const breadcrumb = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { isString } = this.plugin.app.bajo.lib._
-    params.tag = 'ol'
-    params.attr.class.push(cls)
+    this._normalizeAttr(params, { tag: 'ol', cls })
     let divider = ''
     if (isString(params.attr.divider)) divider = ` style="--bs-breadcrumb-divider: '${params.attr.divider}';"`
     params.prepend = `<nav aria-label="breadcrumb"${divider}>`

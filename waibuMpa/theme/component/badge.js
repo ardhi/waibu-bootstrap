@@ -4,7 +4,7 @@ const badge = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { isString, omit } = this.plugin.app.bajo.lib._
-    params.tag = 'span'
+    this._normalizeAttr(params, { tag: 'span' })
     if (isString(params.attr.alt)) params.html += `<span class="visually-hidden">${params.attr.alt}</span>`
     if (params.attr.dot) {
       params.attr.class.push('p-2')

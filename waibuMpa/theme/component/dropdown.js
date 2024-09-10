@@ -8,13 +8,14 @@ const dropdown = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { pick, merge, isString, cloneDeep, omit } = this.plugin.app.bajo.lib._
-    params.tag = isString(params.attr.tag) ? params.attr.tag : 'div'
+    const tag = isString(params.attr.tag) ? params.attr.tag : 'div'
+    this._normalizeAttr(params, { tag })
     const [dir, variant] = (params.attr.dir ?? 'down').split('-')
     const xcls = ['drop' + parseSimple.call(this, { value: dir, values: dirs })]
     if (variants.includes(variant)) xcls.push(`${xcls[0]}-${variant}`)
     params.attr.class.push(...xcls)
     const attr = pick(params.attr, ['color', 'href', 'tag', 'disabled', 'size'])
-    const me = this
+    const $ = this.$
     let button = ''
     if (params.attr.menuOnly) params.attr.menuTag = 'div'
     const btnParams = {
@@ -49,13 +50,13 @@ const dropdown = {
     let menuHtml = params.html
     if (params.attr.menuTag) {
       const items = []
-      this.$(`<div>${params.html}</div>`).children().each(function () {
-        const children = me.$(this).children()
+      $(`<div>${params.html}</div>`).children().each(function () {
+        const children = $(this).children()
         if (children.length > 0) {
           children.each(function () {
-            items.push(me.$(this).parent().html())
+            items.push($(this).parent().html())
           })
-        } else items.push(me.$(this).prop('outerHTML'))
+        } else items.push($(this).prop('outerHTML'))
       })
       menuHtml = items.join('\n')
     }

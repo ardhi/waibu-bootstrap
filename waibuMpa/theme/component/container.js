@@ -5,7 +5,7 @@ const container = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { has, omit } = this.plugin.app.bajo.lib._
-    params.tag = 'div'
+    this._normalizeAttr(params, { tag: 'div' })
     if (has(params.attr, 'responsive')) params.attr.class.push(`${cls}-fluid`)
     else if (has(params.attr, 'breakpoint')) params.attr.class.push(parseSimple({ cls, value: params.attr.breakpoint, values: breakpoints }))
     else params.attr.class.push(cls)

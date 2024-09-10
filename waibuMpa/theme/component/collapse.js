@@ -10,7 +10,7 @@ async function collapse (params = {}) {
   const { merge, isString } = this.plugin.app.bajo.lib._
   const { attrToArray } = this.plugin.app.waibuMpa
   const items = []
-  const me = this
+  const $ = this.$
   const contents = this.$(`<div>${params.html}</div>`).children().each(function () {
     const classes = attrToArray(this.attribs.class)
     items.push({
@@ -18,10 +18,11 @@ async function collapse (params = {}) {
       label: isString(this.attribs.label) ? this.attribs.label : this.attribs.id,
       show: classes.includes('show')
     })
-    me.$(this).removeAttr('label')
-    if (params.attr.toggleAll) me.$(this).addClass('multi-collapse')
+    $(this).removeAttr('label')
+    if (params.attr.toggleAll) $(this).addClass('multi-collapse')
   }).parent().html()
-  params.tag = isString(params.attr.tag) ? params.attr.tag : 'div'
+  const tag = isString(params.attr.tag) ? params.attr.tag : 'div'
+  this._normalizeAttr(params, { tag })
   params.html = []
   for (const item of items) {
     const attr = collectAttr.call(this, params, item)

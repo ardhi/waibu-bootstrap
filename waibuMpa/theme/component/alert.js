@@ -7,10 +7,8 @@ const alert = {
   handler: async function (params = {}) {
     const { isEmpty } = this.plugin.app.bajo.lib._
     const { req, reply } = params
-    params.tag = 'div'
-    params.attr.class.push(cls)
-    params.attr.role = 'alert'
-    params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, prepend: true }))
+    this._normalizeAttr(params, { cls, tag: 'div', role: 'alert' })
+    if (params.attr.color) params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, prepend: true }))
     const me = this
     const html = this.$(`<div>${params.html}</div>`).children().each(function () {
       if (this.name === 'a') me.$(this).addClass('alert-link')

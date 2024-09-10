@@ -3,25 +3,22 @@ const cls = 'carousel'
 const carousel = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isEmpty, isString } = this.plugin.app.bajo.lib._
-    const { generateId } = this.plugin.app.bajo
+    const { isEmpty } = this.plugin.app.bajo.lib._
     const { attrToArray } = this.plugin.app.waibuMpa
-    params.tag = 'div'
-    params.attr.class.push(cls, 'slide')
-    params.attr.id = isString(params.attr.id) ? params.attr.id : generateId()
+    this._normalizeAttr(params, { tag: 'div', cls: [cls, 'slide'], autoId: true })
     if (params.attr.fade) params.attr.class.push(`${cls}-fade`)
     if (params.attr.noTouch) params.attr.dataBsTouch = false
     if (params.attr.autoPlay) params.attr.dataBsRide = isEmpty(params.attr.autoPlay) ? cls : params.attr.autoPlay
     params.html = `<div class="${cls}-inner">${params.html}</div>`
-    const me = this
+    const $ = this.$
     let activeItem = 0
-    this.$(params.html).children().each(function (idx) {
+    $(params.html).children().each(function (idx) {
       const classes = attrToArray(this.attribs.class)
       if (classes.includes('active')) activeItem = idx
     })
-    params.html = this.$(params.html).children().each(function (idx) {
-      if (idx === activeItem) me.$(this).addClass('active')
-      me.$(this).find('img').addClass('d-block w-100')
+    params.html = $(params.html).children().each(function (idx) {
+      if (idx === activeItem) $(this).addClass('active')
+      $(this).find('img').addClass('d-block w-100')
     }).parent().prop('outerHTML')
 
     if (params.attr.indicator) {

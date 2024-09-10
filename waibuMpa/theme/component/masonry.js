@@ -1,4 +1,5 @@
 async function masonry (params = {}) {
+  this._normalizeAttr(params)
   params.noTag = true
   params.prepend = '<div class="row g-2" data-masonry=\'{ "percentPosition": true }\'>'
   params.append = '</div>'

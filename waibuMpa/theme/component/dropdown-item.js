@@ -3,7 +3,7 @@ const cls = 'dropdown-item'
 const dropdownItem = {
   selector: `.dropdown-divider, .${cls}`,
   handler: async function (params = {}) {
-    params.tag = 'a'
+    this._normalizeAttr(params, { tag: 'a' })
     if (params.attr.divider) {
       params.tag = 'hr'
       params.attr.class.push('dropdown-divider')

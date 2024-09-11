@@ -3,7 +3,7 @@ const cls = 'nav-item'
 const navItem = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    this._normalizeAttr(params, { tag: 'a', cls: 'nav-link' })
+    this._normalizeAttr(params, { tag: 'a', cls: 'nav-link', href: params.attr.href ?? '#' })
     if (params.attr.dropdown) {
       params.attr.class.push('dropdown-toggle')
       params.attr.role = 'button'

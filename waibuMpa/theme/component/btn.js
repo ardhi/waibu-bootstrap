@@ -25,12 +25,13 @@ const btn = {
     if (params.attr.active) params.attr.ariaPressed = true
     if (params.attr.color) params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants: colorVariants, prepend: true }))
     if (params.attr.size) params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
-    if (params.attr.modalDismissible) params.attr.dataBsDismiss = 'modal'
-    if (isString(params.attr.modalOpen)) {
-      params.attr.dataBsTarget = `#${params.attr.modalOpen}`
-      params.attr.dataBsToggle = 'modal'
+    if (params.attr.close) params.attr.dataBsDismiss = isString(params.attr.close) ? params.attr.close : 'modal'
+    if (isString(params.attr.open)) {
+      const [id, toggle = 'modal'] = params.attr.open.split(':')
+      params.attr.dataBsTarget = `#${id}`
+      params.attr.dataBsToggle = toggle
+      params.attr.ariaControls = id
     }
-    params.attr = omit(params.attr, ['modalDismissible', 'modalOpen'])
   }
 }
 

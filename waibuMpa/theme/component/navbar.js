@@ -5,17 +5,23 @@ const navbar = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { omit, cloneDeep, has } = this.plugin.app.bajo.lib._
-    const { generateId } = this.plugin.app.bajo
+    const { generateId, numUnit } = this.plugin.app.bajo
     const { groupAttrs } = this.plugin.app.waibuMpa
     const $ = this.$
 
     this._normalizeAttr(params, { tag: 'nav', cls })
-    params.group = groupAttrs(params.attr, ['container'])
+    params.group = groupAttrs(params.attr, ['container', 'drawer'])
     params.attr = cloneDeep(params.group._)
     if (params.attr.expandable === true) params.attr.expandable = 'lg'
+    let type = 'collapse'
+    if (params.attr.drawer) {
+      type = 'offcanvas'
+      delete params.attr.scrollable
+    }
     if (params.attr.expandable && breakpoints.includes(params.attr.expandable)) {
       params.attr.class.push(parseSimple.call(this, { cls: `${cls}-expand`, value: params.attr.expandable, values: breakpoints }))
       const id = generateId()
+      if (params.group.drawer) params.group.drawer.id = id
       let brand = ''
       params.html = this.$(`<div>${params.html}</div>`).children().each(function () {
         if ($(this).hasClass('navbar-brand') && !has(this.attribs, 'collapse')) {
@@ -23,14 +29,16 @@ const navbar = {
           $(this).remove()
         }
       }).parent().html() || ''
-      const btn = '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" ' +
-        `data-bs-target="#${id}" aria-controls="${id}" aria-expanded="false" aria-label="${params.req.t('Toggle Navigation')}">` +
+      const btn = `<button class="navbar-toggler" type="button" data-bs-toggle="${type}" ` +
+        `data-bs-target="#${id}" aria-controls="${id}"${params.attr.drawer ? '' : ' aria-expanded="false"'} aria-label="${params.req.t('Toggle Navigation')}">` +
         '<span class="navbar-toggler-icon"></span></button>'
-      params.html = $(`<div>${params.html}</div>`).find('.nav')
+      const el = $(`<div>${params.html}</div>`).find('.nav')
         .addClass(`navbar-nav${params.attr.scrollable ? ' navbar-nav-scroll' : ''}`)
-        .prop('style', params.attr.scrollable === true ? '' : `--bs-scroll-height: ${params.attr.scrollable}px;`)
-        .removeClass('nav').parent().html()
-      params.html = `${brand}${btn}<div class="collapse navbar-collapse" id="${id}">${params.html}</div>`
+      if (params.attr.scrollable) el.prop('style', `--bs-scroll-height: ${numUnit(params.attr.scrollable, 'px')};`)
+      let html = el.removeClass('nav').parent().html()
+      if (type === 'offcanvas') html = await this.buildTag({ tag: 'drawer', attr: params.group.drawer, html, req: params.req, reply: params.reply })
+      else html = `<div class="collapse navbar-collapse" id="${id}">${html}</div>`
+      params.html = `${brand}${btn}${html}`
     }
     params.attr = omit(params.attr, ['container'])
   },

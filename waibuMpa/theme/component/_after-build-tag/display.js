@@ -1,6 +1,6 @@
 import { breakpoints, displays } from './_lib.js'
 
-function dislay ({ key, params }) {
+function display ({ key, params }) {
   const { uniq, isEmpty } = this.plugin.app.bajo.lib._
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   for (const attr of attrs) {
@@ -25,4 +25,4 @@ function dislay ({ key, params }) {
   }
 }
 
-export default dislay
+export default display

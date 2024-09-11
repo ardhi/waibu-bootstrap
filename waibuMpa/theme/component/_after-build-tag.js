@@ -21,6 +21,7 @@ import label from './_after-build-tag/label.js'
 const styles = [
   { key: 'visible' },
   { key: 'invisible' },
+  { key: 'clear', val: 'clearfix' },
   { key: 'label', handler: label },
   { key: 'popover', handler: popover },
   { key: 'tooltip', handler: tooltip },
@@ -95,12 +96,13 @@ async function _afterBuildTag (tag, params) {
       if (key.includes(k)) omitted.push(key)
     }
   }
-  params.attr = omit(params.attr, ['color', 'dismissible', 'size', 'split', 'ordered',
+  params.attr = omit(params.attr, ['color', 'noDismiss', 'size', 'split', 'ordered',
     'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
     'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'menuTag', 'scrollable',
     'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
-    'noKeyboard', 'centered', 'noFade', 'expandable', 'scrollable',
+    'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'close',
+    'idLabel', 'side',
     ...omitted])
 }
 

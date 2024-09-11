@@ -27,6 +27,8 @@ function flex ({ key, params }) {
     if (item === 'breakpoint') hasFlex = true
     for (const value of uniq((val ?? '').split(','))) {
       switch (item) {
+        case 'column':
+        case 'row':
         case 'fill':
         case 'wrap':
         case 'nowrap': {

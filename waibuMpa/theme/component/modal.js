@@ -7,23 +7,18 @@ const modal = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { isString, merge, pick, omit } = this.plugin.app.bajo.lib._
-    const { generateId } = this.plugin.app.bajo
     const { groupAttrs } = this.plugin.app.waibuMpa
-    this._normalizeAttr(params, { tag: 'div', cls })
+    this._normalizeAttr(params, { tag: 'div', cls, autoId: true, tabIndex: -1, ariaHidden: 'true' })
     const attr = groupAttrs(params.attr, ['trigger'])
-    params.attr.class.push(params.attr.noFade ? '' : 'fade')
     params.attr = attr._
-    params.attr.id = isString(params.attr.id) ? params.attr.id : generateId()
-    params.attr.tabIndex = -1
-    params.attr.ariaLabelledby = params.attr.label ?? params.req.t('Modal Dialog')
-    params.attr.ariaHidden = 'true'
-    if (params.attr.noBackdropClose) params.attr.dataBsBackdrop = 'static'
+    params.attr.class.push(params.attr.noFade ? '' : 'fade')
+    if (params.attr.noDismiss) params.attr.dataBsBackdrop = 'static'
     if (params.attr.noKeyboard) params.attr.dataBsKeyboard = 'false'
-    if (isString(params.attr.title)) {
+    if (isString(params.attr.title) || !params.attr.noDismiss) {
       const items = ['<div class="modal-header">', '<h1 class="modal-title fs-5">']
       items.push(params.attr.title)
       items.push('</h1>')
-      if (params.attr.dismissible) items.push(await this.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'modal' }, req: params.req, reply: params.reply }))
+      if (!params.attr.noDismiss) items.push(await this.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'modal' }, req: params.req, reply: params.reply }))
       items.push('</div>')
       params.html = items.join('\n') + '\n' + params.html
     }
@@ -39,12 +34,12 @@ const modal = {
     if (isString(params.attr.trigger)) {
       const btnParams = merge({}, pick(params, ['req', 'reply']), {
         tag: 'btn',
-        attr: merge(attr.trigger, { modalOpen: params.attr.id }),
+        attr: merge(attr.trigger, { open: `${params.attr.id}:modal` }),
         html: attr._.trigger
       })
       params.prepend = await this.buildTag(btnParams)
     }
-    params.attr = omit(params.attr, ['title', 'noBackdropClose', 'fullscreen'])
+    params.attr = omit(params.attr, ['title', 'fullscreen'])
   }
 }
 

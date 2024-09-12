@@ -13,6 +13,7 @@ function background ({ key, params }) {
     else {
       for (const value of uniq((val ?? '').split(','))) {
         switch (item) {
+          case 'dark': params.attr.dataBsTheme = 'dark'; break
           case 'opacity': params.attr.class.push(parseSimple.call(this, { cls: 'bg-opacity', value, values: opacities })); break
           case 'color': params.attr.class.push(parseVariant.call(this, { cls: 'bg', value, values: bgColors, variants })); break
         }

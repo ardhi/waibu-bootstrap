@@ -1,29 +1,37 @@
-const baseClass = 'col'
-const sizes = ['sm', 'md', 'lg', 'xl', 'xxl']
-const width = {}
-for (let i = 1; i < 13; i++) width[i] = `-${i}`
+import { breakpoints, parseVariant } from './_after-build-tag/_lib.js'
+import { buildCol } from './grid-row.js'
+const cls = 'col'
+const cols = buildCol()
+const orders = ['1', '2', '3', '4', '5', 'first', 'last']
+
+function parse (item) {
+  if (item === (Object.keys(cols).length + '')) return cls
+  const [w, b] = item.split('-').map(i => i.trim())
+  if (!b) return cols[w] ? `${cls}-${w}` : (breakpoints.includes(w) ? `${cls}-${w}` : undefined)
+  if (!cols[w]) return undefined
+  return breakpoints.includes(b) ? `${cls}-${b}${cols[w]}` : `${cls}${cols[w]}`
+}
 
 const gridCol = {
-  selector: `[class^=${baseClass}]`,
+  selector: `[class^=${cls}]`,
   handler: async function (params = {}) {
-    const { map, without } = this.plugin.app.bajo.lib._
+    const { map, without, isString } = this.plugin.app.bajo.lib._
     const { attrToArray } = this.plugin.app.waibuMpa
-
-    const attr = params.attr
-    let cols = attrToArray(attr.size)
-    if (cols.length > 1) {
-      cols = without(map(cols, c => {
-        const [s, w] = c.split(':').map(i => i.trim())
-        if (!sizes.includes(s)) return undefined
-        if (!width[w]) return undefined
-        return `${baseClass}-${s}${width[w]}`
-      }), undefined)
-      // cols.unshift(`${baseClass}-1`)
-    } else {
-      if (width[attr.size]) cols = [`${baseClass}${width[attr.size]}`]
-      else cols = [baseClass]
+    this._normalizeAttr(params, { tag: 'div' })
+    if (params.attr.break) {
+      const ext = breakpoints.includes(params.attr.break) ? `d-none d-${params.attr.break}-block` : ''
+      params.attr.class.push('w-100', ext)
+      params.html = ''
+      return
     }
-    params.attr.class = attr.class.concat(cols)
+    let cols = attrToArray(params.attr.cols)
+    cols = without(map(cols, c => {
+      return parse.call(this, c)
+    }), undefined)
+    if (cols.length === 0) cols = [cls]
+    params.attr.class.push(...cols)
+    if (isString(params.attr.order)) params.attr.class.push(parseVariant.call(this, { cls: 'order', value: params.attr.order, values: orders, variants: breakpoints, prepend: true }))
+    if (isString(params.attr.offset)) params.attr.class.push(parseVariant.call(this, { cls: 'offset', value: params.attr.offset, values: without(Object.keys(cols), 'auto'), variants: breakpoints, prepend: true }))
   }
 }
 

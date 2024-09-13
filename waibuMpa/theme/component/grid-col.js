@@ -24,7 +24,7 @@ const gridCol = {
       params.html = ''
       return
     }
-    let cols = attrToArray(params.attr.cols)
+    let cols = attrToArray(params.attr.col)
     cols = without(map(cols, c => {
       return parse.call(this, c)
     }), undefined)

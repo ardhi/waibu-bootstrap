@@ -102,7 +102,7 @@ async function _afterBuildTag (tag, params) {
     'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'menuTag', 'scrollable',
     'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
     'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'close',
-    'idLabel', 'side', 'cols', 'break', 'order', 'gutter', 'dark',
+    'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark',
     ...omitted])
 }
 

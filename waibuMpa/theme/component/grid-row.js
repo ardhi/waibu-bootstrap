@@ -16,7 +16,7 @@ const gridRow = {
     const { isString } = this.plugin.app.bajo.lib._
     const { attrToArray } = this.plugin.app.waibuMpa
     this._normalizeAttr(params, { tag: 'div', cls })
-    const item = col[params.attr.cols]
+    const item = col[params.attr.col]
     if (item) params.attr.class.push(`row-cols${item}`)
     if (isString(params.attr.gutter)) {
       const items = attrToArray(params.attr.gutter)

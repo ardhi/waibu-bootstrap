@@ -31,7 +31,7 @@ const modal = {
       ` ${!params.attr.size ? '' : parseSimple.call(this, { cls, value: params.attr.size, values: modalSizes })}` +
       `${params.attr.centered ? ' modal-dialog-centered' : ''} ${fullscreen}">` +
       `<div class="modal-content">${params.html}</div></div>`
-    if (isString(params.attr.trigger)) {
+    if (attr.trigger) {
       const btnParams = merge({}, pick(params, ['req', 'reply']), {
         tag: 'btn',
         attr: merge(attr.trigger, { open: `${params.attr.id}:modal` }),

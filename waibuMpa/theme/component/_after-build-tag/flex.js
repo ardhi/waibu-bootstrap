@@ -27,6 +27,7 @@ function flex ({ key, params }) {
     if (item === 'breakpoint') hasFlex = true
     for (const value of uniq((val ?? '').split(','))) {
       switch (item) {
+        case 'gap': params.attr.class.push(`gap-${value}`); break
         case 'column':
         case 'row':
         case 'fill':

@@ -101,8 +101,8 @@ async function _afterBuildTag (tag, params) {
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
     'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'menuTag', 'scrollable',
     'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
-    'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'close',
-    'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark',
+    'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'dismiss',
+    'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark', 'noBorder', 'noDivider',
     ...omitted])
 }
 

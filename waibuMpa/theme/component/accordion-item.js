@@ -12,6 +12,7 @@ const accordionItem = {
     const details = [`<div id="${params.attr.id}" class="accordion-collapse collapse${params.attr.showOnStart ? ' show' : ''}">`,
       `<div class="accordion-body">${params.html}</div></div>`]
     params.html = `${header.join(' ')}\n${details.join(' ')}`
+    delete params.attr.id
   }
 }
 

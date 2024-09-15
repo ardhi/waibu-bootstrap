@@ -25,6 +25,7 @@ export const poses = ['0', '50', '100']
 export const vAligns = ['baseline', 'top', 'middle', 'bottom', 'text-bottom', 'text-top']
 export const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark', 'link']
 export const colorVariants = ['outline']
+export const placements = ['top', 'bottom', 'left', 'right']
 
 export function parseVariant ({ cls = '', value = '', values = [], variants = [], prepend } = {}) {
   const { isEmpty } = this.plugin.app.bajo.lib._

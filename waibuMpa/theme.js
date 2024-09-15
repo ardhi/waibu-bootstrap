@@ -1,17 +1,15 @@
 async function theme (ctx) {
   const css = [
-    'waibuBootstrap.virtual:/bootstrap/css/bootstrap.min.css'
+    'waibuBootstrap.virtual:/bootstrap/css/bootstrap.min.css',
+    'waibuExtra.virtual:/highlightjs/styles/default.min.css'
   ]
   const scripts = [
     'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js',
+    'waibuExtra.virtual:/holderjs/holder.min.js',
+    'waibuExtra.virtual:/masonry/masonry.pkgd.min.js',
+    'waibuExtra.virtual:/highlightjs/highlight.min.js',
     'waibuBootstrap.asset:/js/init.js'
   ]
-  if (this.app.waibuExtra) {
-    scripts.push(
-      'waibuExtra.virtual:/holderjs/holder.min.js',
-      'waibuExtra.virtual:/masonry/masonry.pkgd.min.js'
-    )
-  }
   const meta = [{
     name: 'viewport',
     content: 'width=device-width, initial-scale=1'

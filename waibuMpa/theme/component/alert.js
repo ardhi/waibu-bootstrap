@@ -16,7 +16,7 @@ const alert = {
       if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(this.name)) me.$(this).addClass('alert-heading')
     }).parent().html()
     if (!isEmpty(html)) params.html = html
-    if (!params.attr.noDismiss) {
+    if (params.attr.dismiss) {
       params.attr.class.push('alert-dismissible', 'fade', 'show')
       const attr = { 'data-bs-dismiss': 'alert' }
       params.html += await this.buildTag({ tag: 'btnClose', attr, req, reply })

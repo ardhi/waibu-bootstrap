@@ -103,7 +103,7 @@ async function _afterBuildTag (tag, params) {
     'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
     'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'dismiss',
     'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark', 'noBorder', 'noDivider',
-    'tooltipPlacement', 'popoverPlacement',
+    'tooltipPlacement', 'popoverPlacement', 'menuScrollable',
     ...omitted])
 }
 

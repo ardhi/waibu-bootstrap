@@ -4,6 +4,7 @@ const dropdownItem = {
   selector: `.dropdown-divider, .${cls}`,
   handler: async function (params = {}) {
     this._normalizeAttr(params, { tag: 'a' })
+    if (this.$(params.html).children().length === 0 && !params.attr.href) params.attr.href = '#'
     if (params.attr.divider) {
       params.tag = 'hr'
       params.attr.class.push('dropdown-divider')

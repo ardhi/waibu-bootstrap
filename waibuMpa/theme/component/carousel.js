@@ -31,7 +31,7 @@ const carousel = {
       }
       params.html = `<div class="${cls}-indicators">${btns.join(' ')}</div>\n${params.html}`
     }
-    if (params.attr.navigation) {
+    if (!params.attr.noNavigation) {
       const btns = []
       const dirs = { prev: 'Previous', next: 'Next' }
       for (const dir in dirs) {

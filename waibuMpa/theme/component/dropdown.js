@@ -27,7 +27,7 @@ export async function buildMenu (params = {}) {
     style += `overflow:hidden;overflow-y:auto;max-height:calc(100vh - ${minHeight});`
   }
   return await this.buildTag({
-    tag: isString(params.attr.menuTag) ? params.attr.menuTag : 'ul',
+    tag: isString(params.attr.menuTag) ? params.attr.menuTag : 'div',
     attr: {
       class: [
         'dropdown-menu',

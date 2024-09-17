@@ -100,12 +100,13 @@ async function _afterBuildTag (tag, params) {
   }
   params.attr = omit(params.attr, ['color', 'noDismiss', 'size', 'split', 'ordered',
     'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
-    'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
+    'showOnStart', 'autoPlay', 'fade', 'indicator', 'noNavigation', 'noTouch', 'alwaysOpen',
     'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'menuTag', 'scrollable',
     'inline', 'reverse', 'datalist', 'unstyled', 'hover', 'horizontal', 'trigger',
     'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'dismiss',
     'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark', 'noBorder', 'noDivider',
     'tooltipPlacement', 'popoverPlacement', 'menuScrollable', 'content', 'badge',
+    'description',
     ...omitted])
 }
 

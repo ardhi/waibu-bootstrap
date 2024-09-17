@@ -8,10 +8,11 @@ const carouselItem = {
     if (isString(params.attr.caption)) {
       const captions = ['<div class="carousel-caption d-none d-md-block">']
       captions.push(`<h5>${params.attr.caption}</h5>`)
-      if (isString(params.attr.captionsInfo)) captions.push(`<p>${params.attr.captionInfo}</p>`)
+      if (isString(params.attr.description)) captions.push(`<p>${params.attr.description}</p>`)
       captions.push('</div>')
       params.html += `\n${captions.join('\n')}`
     }
+    delete params.attr.caption
   }
 }
 

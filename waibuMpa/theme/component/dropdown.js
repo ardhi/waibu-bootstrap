@@ -59,7 +59,7 @@ const dropdown = {
         dataBsToggle: 'dropdown',
         ariaExpanded: false
       }),
-      html: params.attr.split ? '<span class="visually-hidden">Toggle Dropdown</span>' : (params.attr.label ?? '')
+      html: params.attr.split ? '<span class="visually-hidden">Toggle Dropdown</span>' : params.attr.content
     }
     if (params.attr.offset) btnParams.attr['data-bs-offset'] = params.attr.offset
     if (params.attr.autoClose && autoCloses.includes(params.attr.autoClose)) btnParams.attr.dataBsAutoClose = params.attr.autoClose
@@ -67,7 +67,7 @@ const dropdown = {
       btnParams.attr.class.push('dropdown-toggle-split')
       const buttonParams = cloneDeep(btnParams)
       buttonParams.attr = omit(buttonParams.attr, ['class', 'dataBsToggle', 'ariaExpanded', 'dataBsAutoClose', 'dataBsOffset'])
-      buttonParams.html = params.attr.label ?? ''
+      buttonParams.html = params.attr.content
       button = await this.buildTag(merge(buttonParams, {
         tag: 'btn',
         reply: params.reply,

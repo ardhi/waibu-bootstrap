@@ -17,6 +17,7 @@ import active from './_after-build-tag/active.js'
 import popover from './_after-build-tag/popover.js'
 import tooltip from './_after-build-tag/tooltip.js'
 import label from './_after-build-tag/label.js'
+import gutter from './_after-build-tag/gutter.js'
 
 const styles = [
   { key: 'visible' },
@@ -48,7 +49,8 @@ const styles = [
   { key: 'position', handler: position },
   { key: 'dim', handler: dim },
   { key: 'margin', handler: marginPadding },
-  { key: 'padding', handler: marginPadding }
+  { key: 'padding', handler: marginPadding },
+  { key: 'gutter', handler: gutter }
 ]
 
 async function _afterBuildTag (tag, params) {
@@ -100,10 +102,10 @@ async function _afterBuildTag (tag, params) {
     'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'navigation', 'noTouch', 'alwaysOpen',
     'toggle', 'toggleAll', 'divider', 'header', 'menuOnly', 'menuTag', 'scrollable',
-    'inline', 'reverse', 'datalist', 'inline', 'actionable', 'horizontal', 'trigger',
+    'inline', 'reverse', 'datalist', 'unstyled', 'hover', 'horizontal', 'trigger',
     'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'dismiss',
     'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark', 'noBorder', 'noDivider',
-    'tooltipPlacement', 'popoverPlacement', 'menuScrollable',
+    'tooltipPlacement', 'popoverPlacement', 'menuScrollable', 'content', 'badge',
     ...omitted])
 }
 

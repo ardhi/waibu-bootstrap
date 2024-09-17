@@ -1,9 +1,18 @@
+import gutter from './_after-build-tag/gutter.js'
+
 async function masonry (params = {}) {
+  const { pick } = this.plugin.app.bajo.lib._
+  const { attribsStringify } = this.plugin.app.waibuMpa
   this._normalizeAttr(params)
   params.noTag = true
-  params.prepend = '<div class="row g-2" data-masonry=\'{ "percentPosition": true }\'>'
+
+  const gparams = { attr: pick(params.attr, ['gutter']) }
+  gparams.attr.class = ['row']
+  gutter.call(this, { params: gparams })
+  delete gparams.attr.gutter
+
+  params.prepend = `<div ${attribsStringify(gparams.attr)} data-masonry='{ "percentPosition": true }'>`
   params.append = '</div>'
-  // params.attr.dataMasonry = '{\"percentPosition\": true }'
   const me = this
   const html = []
   this.$(`<div>${params.html}</div>`).children().each(function () {

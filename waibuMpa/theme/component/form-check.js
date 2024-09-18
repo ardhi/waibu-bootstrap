@@ -5,7 +5,7 @@ export async function build (item, params = {}) {
   const { groupAttrs } = this.plugin.app.waibuMpa
   this._normalizeAttr(params)
 
-  const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
+  const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'], false)
   const contents = []
   attr._.id = params.attr.id ?? this.plugin.app.bajo.generateId()
   if (!isEmpty(attr._.label)) {
@@ -17,7 +17,7 @@ export async function build (item, params = {}) {
   contents.push(await item.call(this, attr))
   if (params.attr.label) contents.push(await buildFormLabel.call(this, attr, undefined, 'form-check-label'))
   if (params.attr.hint) contents.push(await buildFormHint.call(this, attr))
-  if (params.attr.wrapper === 'none') params.noTag = true
+  if (params.attr.noWrapper) params.noTag = true
   else {
     params.attr = attr.wrapper
     params.tag = 'div'

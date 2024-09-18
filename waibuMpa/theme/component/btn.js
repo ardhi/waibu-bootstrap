@@ -21,11 +21,12 @@ const btn = {
       params.attr.tabIndex = -1
       params.attr = omit(params.attr, ['disabled', 'href'])
     }
+    if (params.attr.dismiss === 'drawer') params.attr.dismiss = 'offcanvas'
     if (params.attr.toggle) params.attr.dataBsToggle = 'button'
     if (params.attr.active) params.attr.ariaPressed = true
     if (params.attr.color) params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants: colorVariants, prepend: true }))
     if (params.attr.size) params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
-    if (params.attr.dismiss) params.attr.dataBsDismiss = isString(params.attr.dismiss) ? params.attr.close : 'modal'
+    if (params.attr.dismiss) params.attr.dataBsDismiss = isString(params.attr.dismiss) ? params.attr.dismiss : 'modal'
     if (isString(params.attr.open)) {
       const [id, toggle = 'modal'] = params.attr.open.split(':')
       params.attr.dataBsTarget = `#${id}`

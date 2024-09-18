@@ -27,12 +27,21 @@ const navItem = {
     const $ = this.$
     const items = []
     $(`<div>${params.dropdownMenu}</div>`).children().each(function () {
+      /*
       const children = $(this).children()
       if (children.length > 0) {
-        children.each(function () {
-          items.push($(this).parent().html())
-        })
+        if ($(this).find('i').length === 0) {
+          children.each(function () {
+            items.push($(this).parent().html())
+          })
+        } else {
+          children.each(function () {
+            items.push($(this).html())
+          })
+        }
       } else items.push($(this).prop('outerHTML'))
+      */
+      items.push($(this).prop('outerHTML'))
     })
     const menu = await buildMenu.call(this, { attr: params.dropdown, html: items.join('\n') })
     return `${params.result}${menu}`

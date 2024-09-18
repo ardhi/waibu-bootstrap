@@ -47,9 +47,7 @@ export async function handleInput ({ handler, attr, params } = {}) {
   }
   const contents = []
   if (!isLabelFloating && isLabel) contents.push(await buildFormLabel.call(this, attr))
-  if (result.prepend.length === 0 && result.append.length === 0) {
-    contents.push(result.input)
-  } else if (isLabelFloating) {
+  if (isLabelFloating) {
     pull(attr.wrapper.class, 'form-floating')
     attr.wrapper.class.push('input-group')
     if (attr._.size && sizes.includes(attr._.size)) attr.wrapper.class.push(`input-group-${attr._.size}`)
@@ -57,7 +55,7 @@ export async function handleInput ({ handler, attr, params } = {}) {
     const html = []
     const label = await buildFormLabel.call(this, attr)
     if (result.prepend.length > 0) html.push(result.prepend.join('\n'))
-    html.push(await this._render('div', { params: { attr: _attr, html: `${result.input}\n${label}` } }))
+    html.push(await this._render({ tag: 'div', attr: _attr, html: `${result.input}\n${label}` }))
     if (result.append.length > 0) html.push(result.append.join('\n'))
     contents.push(html.join('\n'))
   } else {
@@ -81,18 +79,20 @@ export async function build (handler, params = {}) {
     params.attr.ariaLabel = params.attr.placeholder ?? params.req.t('Search')
   }
 
-  const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'])
-  const contents = await handleInput.call(this, { handler, params, attr })
+  const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'], false)
   let datalist
 
   if (attr._.datalist && !['password', 'file', 'checkbox', 'radio'].includes(attr._.type)) {
     datalist = attr._.datalist
     attr._.list = generateId()
+  }
+  const contents = await handleInput.call(this, { handler, params, attr })
+  if (datalist) {
     const args = { tag: 'datalist', attr: { id: attr._.list, options: datalist }, html: '', reply: params.reply, req: params.req }
     const cmp = await this.buildTag(args)
     contents.push(cmp)
   }
-  if (params.attr.wrapper === 'none') params.noTag = true
+  if (params.attr.noWrapper) params.noTag = true
   else {
     params.attr = attr.wrapper
     params.tag = 'div'

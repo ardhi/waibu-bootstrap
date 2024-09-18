@@ -1,6 +1,6 @@
 export function buildCol () {
   const width = { auto: '-auto' }
-  for (let i = 1; i < 12; i++) width[i] = `-${i}`
+  for (let i = 1; i <= 12; i++) width[i] = `-${i}`
   return width
 }
 const cls = 'row'

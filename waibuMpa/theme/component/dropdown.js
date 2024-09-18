@@ -12,7 +12,7 @@ export async function buildMenu (params = {}) {
   if (params.attr.menuTag) {
     const items = []
     $(`<div>${params.html}</div>`).children().each(function () {
-      const children = $(this).children()
+      const children = $(this).children('form,div,p')
       if (children.length > 0) {
         children.each(function () {
           items.push($(this).parent().html())
@@ -22,8 +22,8 @@ export async function buildMenu (params = {}) {
     menuHtml = items.join('\n')
   }
   let style = params.attr.menuOnly ? 'display:block;' : ''
-  if (params.attr.menuScrollable) {
-    const minHeight = isString(params.attr.menuScrollable) ? numUnit(params.attr.menuScrollable, 'px') : '80px'
+  if (params.attr.menuScroll) {
+    const minHeight = isString(params.attr.menuScroll) ? numUnit(params.attr.menuScroll, 'px') : '80px'
     style += `overflow:hidden;overflow-y:auto;max-height:calc(100vh - ${minHeight});`
   }
   return await this.buildTag({

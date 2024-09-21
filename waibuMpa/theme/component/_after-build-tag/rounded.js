@@ -3,6 +3,10 @@ const types = ['circle', 'pill', ...aligns]
 
 function rounded ({ key, params }) {
   const { uniq } = this.plugin.app.bajo.lib._
+  if (params.attr.rounded === true) {
+    params.attr.class.push('rounded')
+    return
+  }
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   let hasType
   for (const attr of attrs) {

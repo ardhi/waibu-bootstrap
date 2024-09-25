@@ -6,7 +6,7 @@ const type = {
   dir: dirs,
   'justify-content': justifyContents,
   'align-content': justifyContents,
-  'align-item': alignItems,
+  'align-items': alignItems,
   'align-self': alignItems,
   grow: grows,
   shrink: grows,
@@ -42,7 +42,7 @@ function flex ({ key, params }) {
         case 'shrink':
         case 'dir':
         case 'order':
-        case 'align-item':
+        case 'align-items':
         case 'align-self':
         case 'align-content':
         case 'justify-content': {

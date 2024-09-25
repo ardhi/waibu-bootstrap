@@ -2,7 +2,7 @@ import { buildFormHint, buildFormLabel, buildFormInput } from './_lib.js'
 import { sizes } from './_after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, attr, params } = {}) {
-  const { trim, filter, has, omit, pull, find } = this.plugin.app.bajo.lib._
+  const { trim, filter, has, omit, pull, find, get } = this.plugin.app.bajo.lib._
   const { attrToArray } = this.plugin.app.waibuMpa
   const me = this
   const addons = []
@@ -21,7 +21,16 @@ export async function handleInput ({ handler, attr, params } = {}) {
   const result = {
     prepend: [],
     append: [],
-    input: await handler.call(this, attr, params.html)
+    input: await handler.call(this, attr, params)
+  }
+  if (attr._.name) {
+    const details = get(params, 'locals.error.details', [])
+    const err = find(details, { field: attr._.name })
+    if (err) {
+      const ext = err.ext ?? {}
+      result.input = this.$(result.input).addClass('is-invalid').prop('outerHTML')
+      result.input += `\n<div class="invalid-feedback">${params.req.t(ext.type ? `validation.${ext.type}` : err.error, ext.context)}</div>`
+    }
   }
   const el = {
     prepend: filter(addons, { position: 'prepend' }),
@@ -75,6 +84,7 @@ export async function build (handler, params = {}) {
   const { generateId } = this.plugin.app.bajo
   const { groupAttrs } = this.plugin.app.waibuMpa
   this._normalizeAttr(params, { autoId: true, type: params.attr.type ?? 'text' })
+  if (!params.attr.label && params.attr.name) params.attr.label = params.req.t(`field.${params.attr.name}`)
   if (params.attr.type === 'search') {
     params.attr.ariaLabel = params.attr.placeholder ?? params.req.t('Search')
   }

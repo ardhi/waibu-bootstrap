@@ -13,11 +13,12 @@ const toast = {
       if (!params.attr.noDismiss) header.push(await this.buildTag({ tag: 'btnClose', attr: { close: cls }, req: params.req }))
       header.push('</div>')
     }
-    const html = [header.join('\n'), `<div class="toast-body">${params.html}`]
+    const html = [header.join('\n'), `<div class="toast-body">${params.html}</div>`]
     if (header.length === 0 && !params.attr.noDismiss) {
-      html.push(await this.buildTag({ tag: 'btnClose', attr: { close: cls }, req: params.req }))
+      html.push(await this.buildTag({ tag: 'btnClose', attr: { close: cls, margin: 'all-auto end-2' }, req: params.req }))
+      html.unshift('<div class="d-flex justify-content-between">')
+      html.push('</div>')
     }
-    html.push('</div>')
     params.html = html.join('\n')
     params.attr = omit(params.attr, ['title', 'caption'])
   }

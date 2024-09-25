@@ -1,10 +1,10 @@
 import { buildFormHint, buildFormLabel, buildFormCheck } from './_lib.js'
 
-export async function build (item, params = {}) {
+export async function build (handler, params = {}) {
   const { isEmpty } = this.plugin.app.bajo.lib._
   const { groupAttrs } = this.plugin.app.waibuMpa
   this._normalizeAttr(params)
-
+  if (!params.attr.label && params.attr.name) params.attr.label = params.req.t(`field.${params.attr.name}`)
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'], false)
   const contents = []
   attr._.id = params.attr.id ?? this.plugin.app.bajo.generateId()
@@ -14,7 +14,7 @@ export async function build (item, params = {}) {
     else if (attr.wrapper.reverse) attr.wrapper.class.push('form-check-reverse')
   }
 
-  contents.push(await item.call(this, attr))
+  contents.push(await handler.call(this, attr, params))
   if (params.attr.label) contents.push(await buildFormLabel.call(this, attr, undefined, 'form-check-label'))
   if (params.attr.hint) contents.push(await buildFormHint.call(this, attr))
   if (params.attr.noWrapper) params.noTag = true

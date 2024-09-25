@@ -22,76 +22,77 @@ export async function buildFormLabel (attr, tag, cls) {
   return await this._render({ tag: tag ?? 'label', attr: attr.label, html: attr._.label })
 }
 
-export async function buildFormInput (attr, html, tag) {
-  return await this._render({ tag: tag ?? 'input', attr: getInputAttr.call(this, attr), selfClosing: true })
+export async function buildFormInput (attr, params) {
+  return await this._render({ tag: 'input', attr: getInputAttr.call(this, attr), selfClosing: true })
 }
 
-export async function buildFormCheck (attr, html, tag) {
+export async function buildFormCheck (attr, params) {
   const _attr = getInputAttr.call(this, attr, false)
   _attr.type = 'checkbox'
   _attr.class.push('form-check-input')
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormSwitch (attr, html, tag) {
+export async function buildFormSwitch (attr, params) {
   const _attr = getInputAttr.call(this, attr, false)
   _attr.type = 'checkbox'
   _attr.class.push('form-check-input')
   _attr.role = 'switch'
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormRadio (attr, html, tag) {
+export async function buildFormRadio (attr, params) {
   const _attr = getInputAttr.call(this, attr, false)
   _attr.type = 'radio'
   _attr.class.push('form-check-input')
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormCheckToggle (attr, html, tag) {
+export async function buildFormCheckToggle (attr, params) {
   const _attr = getInputAttr.call(this, attr, false)
   _attr.type = 'checkbox'
   _attr.autocomplete = 'off'
   _attr.class.push('btn-check')
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormRadioToggle (attr, html, tag) {
+export async function buildFormRadioToggle (attr, params) {
   const _attr = getInputAttr.call(this, attr, false)
   _attr.type = 'radio'
   _attr.autocomplete = 'off'
   _attr.class.push('btn-check')
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormPlaintext (attr, html, tag) {
+export async function buildFormPlaintext (attr, params) {
   const _attr = getInputAttr.call(this, attr, false)
   _attr.class.push('form-control-plaintext')
   _attr.readonly = ''
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormColor (attr, html, tag) {
+export async function buildFormColor (attr, params) {
   const _attr = getInputAttr.call(this, attr)
   _attr.class.push('form-control-color')
   _attr.type = 'color'
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormFile (attr, html, tag) {
+export async function buildFormFile (attr, params) {
   const _attr = getInputAttr.call(this, attr)
   _attr.type = 'file'
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }
 
-export async function buildFormTextarea (attr, html, tag) {
-  return await this._render({ tag: tag ?? 'textarea', attr: getInputAttr.call(this, attr), html })
+export async function buildFormTextarea (attr, params) {
+  return await this._render({ tag: 'textarea', attr: getInputAttr.call(this, attr), html: params.html })
 }
 
-export async function buildFormSelect (attr, html, tag) {
+export async function buildFormSelect (attr, params) {
   const { omit, trim } = this.plugin.app.bajo.lib._
   attr._.class.push('form-select')
   const _attr = omit(attr._, ['hint', 'label', 'wrapper'])
+  let html = params.html
   if (sizes.includes(_attr.size)) _attr.class.push(`form-select-${_attr.size}`)
   if (attr._.options) html = this._buildOptions({ attr: _attr, html: '' })
   else {
@@ -103,12 +104,12 @@ export async function buildFormSelect (attr, html, tag) {
     html = items.join('\n')
   }
   attr._ = omit(attr._, ['size', 'type'])
-  return await this._render({ tag: tag ?? 'select', attr: _attr, html })
+  return await this._render({ tag: 'select', attr: _attr, html })
 }
 
-export async function buildFormRange (attr, html, tag) {
+export async function buildFormRange (attr, params) {
   const _attr = getInputAttr.call(this, attr, false)
   _attr.type = 'range'
   _attr.class.push('form-range')
-  return await this._render({ tag: tag ?? 'input', attr: _attr, selfClosing: true })
+  return await this._render({ tag: 'input', attr: _attr, selfClosing: true })
 }

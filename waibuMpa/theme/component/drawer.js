@@ -4,7 +4,7 @@ const cls = 'offcanvas'
 const drawer = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isString, merge, pick, omit } = this.plugin.app.bajo.lib._
+    const { isString, omit } = this.plugin.app.bajo.lib._
     const { groupAttrs } = this.plugin.app.waibuMpa
     this._normalizeAttr(params, { tag: 'div', autoId: true, tabIndex: -1 })
     const attr = groupAttrs(params.attr, ['launch'])
@@ -19,18 +19,18 @@ const drawer = {
     if (isString(params.attr.title) || !params.attr.noDismiss) {
       header.push('<div class="offcanvas-header">')
       if (isString(params.attr.title)) header.push(`<h5 class="offcanvas-title"${isString(params.attr.idLabel) ? ` id="${params.attr.idLabel}"` : ''}>${params.attr.title}</h5>`)
-      if (!params.attr.noDismiss) header.push(await this.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'offcanvas' }, req: params.req, reply: params.reply }))
+      if (!params.attr.noDismiss) header.push(await this.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'offcanvas' } }))
       header.push('</div>')
     }
     params.html = `${header.join('\n')}<div class="offcanvas-body">${params.html}</div>`
     if (isString(params.attr.launch)) {
       attr.launch.open = `${params.attr.id}:offcanvas`
       if (params.attr.responsive) attr.launch.display = `type:none-${params.attr.responsive}`
-      const btnParams = merge({}, pick(params, ['req', 'reply']), {
+      const btnParams = {
         tag: 'btn',
         attr: attr.launch,
         html: attr._.launch
-      })
+      }
       params.prepend = await this.buildTag(btnParams)
     }
     params.attr = omit(params.attr, ['title'])

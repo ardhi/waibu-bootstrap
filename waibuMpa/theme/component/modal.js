@@ -6,7 +6,7 @@ const fullscreens = breakpoints.map(b => `${b}-down`)
 const modal = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isString, merge, pick, omit } = this.plugin.app.bajo.lib._
+    const { isString, merge, omit } = this.plugin.app.bajo.lib._
     const { groupAttrs } = this.plugin.app.waibuMpa
     this._normalizeAttr(params, { tag: 'div', cls, autoId: true, tabIndex: -1, ariaHidden: 'true' })
     const attr = groupAttrs(params.attr, ['launch'])
@@ -20,7 +20,7 @@ const modal = {
       const items = ['<div class="modal-header">', '<h1 class="modal-title fs-5">']
       items.push(params.attr.title)
       items.push('</h1>')
-      if (!params.attr.noDismiss) items.push(await this.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'modal' }, req: params.req, reply: params.reply }))
+      if (!params.attr.noDismiss) items.push(await this.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'modal' } }))
       items.push('</div>')
       params.html = items.join('\n') + '\n' + params.html
     }
@@ -34,11 +34,11 @@ const modal = {
       `${params.attr.centered ? ' modal-dialog-centered' : ''} ${fullscreen}">` +
       `<div class="modal-content">${params.html}</div></div>`
     if (attr.launch) {
-      const btnParams = merge({}, pick(params, ['req', 'reply']), {
+      const btnParams = {
         tag: 'btn',
         attr: merge(attr.launch, { open: `${params.attr.id}:modal` }),
         html: attr._.launch
-      })
+      }
       params.prepend = await this.buildTag(btnParams)
     }
     params.attr = omit(params.attr, ['title', 'fullscreen'])

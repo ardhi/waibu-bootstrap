@@ -4,7 +4,7 @@ export async function build (handler, params = {}) {
   const { isEmpty } = this.plugin.app.bajo.lib._
   const { groupAttrs } = this.plugin.app.waibuMpa
   this._normalizeAttr(params)
-  if (!params.attr.label && params.attr.name) params.attr.label = params.req.t(`field.${params.attr.name}`)
+  if (!params.attr.label && params.attr.name) params.attr.label = this.req.t(`field.${params.attr.name}`)
   const attr = groupAttrs(params.attr, ['label', 'hint', 'wrapper'], false)
   const contents = []
   attr._.id = params.attr.id ?? this.plugin.app.bajo.generateId()

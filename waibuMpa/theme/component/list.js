@@ -41,7 +41,9 @@ const list = {
         if (params.attr.hover) {
           if (params.attr.type === 'group') this.attribs.class += ' list-group-item-action'
           const attrs = attribsStringify(this.attribs)
-          html.push(`<a href="#" ${attrs}>${me.$(this).html()}</a>`)
+          const item = me.$(this).html()
+          if ((me.$(item)[0] ?? {}).name === 'a') html.push(me.$(item).addClass(this.attribs.class).prop('outerHTML'))
+          else html.push(`<a href="#" ${attrs}>${me.$(this).html()}</a>`)
         }
       }).parent().html()
       if (html.length > 0) params.html = html.join('\n')

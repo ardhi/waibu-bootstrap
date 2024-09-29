@@ -35,9 +35,9 @@ const navbar = {
       const id = generateId()
       if (params.group.drawer) params.group.drawer.id = id
       const btn = `<button class="navbar-toggler" type="button" data-bs-toggle="${type}" ` +
-        `data-bs-target="#${id}" aria-controls="${id}"${params.attr.drawer ? '' : ' aria-expanded="false"'} aria-label="${params.req.t('Toggle Navigation')}">` +
+        `data-bs-target="#${id}" aria-controls="${id}"${params.attr.drawer ? '' : ' aria-expanded="false"'} aria-label="${this.req.t('Toggle Navigation')}">` +
         '<span class="navbar-toggler-icon"></span></button>'
-      if (type === 'offcanvas') html = await this.buildTag({ tag: 'drawer', attr: params.group.drawer, html, req: params.req, reply: params.reply })
+      if (type === 'offcanvas') html = await this.buildTag({ tag: 'drawer', attr: params.group.drawer, html })
       else html = `<div class="collapse navbar-collapse justify-content-between" id="${id}">${html}</div>`
       params.html = `${brand}${btn}${html}`
     } else {

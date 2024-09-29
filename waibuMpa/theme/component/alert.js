@@ -6,7 +6,6 @@ const alert = {
   selector: '.' + cls,
   handler: async function (params = {}) {
     const { isEmpty, without } = this.plugin.app.bajo.lib._
-    const { req, reply } = params
     const myColors = without(colors, 'link')
     this._normalizeAttr(params, { cls, tag: 'div', role: 'alert' })
     if (params.attr.color) params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: myColors, prepend: true }))
@@ -19,7 +18,7 @@ const alert = {
     if (params.attr.dismiss) {
       params.attr.class.push('alert-dismissible', 'fade', 'show')
       const attr = { 'data-bs-dismiss': 'alert' }
-      params.html += await this.buildTag({ tag: 'btnClose', attr, req, reply })
+      params.html += await this.buildTag({ tag: 'btnClose', attr })
     }
   }
 }

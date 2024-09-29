@@ -15,7 +15,7 @@ const navItem = {
       params.attr.ariaExpanded = 'false'
       params.dropdownMenu = params.html
       params.dropdown = group.dropdown
-      params.html = params.attr.content ?? params.req.t('Dropdown')
+      params.html = params.attr.content ?? this.req.t('Dropdown')
     }
     params.prepend = `<li class="${cls}${group.dropdown ? ' dropdown' : ''}">`
     params.append = '</li>'

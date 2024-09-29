@@ -7,7 +7,7 @@ const paginationItem = {
     const attr = { class: 'page-link', href: params.attr.href ?? '#' }
     const tag = params.attr.active || params.attr.disabled ? 'span' : 'a'
     if (params.attr.active || params.attr.disabled) delete attr.href
-    params.html = await this._render({ tag, attr, html: params.html, req: params.req, reply: params.reply })
+    params.html = await this._render({ tag, attr, html: params.html })
     if (params.attr.active) params.attr.active = 'page'
   }
 }

@@ -32,11 +32,11 @@ async function collapse (params = {}) {
   }
   if (params.attr.toggleAll) {
     const attr = collectAttr.call(this, params)
-    params.html.push(await this.buildTag({ tag: 'btn', attr, html: params.req.t('Toggle All') }))
+    params.html.push(await this.buildTag({ tag: 'btn', attr, html: this.req.t('Toggle All') }))
   }
   params.html = params.html.join('\n')
   if (params.attr.group) {
-    params.attr.label = !isString(params.attr.group) ? params.req.t('Collapse') : params.attr.group
+    params.attr.label = !isString(params.attr.group) ? this.req.t('Collapse') : params.attr.group
     params.html = await this.buildTag(merge({}, params, { tag: 'btnGroup' }))
     params.noTag = true
   }

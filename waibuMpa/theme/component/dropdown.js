@@ -65,22 +65,16 @@ const dropdown = {
     if (params.attr.autoClose && autoCloses.includes(params.attr.autoClose)) btnParams.attr.dataBsAutoClose = params.attr.autoClose
     if (params.attr.split) {
       btnParams.attr.class.push('dropdown-toggle-split')
-      const buttonParams = cloneDeep(btnParams)
-      buttonParams.attr = omit(buttonParams.attr, ['class', 'dataBsToggle', 'ariaExpanded', 'dataBsAutoClose', 'dataBsOffset'])
-      buttonParams.html = params.attr.content
-      button = await this.buildTag(merge(buttonParams, {
-        tag: 'btn',
-        reply: params.reply,
-        req: params.req
-      }))
+      const splitParams = cloneDeep(btnParams)
+      splitParams.tag = 'btn'
+      splitParams.attr = omit(splitParams.attr, ['class', 'dataBsToggle', 'ariaExpanded', 'dataBsAutoClose', 'dataBsOffset'])
+      splitParams.html = params.attr.content
+      button = await this.buildTag(splitParams)
       // xcls.shift()
       params.attr.class = ['btn-group', ...xcls]
     }
-    const btn = await this.buildTag(merge(btnParams, {
-      tag: 'btn',
-      reply: params.reply,
-      req: params.req
-    }))
+    btnParams.tag = 'btn'
+    const btn = await this.buildTag(btnParams)
     const menu = await buildMenu.call(this, params)
     if (params.attr.menuOnly) {
       params.html = menu

@@ -9,3 +9,15 @@ const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
 toastList.forEach(toast => toast.show())
 // extra scripts
 hljs.highlightAll()
+
+function invalidateForm (evt) { // eslint-disable-line no-unused-vars
+  const items = document.querySelectorAll('form .is-invalid')
+  items.forEach(item => {
+    item.classList.remove('is-invalid')
+  })
+  const feedback = document.querySelectorAll('form .invalid-feedback')
+  feedback.forEach(item => {
+    item.remove()
+  })
+  evt.target.remove()
+}

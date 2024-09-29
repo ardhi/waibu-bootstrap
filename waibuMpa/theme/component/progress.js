@@ -11,7 +11,7 @@ const progress = {
     this._normalizeAttr(params, { tag: 'div', cls, role: 'progressbar', ariaValuenow: value, ariaValuemin: min, ariaValuemax: max })
     if (isString(params.attr.height)) params.attr.style = { height: numUnit(params.attr.height, 'px') }
     let html = ''
-    if (isString(params.attr.label)) html = params.req.t(params.attr.label, value)
+    if (isString(params.attr.label)) html = this.req.t(params.attr.label, value)
     else if (params.attr.label === true) html = `${value}%`
     const attr = {
       text: params.attr.text,

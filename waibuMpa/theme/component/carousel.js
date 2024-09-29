@@ -37,7 +37,7 @@ const carousel = {
       for (const dir in dirs) {
         btns.push(`<button class="${cls}-control-${dir}" type="button" data-bs-target="#${params.attr.id}" data-bs-slide="${dir}">`)
         btns.push(`<span class="${cls}-control-${dir}-icon" aria-hidden="true"></span>`)
-        btns.push(`<span class="visually-hidden">${params.req.t(dirs[dir])}</span></button>`)
+        btns.push(`<span class="visually-hidden">${this.req.t(dirs[dir])}</span></button>`)
       }
       params.html += '\n' + btns.join('\n')
     }

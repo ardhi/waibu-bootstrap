@@ -33,6 +33,7 @@ const btn = {
       params.attr.dataBsToggle = toggle
       params.attr.ariaControls = id
     }
+    if (params.html.includes('<i class="') && params.attr.href) params.attr.class.push('icon-link')
   }
 }
 

@@ -7,7 +7,7 @@ const spinner = {
     const cls = `spinner-${type}`
     this._normalizeAttr(params, { tag: 'div', cls, role: 'status' })
     if (params.attr.size) params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
-    params.html = `<span class="visually-hidden">${params.req.t('Loading...')}</span>`
+    params.html = `<span class="visually-hidden">${this.req.t('Loading...')}</span>`
   }
 }
 

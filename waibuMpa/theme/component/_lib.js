@@ -32,9 +32,11 @@ export async function buildFormInput (group, params) {
 }
 
 export async function buildFormCheck (group, params) {
+  const { has, get } = this.plugin.app.bajo.lib._
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
+  if (attr.name && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
   return await this._render({ tag: 'input', attr, selfClosing: true })
 }
 

@@ -28,7 +28,7 @@ async function form (params = {}) {
       rBtns.push(await this.buildTag({ tag: 'btn', attr, html }))
     }
     if (params.attr.resetValidation && this.locals.error) {
-      const attr = { href: '#', size: 'sm', 'x-data': true, '@click': 'invalidateForm', icon: 'remove', color: 'link' }
+      const attr = { href: '#', size: 'sm', 'x-data': true, '@click': 'wbs.invalidateForm', icon: 'remove', color: 'link' }
       lBtns.push(await this.buildTag({ tag: 'btn', attr, html: this.req.t('Clear') }))
     }
     params.html += `<div class="d-flex justify-content-between my-3 ms-1 me-3"><div>${lBtns.join('\n')}</div><div>${rBtns.join('\n')}</div></div>`

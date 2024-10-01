@@ -1,12 +1,11 @@
 async function theme (ctx) {
   const css = [
     'waibuBootstrap.virtual:/bootstrap/css/bootstrap.min.css',
-    '$waibuBootstrap.asset:/css/extra.css'
+    '$waibuBootstrap.asset:/css/wbs.css'
   ]
   const scripts = [
     'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js',
-    '$waibuMpa.asset:/js/mpa.js',
-    '$waibuBootstrap.asset:/js/extra.js'
+    '$waibuBootstrap.asset:/js/wbs.js'
   ]
   const meta = [{
     name: 'viewport',

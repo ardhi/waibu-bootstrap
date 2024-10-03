@@ -7,8 +7,9 @@ function setStrip (params) {
 }
 
 function setResponsive (params) {
+  const { isString } = this.plugin.app.bajo.lib._
   let xcls = `${cls}-responsive`
-  if (params.attr.responsive) xcls += '-' + params.attr.responsive
+  if (isString(params.attr.responsive)) xcls += '-' + params.attr.responsive
   params.prepend = `<div class="${xcls}">`
   params.append = '</div>'
 }

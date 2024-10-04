@@ -105,7 +105,7 @@ async function _afterBuildTag (tag, params) {
     'inline', 'reverse', 'datalist', 'unstyled', 'hover', 'horizontal', 'launch', 'icon',
     'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'dismiss', 'iconEnd',
     'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark', 'noBorder', 'noDivider',
-    'tooltipPlacement', 'popoverPlacement', 'menuScroll', 'content', 'badge',
+    'tooltipPlacement', 'popoverPlacement', 'menuScroll', 'content', 'badge', 'noLabel',
     'description', 'wrapper', 'noWrapper', 'responsive', 'thumbnail', 'noLabel',
     ...omitted])
 }

@@ -5,6 +5,7 @@ async function theme (ctx) {
   ]
   const scripts = [
     'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js',
+    'bajo.virtual:/lodash/lodash.min.js',
     '$waibuBootstrap.asset:/js/wbs.js'
   ]
   const meta = [{

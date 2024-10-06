@@ -1,4 +1,4 @@
-/* global bootstrap, wmpa */
+/* global bootstrap, wmpa, _ */
 
 class Wbs {
   constructor () {
@@ -23,7 +23,7 @@ class Wbs {
   }
 
   async notify (msg, { title, caption, color = 'info' } = {}) {
-    const id = wmpa.generateId()
+    const id = wmpa.randomId()
     let body = `<c:toast id="${id}" t:content="${msg}" background="color:${color}" `
     if (title) body += `title="${title}" `
     if (caption) body += `caption="${caption}" `
@@ -56,21 +56,21 @@ class Wbs {
   }
 
   async confirmation (msg, handler, opts = {}) {
-    if (wmpa.isPlainObject(handler)) {
+    if (_.isPlainObject(handler)) {
       opts = handler
       handler = undefined
     }
     opts.icon = 'signQuestion'
     opts.buttons = [
       { label: 'Cancel', color: 'secondary', dismiss: true },
-      { label: 'OK', color: 'primary', dismiss: !opts.okHandler, handler: opts.okHandler }
+      { label: 'OK', color: 'primary', dismiss: !opts.ok, handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
     ]
     await this.alert(msg, opts.title ?? 'Confirmation', opts)
   }
 
   async alert (msg, title, opts = {}) {
-    const id = wmpa.generateId()
-    if (wmpa.isPlainObject(title)) {
+    const id = wmpa.randomId()
+    if (_.isPlainObject(title)) {
       opts = title
       title = undefined
     }
@@ -85,7 +85,7 @@ class Wbs {
     buttons = buttons.map(b => {
       let btn = `<c:btn margin="start-2" ${b.id ? `id="${b.id}"` : ''} color="${b.color}" t:content="${b.label}" `
       if (b.dismiss) btn += 'dismiss />'
-      else if (b.handler) btn += `x-data @click="await ${b.handler}('${id}')" />`
+      else if (b.handler) btn += `x-data @click="wbs.dispatchAlert('${b.handler}', '${id}', '${b.handlerOpts ?? ''}', '${b.close ?? ''}')" />`
       else btn += '/>'
       return btn
     })
@@ -102,6 +102,25 @@ class Wbs {
     })
     modal.show()
     return id
+  }
+
+  dispatchAlert (name, id, opts, close) {
+    if (close !== '') {
+      const instance = this.getInstance('Modal', id)
+      instance.hide()
+    }
+    if (name.includes(':')) {
+      const [id, method] = name.split(':')
+      const el = document.getElementById(id)
+      const fn = _.get(el, `_x_dataStack.0.${method}`)
+      if (!fn) console.error(`Component method not found: ${name}`)
+      else if (wmpa.isAsync(fn)) fn(opts).then()
+      else fn(opts)
+      return
+    }
+    const fn = _.get(window, name)
+    if (fn) fn(opts).then()
+    else console.error(`Function not found '${name}'`)
   }
 }
 

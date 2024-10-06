@@ -69,7 +69,7 @@ async function _afterBuildTag (tag, params) {
       omitted.push(key)
       continue
     }
-    if (s.handler) s.handler.call(this, { key, params })
+    if (s.handler) s.handler.call(this, { tag, key, params })
     else if (val.includes('{value}')) {
       if (s.allowEmpty || values.includes(params.attr[key])) {
         if (types.length > 0) {

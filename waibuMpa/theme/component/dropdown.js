@@ -26,7 +26,7 @@ export async function buildMenu (params = {}) {
     const minHeight = isString(params.attr.menuScroll) ? numUnit(params.attr.menuScroll, 'px') : '80px'
     style += `overflow:hidden;overflow-y:auto;max-height:calc(100vh - ${minHeight});`
   }
-  return await this.buildTag({
+  const args = {
     tag: isString(params.attr.menuTag) ? params.attr.menuTag : 'div',
     attr: {
       class: [
@@ -36,20 +36,23 @@ export async function buildMenu (params = {}) {
       style
     },
     html: menuHtml
-  })
+  }
+  if (params.attr.id) args.attr.id = params.attr.id + '-menu'
+  return await this.buildTag(args)
 }
 
 const dropdown = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { pick, merge, isString, cloneDeep, omit } = this.plugin.app.bajo.lib._
+    const { merge, isString, cloneDeep, omit } = this.plugin.app.bajo.lib._
+    const alpinejs = this.plugin.app.waibuAlpinejs
     const tag = isString(params.attr.tag) ? params.attr.tag : 'div'
     this._normalizeAttr(params, { tag })
     const [dir, variant] = (params.attr.dir ?? 'down').split('-')
     const xcls = ['drop' + parseSimple.call(this, { value: dir, values: dirs })]
     if (variants.includes(variant)) xcls.push(`${xcls[0]}-${variant}`)
     params.attr.class.push(...xcls)
-    const attr = pick(params.attr, ['color', 'href', 'tag', 'disabled', 'size'])
+    const attr = cloneDeep(params.attr)
     let button = ''
     if (params.attr.menuOnly) params.attr.menuTag = 'div'
     const btnParams = {
@@ -66,8 +69,10 @@ const dropdown = {
     if (params.attr.split) {
       btnParams.attr.class.push('dropdown-toggle-split')
       const splitParams = cloneDeep(btnParams)
+      if (btnParams.attr.id) btnParams.attr.id += '-split'
       splitParams.tag = 'btn'
       splitParams.attr = omit(splitParams.attr, ['class', 'dataBsToggle', 'ariaExpanded', 'dataBsAutoClose', 'dataBsOffset'])
+      if (alpinejs) btnParams.attr = alpinejs.stripAttrKeys(btnParams.attr)
       splitParams.html = params.attr.content
       button = await this.buildTag(splitParams)
       // xcls.shift()

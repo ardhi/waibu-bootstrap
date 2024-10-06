@@ -2,7 +2,8 @@ import { opacities, widths, colors, parseVariant, parseSimple } from './_lib.js'
 const sides = ['top', 'end', 'bottom', 'start', 'all']
 const variants = ['subtle', 'secondary', 'tertiary']
 
-function border ({ key, params }) {
+function border ({ tag, key, params }) {
+  if (['table'].includes(tag)) return
   const { uniq } = this.plugin.app.bajo.lib._
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const borderColors = ['body', 'black', 'white', ...colors]

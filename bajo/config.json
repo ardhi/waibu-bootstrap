@@ -1,4 +1,4 @@
 {
-  "alias": "wbs",
+  "prefix": "bootstrap",
   "dependencies": ["waibu-mpa", "waibu-extra"]
 }

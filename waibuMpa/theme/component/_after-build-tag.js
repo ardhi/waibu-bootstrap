@@ -56,7 +56,7 @@ const styles = [
 async function _afterBuildTag (tag, params) {
   const { omit, map, isEmpty } = this.plugin.app.bajo.lib._
   const keys = map(styles, 'key')
-  const omitted = []
+  const excluded = []
   params.attr = params.attr ?? {}
   tag = tag ?? params.tag
   if (tag === 'any') tag = params.tag
@@ -66,7 +66,7 @@ async function _afterBuildTag (tag, params) {
     if (!val) val = key
     if (!params.attr[key]) continue
     if (tags.length > 0 && !tags.includes(tag)) {
-      omitted.push(key)
+      excluded.push(key)
       continue
     }
     if (s.handler) s.handler.call(this, { tag, key, params })
@@ -77,7 +77,7 @@ async function _afterBuildTag (tag, params) {
             const k = `${key}-type`
             if (params.attr[k] === v) {
               val = val.replace('{type}', '-' + params.attr[k])
-              omitted.push(k)
+              excluded.push(k)
             }
           }
         }
@@ -88,14 +88,14 @@ async function _afterBuildTag (tag, params) {
       }
     } else params.attr.class.push(val)
     if (s.forceTag) params.tag = s.forceTag
-    omitted.push(key)
+    excluded.push(key)
     for (const k in params.attr) {
-      if (k.startsWith(key)) omitted.push(k)
+      if (k.startsWith(key)) excluded.push(k)
     }
   }
   for (const key in params.attr) {
     for (const k of keys) {
-      if (key.includes(k)) omitted.push(key)
+      if (key.includes(k)) excluded.push(key)
     }
   }
   params.attr = omit(params.attr, ['color', 'noDismiss', 'size', 'split', 'ordered',
@@ -107,7 +107,7 @@ async function _afterBuildTag (tag, params) {
     'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark', 'noBorder', 'noDivider',
     'tooltipPlacement', 'popoverPlacement', 'menuScroll', 'content', 'badge', 'noLabel',
     'description', 'wrapper', 'noWrapper', 'responsive', 'thumbnail', 'noLabel',
-    ...omitted])
+    ...excluded])
 }
 
 export default _afterBuildTag

@@ -11,7 +11,7 @@ async function navSelectorDarkmode (params = {}) {
   for (const s of supportedLngs) {
     html.push(await this.buildTag({
       tag: 'dropdownItem',
-      attr: { href: this._buildUrl({ lang: s }), active: lang === s },
+      attr: { href: this._buildUrl({ params: { lang: s } }), active: lang === s },
       html: this.req.t(camelCase(`lang ${s}`))
     }))
   }

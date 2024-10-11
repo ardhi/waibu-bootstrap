@@ -6,7 +6,6 @@ async function form (params = {}) {
   const { groupAttrs } = this.plugin.app.waibuMpa
   this._normalizeAttr(params, { tag: 'form' })
   if (!params.attr.method) params.attr.method = 'POST'
-  if (!params.attr.action) params.attr.action = this.req.url.split('?')[0].split('#')[0]
   if (params.attr.referer) {
     const referer = `<input type="hidden" name="referer" value="${this.locals.form.referer ?? ''}" />`
     params.html = `${referer}\n${params.html}`

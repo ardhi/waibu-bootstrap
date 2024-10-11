@@ -1,15 +1,19 @@
 import { sizes } from './_after-build-tag/_lib.js'
 
 function getInputAttr (group, formControl = true) {
-  const { omit, get } = this.plugin.app.bajo.lib._
+  const { omit, get, isPlainObject, isArray } = this.plugin.app.bajo.lib._
+  const { escape } = this.plugin.app.bajo
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
   if (attr.name && !attr.value && this.locals.form) {
-    const valueType = attr.valueType ?? 'auto'
-    attr.value = this.req.format(get(this, `locals.form.${attr.name}`), valueType)
+    attr.dataType = attr.dataType ?? 'auto'
+    const val = get(this, `locals.form.${attr.name}`)
+    const isJson = isPlainObject(val) || isArray(val)
+    attr.dataValue = isJson ? escape(JSON.stringify(val)) : val
+    attr.value = this.req.format(val, attr.dataType)
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
-  return omit(attr, ['size'])
+  return omit(attr, ['size', 'col'])
 }
 
 export async function buildFormHint (group, tag, cls) {

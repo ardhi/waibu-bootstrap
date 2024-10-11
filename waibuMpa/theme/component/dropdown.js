@@ -52,7 +52,7 @@ const dropdown = {
     const xcls = ['drop' + parseSimple.call(this, { value: dir, values: dirs })]
     if (variants.includes(variant)) xcls.push(`${xcls[0]}-${variant}`)
     params.attr.class.push(...xcls)
-    const attr = cloneDeep(params.attr)
+    const attr = cloneDeep(omit(params.attr, ['margin', 'padding']))
     let button = ''
     if (params.attr.menuOnly) params.attr.menuTag = 'div'
     const btnParams = {

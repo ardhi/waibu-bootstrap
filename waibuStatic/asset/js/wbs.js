@@ -18,13 +18,13 @@ class Wbs {
   }
 
   getInstance (type, id) {
-    const el = document.getElementById(id)
+    const el = typeof id === 'string' ? document.getElementById(id) : id
     return bootstrap[type].getOrCreateInstance(el)
   }
 
-  async notify (msg, { title, caption, color = 'info' } = {}) {
+  async notify (msg, { title, caption, type = 'info' } = {}) {
     const id = wmpa.randomId()
-    let body = `<c:toast id="${id}" t:content="${msg}" background="color:${color}" `
+    let body = `<c:toast id="${id}" t:content="${msg}" background="color:${type}" `
     if (title) body += `title="${title}" `
     if (caption) body += `caption="${caption}" `
     body += '/>'

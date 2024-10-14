@@ -3,6 +3,7 @@ const cls = 'accordion-item'
 const accordionItem = {
   selector: '.' + cls,
   handler: async function (params = {}) {
+    const { omit } = this.plugin.app.bajo.lib._
     this._normalizeAttr(params, { tag: 'div', cls, autoId: true })
     const header = ['<h2 class="accordion-header">',
       `<button class="accordion-button${params.attr.showOnStart ? '' : ' collapsed'}"`,
@@ -10,9 +11,9 @@ const accordionItem = {
       `aria-expanded="${params.attr.showOnStart}"`,
       `aria-controls="${params.attr.id}">${params.attr.header}</button></h2>`]
     const details = [`<div id="${params.attr.id}" class="accordion-collapse collapse${params.attr.showOnStart ? ' show' : ''}">`,
-      `<div class="accordion-body">${params.html}</div></div>`]
+      `<div${params.attr.noPadding ? '' : ' class="accordion-body"'}>${params.html}</div></div>`]
     params.html = `${header.join(' ')}\n${details.join(' ')}`
-    delete params.attr.id
+    params.attr = omit(params.attr, ['id', 'noPadding'])
   }
 }
 

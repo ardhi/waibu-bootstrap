@@ -22,7 +22,7 @@ const drawer = {
       if (!params.attr.noDismiss) header.push(await this.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'offcanvas' } }))
       header.push('</div>')
     }
-    params.html = `${header.join('\n')}<div class="offcanvas-body">${params.html}</div>`
+    params.html = `${header.join('\n')}<div${params.attr.noPadding ? '' : ' class="offcanvas-body"'}>${params.html}</div>`
     if (isString(params.attr.launch)) {
       attr.launch.open = `${params.attr.id}:offcanvas`
       if (params.attr.responsive) attr.launch.display = `type:none-${params.attr.responsive}`
@@ -33,7 +33,7 @@ const drawer = {
       }
       params.prepend = await this.buildTag(btnParams)
     }
-    params.attr = omit(params.attr, ['title'])
+    params.attr = omit(params.attr, ['title', 'noPadding'])
   }
 }
 

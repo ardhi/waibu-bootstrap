@@ -39,7 +39,7 @@ const modal = {
         attr: merge(attr.launch, { open: `${params.attr.id}:modal` }),
         html: attr._.launch
       }
-      const pos = attr.launch.end ? 'append' : 'prepend'
+      const pos = attr.launch.onEnd ? 'append' : 'prepend'
       params[pos] = await this.buildTag(btnParams)
     }
     params.attr = omit(params.attr, ['title', 'fullscreen'])

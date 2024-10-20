@@ -1,4 +1,4 @@
-async function navSelectorDarkmode (params = {}) {
+async function navSelectDarkmode (params = {}) {
   const { titleize } = this.plugin.app.bajo
   const { set } = this.plugin.app.bajo.lib._
   const cfgWmpa = this.plugin.app.waibuMpa.config
@@ -17,4 +17,4 @@ async function navSelectorDarkmode (params = {}) {
   params.html = await this.buildTag({ tag: 'navItem', attr, html })
 }
 
-export default navSelectorDarkmode
+export default navSelectDarkmode

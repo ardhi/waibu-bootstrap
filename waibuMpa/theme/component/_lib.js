@@ -10,7 +10,7 @@ function getInputAttr (group, formControl = true) {
     const val = get(this, `locals.form.${attr.name}`)
     const isJson = isPlainObject(val) || isArray(val)
     attr.dataValue = isJson ? escape(JSON.stringify(val)) : val
-    attr.value = this.req.format(val, attr.dataType)
+    attr.value = escape(this.req.format(val, attr.dataType))
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
   return omit(attr, ['size', 'col'])

@@ -12,7 +12,7 @@ function rounded ({ key, params }) {
   for (const attr of attrs) {
     const [item, val] = attr.split(':')
     if (item === 'type') hasType = true
-    for (const value of uniq((val ?? '').split(','))) {
+    for (const value of uniq((val ?? '').split(' '))) {
       switch (item) {
         case 'type': if (types.includes(val)) params.attr.class.push(`rounded${val === 'all' ? '' : ('-' + val)}`); break
         case 'width': params.attr.class.push(parseSimple.call(this, { cls: 'rounded', value, values: widths })); break

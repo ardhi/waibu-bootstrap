@@ -10,7 +10,6 @@ const navbar = {
     const $ = this.$
 
     this._normalizeAttr(params, { tag: 'nav', cls })
-    if (!params.attr.container) params.attr.container = true
     params.group = groupAttrs(params.attr, ['container', 'drawer'])
     params.attr = cloneDeep(params.group._)
     if (params.attr.expandable === true) params.attr.expandable = 'lg'

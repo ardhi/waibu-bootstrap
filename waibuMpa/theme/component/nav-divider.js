@@ -8,7 +8,6 @@ const navDivider = {
       class: ['vr'],
       display: 'type:none type:flex-lg',
       dim: 'height:100',
-      text: 'color:white',
       margin: 'x-2'
     }
     params.html = await this.buildTag({ tag: 'div', attr })

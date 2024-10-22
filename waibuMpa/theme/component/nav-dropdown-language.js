@@ -1,4 +1,4 @@
-async function navSelectLanguage (params = {}) {
+async function navDropdownLanguage (params = {}) {
   const { camelCase } = this.plugin.app.bajo.lib._
   const { supportedLngs } = this.plugin.app.bajoI18N.config
   const lang = this.req.lang
@@ -19,4 +19,4 @@ async function navSelectLanguage (params = {}) {
   params.html = await this.buildTag({ tag: 'navItem', attr, html: html.join('\n') })
 }
 
-export default navSelectLanguage
+export default navDropdownLanguage

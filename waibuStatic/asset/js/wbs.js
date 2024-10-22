@@ -65,7 +65,7 @@ class Wbs {
       { label: 'Cancel', color: 'secondary', dismiss: true },
       { label: 'OK', color: 'primary', dismiss: !opts.ok, handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
     ]
-    await this.alert(msg, opts.title ?? 'Confirmation', opts)
+    return await this.alert(msg, opts.title ?? 'Confirmation', opts)
   }
 
   async alert (msg, title, opts = {}) {

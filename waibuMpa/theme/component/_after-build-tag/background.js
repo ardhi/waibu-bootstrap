@@ -11,7 +11,7 @@ function background ({ key, params }) {
     const [item, val] = attr.split(':')
     if (!val && directs.includes(item)) params.attr.class.push(`bg-${item}`)
     else {
-      for (const value of uniq((val ?? '').split('-'))) {
+      for (const value of uniq((val ?? '').split(' '))) {
         switch (item) {
           case 'dark': params.attr.dataBsTheme = 'dark'; break
           case 'opacity': params.attr.class.push(parseSimple.call(this, { cls: 'bg-opacity', value, values: opacities })); break

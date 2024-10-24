@@ -1,4 +1,4 @@
-import { buildMenu } from './dropdown.js'
+import { buildMenu, autoCloses } from './dropdown.js'
 const cls = 'nav-item'
 
 const navItem = {
@@ -14,9 +14,12 @@ const navItem = {
       params.attr.role = 'button'
       params.attr.dataBsToggle = 'dropdown'
       params.attr.ariaExpanded = 'false'
+      if (group.dropdown.autoClose && autoCloses.includes(group.dropdown.autoClose)) params.attr.dataBsAutoClose = group.dropdown.autoClose
       params.dropdownMenu = params.html
+      // find icon
+      const icon = this.$(`<div>${params.html}</div>`).find('i').prop('outerHTML')
       params.dropdown = group.dropdown
-      params.html = params.attr.content ?? this.req.t('Dropdown')
+      params.html = icon ?? params.attr.content
     }
     if (isString(params.attr.open)) {
       const [id, toggle = 'modal'] = params.attr.open.split(':')
@@ -24,7 +27,7 @@ const navItem = {
       params.attr.dataBsToggle = toggle
       params.attr.ariaControls = id
     }
-    params.prepend = `<li class="${cls}${group.dropdown ? ' dropdown' : ''}">`
+    params.prepend = `<li class="${cls}${group.dropdown ? ' dropdown' : ''}${(group.dropdown ?? {}).dir ? (' drop' + group.dropdown.dir) : ''}">`
     params.append = '</li>'
     delete params.attr.dropdown
   },
@@ -34,7 +37,7 @@ const navItem = {
     const $ = this.$
     const items = []
     $(`<div>${params.dropdownMenu}</div>`).children().each(function () {
-      items.push($(this).prop('outerHTML'))
+      if (this.name !== 'i') items.push($(this).prop('outerHTML'))
     })
     const menu = await buildMenu.call(this, { attr: params.dropdown, html: items.join('\n') })
     return `${params.result}${menu}`

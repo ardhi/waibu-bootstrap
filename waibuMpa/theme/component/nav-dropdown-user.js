@@ -18,7 +18,7 @@ async function navDropdownUser (params = {}) {
     delete attr.dropdownMenu
     attr.href = routePath('sumba:/profile')
   } else {
-    if (this.req.session.user) {
+    if (this.req.user) {
       html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/profile') }, html: this.req.t('Your Profile') }))
       html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/change-password') }, html: this.req.t('Change Password') }))
       html.push(await this.buildTag({ tag: 'dropdownItem', attr: { divider: true } }))

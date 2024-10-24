@@ -2,7 +2,7 @@ import { dirs, breakpoints, parseSimple, parseVariant } from './_after-build-tag
 
 const cls = 'dropdown'
 const variants = ['center']
-const autoCloses = ['true', 'false', 'inside', 'outside']
+export const autoCloses = ['true', 'false', 'inside', 'outside']
 
 export async function buildMenu (params = {}) {
   const { numUnit } = this.plugin.app.bajo

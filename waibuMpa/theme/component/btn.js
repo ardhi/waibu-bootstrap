@@ -27,12 +27,6 @@ const btn = {
     if (params.attr.color) params.attr.class.push(parseVariant.call(this, { cls, value: params.attr.color, values: colors, variants: colorVariants, prepend: true }))
     if (params.attr.size) params.attr.class.push(parseSimple.call(this, { cls, value: params.attr.size, values: sizes }))
     if (params.attr.dismiss) params.attr.dataBsDismiss = isString(params.attr.dismiss) ? params.attr.dismiss : 'modal'
-    if (isString(params.attr.open)) {
-      const [id, toggle = 'modal'] = params.attr.open.split(':')
-      params.attr.dataBsTarget = `#${id}`
-      params.attr.dataBsToggle = toggle
-      params.attr.ariaControls = id
-    }
     if (params.html.includes('<i class="') && params.attr.href) params.attr.class.push('icon-link')
   }
 }

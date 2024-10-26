@@ -15,10 +15,15 @@ async function navDropdownSetting (params = {}) {
     <c:dropdown-item header t:content="Display Mode" />
     <c:dropdown-item href="${this._buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') })}" ${this.req.darkMode ? '' : 'active'} t:content="Bright" />
     <c:dropdown-item href="${this._buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') })}" ${!this.req.darkMode ? '' : 'active'} t:content="Dark" />
-    <c:dropdown-item header t:content="Language" />
   `
-  for (const s of supportedLngs) {
-    html += `<c:dropdown-item href="${this._buildUrl({ params: { lang: s } })}" ${this.req.lang === s ? 'active' : ''} t:content="${camelCase('lang ' + s)}" />`
+  if (supportedLngs.length > 0) {
+    html += `
+      <c:dropdown-item divider />
+      <c:dropdown-item header t:content="Language" />
+    `
+    for (const s of supportedLngs) {
+      html += `<c:dropdown-item href="${this._buildUrl({ params: { lang: s } })}" ${this.req.lang === s ? 'active' : ''} t:content="${camelCase('lang ' + s)}" />`
+    }
   }
   html += `
     <c:dropdown-item divider />

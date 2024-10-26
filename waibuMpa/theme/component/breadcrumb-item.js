@@ -10,7 +10,7 @@ const breadcrumbItem = {
       if (params.attr.hrefRebuild) {
         params.attr.hrefRebuild = attrToArray(params.attr.hrefRebuild)
         const [path, ...exclude] = params.attr.hrefRebuild
-        params.attr.href = this._buildUrl({ exclude, url: path })
+        params.attr.href = this._buildUrl({ exclude, base: path })
       }
       params.html = `<a href="${params.attr.href}">${params.html}</a>`
     }

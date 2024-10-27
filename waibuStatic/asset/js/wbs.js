@@ -50,8 +50,8 @@ class Wbs {
     evt.target.remove()
   }
 
-  async copyToClipboard (selector) {
-    await wmpa.copyToClipboard(selector)
+  async copyToClipboard (selector, isSelector) {
+    await wmpa.copyToClipboard(selector, isSelector)
     await this.notify('Copied!')
   }
 

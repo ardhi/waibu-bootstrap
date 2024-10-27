@@ -31,7 +31,7 @@ async function sidebar (params = {}) {
   params.attr.id = generateId('alpha')
   const html = []
   if (params.attr.mini) {
-    params.attr.style.width = params.attr.style.width ?? '3.5rem'
+    params.attr.style.width = params.attr.style.width ?? '60px'
     params.attr.align = params.attr.align ?? 'center'
     params.attr.margin = 'all-0'
     if (params.attr.autoFill) {

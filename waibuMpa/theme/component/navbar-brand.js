@@ -7,6 +7,11 @@ const navbar = {
     const tag = isString(params.attr.tag) ? params.attr.tag : 'a'
     this._normalizeAttr(params, { tag, cls })
     if (params.tag === 'a' && !params.attr.href) params.attr.href = '#'
+    if (isString(params.attr.appLauncherTrigger)) {
+      const attr = { open: params.attr.appLauncherTrigger }
+      params.html = await this.buildTag({ tag: 'appLauncherTrigger', attr })
+    }
+    delete params.attr.appLauncherTrigger
   }
 }
 

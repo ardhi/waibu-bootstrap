@@ -16,7 +16,8 @@ async function theme (ctx) {
     name: 'bootstrap',
     css,
     scripts,
-    meta
+    meta,
+    moveToEnd: '.offcanvas, .modal'
   }
 }
 

@@ -36,7 +36,7 @@ const modal = {
     if (attr.launch) {
       const btnParams = {
         tag: 'btn',
-        attr: merge(attr.launch, { open: `${params.attr.id}:modal` }),
+        attr: merge(attr.launch, { dataBsTarget: `#${params.attr.id}`, dataBsToggle: 'modal', ariaControls: params.attr.id }),
         html: attr._.launch
       }
       const pos = attr.launch.onEnd ? 'append' : 'prepend'

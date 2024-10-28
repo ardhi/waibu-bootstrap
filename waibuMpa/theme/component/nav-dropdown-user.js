@@ -16,18 +16,18 @@ async function navDropdownUser (params = {}) {
   if (params.attr.noMenu) {
     delete attr.dropdown
     delete attr.dropdownMenu
-    attr.href = routePath('sumba:/profile')
+    attr.href = routePath(this.req.user ? 'sumba:/my-stuff/profile' : 'sumba:/signin')
   } else {
     if (this.req.user) {
-      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/profile') }, html: this.req.t('Your Profile') }))
-      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/change-password') }, html: this.req.t('Change Password') }))
+      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/my-stuff/profile') }, html: this.req.t('Your Profile') }))
+      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/my-stuff/change-password') }, html: this.req.t('Change Password') }))
       html.push(await this.buildTag({ tag: 'dropdownItem', attr: { divider: true } }))
       html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/signout') }, html: this.req.t('Signout') }))
     } else {
       html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/signin') }, html: this.req.t('Signin') }))
       html.push(await this.buildTag({ tag: 'dropdownItem', attr: { divider: true } }))
-      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/signup') }, html: this.req.t('Signup') }))
-      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/forgot-password') }, html: this.req.t('Forgot Password') }))
+      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/user/signup') }, html: this.req.t('Signup') }))
+      html.push(await this.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/user/forgot-password') }, html: this.req.t('Forgot Password') }))
     }
   }
   params.noTag = true

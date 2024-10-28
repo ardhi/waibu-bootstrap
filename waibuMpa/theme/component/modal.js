@@ -31,7 +31,7 @@ const modal = {
     }
     params.html = `<div class="modal-dialog${params.attr.scroll ? ' modal-dialog-scrollable' : ''}` +
       ` ${!params.attr.size ? '' : parseSimple.call(this, { cls, value: params.attr.size, values: modalSizes })}` +
-      `${params.attr.centered ? ' modal-dialog-centered' : ''} ${fullscreen}">` +
+      `${params.attr.noCenter ? '' : 'modal-dialog-centered'} ${fullscreen}">` +
       `<div class="modal-content">${params.html}</div></div>`
     if (attr.launch) {
       const btnParams = {

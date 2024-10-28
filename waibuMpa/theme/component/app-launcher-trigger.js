@@ -1,6 +1,6 @@
 async function appLauncher (params = {}) {
   const { fastGlob } = this.plugin.app.bajo.lib
-  const { isString } = this.plugin.app.bajo.lib._
+  const { isString, omit } = this.plugin.app.bajo.lib._
   let logo = 'waibu'
   const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/bajo/logo.*`)
   if (files.length > 0) logo = 'main'
@@ -16,7 +16,11 @@ async function appLauncher (params = {}) {
     params.attr['data-bs-toggle'] = type === 'drawer' ? 'offcanvas' : type
     params.attr['aria-controls'] = id
   }
-  params.html = await this.buildSentence(`<c:img height="56" src="waibuMpa:/logo/${logo}" />`)
+  params.attr.padding = params.attr.padding ?? 'all-1'
+  params.attr.imgDimWidth = params.attr.imgDimWidth ?? 48
+  params.attr.imgDimHeight = params.attr.imgDimHeight ?? 48
+  params.html = await this.buildSentence(`<c:img height="${params.attr.imgDimWidth}" height="${params.attr.imgDimHeight}" src="waibuMpa:/logo/${logo}" />`)
+  params.attr = omit(params.attr, ['imgDimHeight', 'imgDimWidth'])
 }
 
 export default appLauncher

@@ -9,7 +9,27 @@ export async function buildMenu (params = {}) {
   const { isString } = this.plugin.app.bajo.lib._
   const $ = this.$
   let menuHtml = params.html
-  if (params.attr.menuTag) {
+  let style = params.attr.menuOnly ? 'display:block;' : ''
+  if (isString(params.attr.menuMax)) {
+    const max = parseInt(params.attr.menuMax)
+    if (max > 0) {
+      const items = []
+      $(`<div>${params.html}</div>`).children().each(function () {
+        items.push($(this).prop('outerHTML'))
+      })
+      const maxCols = Math.floor(items.length / max)
+      let els = ''
+      for (let i = 0; i < maxCols; i++) {
+        els += '<c:grid-col>'
+        for (let j = 0; j < parseInt(params.attr.menuMax); j++) {
+          els += items[max * i + j]
+        }
+        els += '</c:grid-col>'
+      }
+      menuHtml = await this.buildSentence(`<c:grid-row gutter="0">${els}</c:grid-row>`)
+      style = `min-width:${maxCols * 10}rem;`
+    }
+  } else if (params.attr.menuTag) {
     const items = []
     $(`<div>${params.html}</div>`).children().each(function () {
       const children = $(this).children('form,div,p')
@@ -21,7 +41,7 @@ export async function buildMenu (params = {}) {
     })
     menuHtml = items.join('\n')
   }
-  let style = params.attr.menuOnly ? 'display:block;' : ''
+
   if (params.attr.menuScroll) {
     const minHeight = isString(params.attr.menuScroll) ? numUnit(params.attr.menuScroll, 'px') : '80px'
     style += `overflow:hidden;overflow-y:auto;max-height:calc(100vh - ${minHeight});`

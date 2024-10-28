@@ -3,7 +3,10 @@ function formatSentence (item, params) {
   const cmp = kebabCase(item.component ?? 'navItem')
   const icon = item.icon
   const html = item.html ?? ''
-  const attr = merge({ border: `side:${item.bottom ? 'top' : 'bottom'}`, rounded: 'width:0' }, omit(item, ['component', 'icon', 'ohref', 'html']))
+  const attr = {}
+  if (params.attr.divider) attr.border = `side:${item.bottom ? 'top' : 'bottom'}`
+  if (params.attr.expanded) attr.rounded = 'width:0'
+  merge(attr, omit(item, ['component', 'icon', 'ohref', 'html']))
   const result = [`<c:${cmp}`]
   for (const k in attr) {
     result.push(attr[k] === true ? k : `${k}="${attr[k]}"`)
@@ -13,14 +16,15 @@ function formatSentence (item, params) {
     }
   }
   if (cmp.includes('dropdown')) result.push('dropdown-dir="end"')
-  result.push(`><c:icon name="${icon}" style="font-size: 1.5rem;" />${html}</c:${cmp}>`)
+  if (params.attr.expanded) result.push(`><c:icon name="${icon}" style="font-size: 1.5rem" />${html}</c:${cmp}>`)
+  else result.push(`><c:icon name="${icon}" />${html}</c:${cmp}>`)
   return result.join(' ')
 }
 
 async function sidebar (params = {}) {
   const { generateId } = this.plugin.app.bajo
   const { omit, filter } = this.plugin.app.bajo.lib._
-  this._normalizeAttr(params, { tag: 'div', flex: 'column shrink:0' })
+  this._normalizeAttr(params, { tag: 'div', flex: 'column' })
   params.attr.margin = params.attr.margin ?? 'all-3'
   params.attr.style.position = 'sticky'
   params.attr.style.top = 0
@@ -37,7 +41,7 @@ async function sidebar (params = {}) {
     if (params.attr.autoFill) {
       let items = filter(this.locals.sidebar ?? [], s => !s.bottom)
       if (items.length > 0) {
-        html.push(`<c:nav tag="ul" flex="column" margin="bottom-auto" text="align:${params.attr.align}" type="pills">`)
+        html.push(`<c:nav tag="ul" flex="column" margin="bottom-auto" text="align:${params.attr.align}" type="pills" ${params.attr.expanded ? '' : 'padding="all-1"'}>`)
         for (const item of items) {
           html.push(formatSentence.call(this, item, params))
         }
@@ -45,7 +49,7 @@ async function sidebar (params = {}) {
       }
       items = filter(this.locals.sidebar ?? [], s => s.bottom)
       if (items.length > 0) {
-        html.push(`<c:nav tag="ul" flex="column" text="align:${params.attr.align}" type="pills">`)
+        html.push(`<c:nav tag="ul" flex="column" text="align:${params.attr.align}" type="pills" ${params.attr.expanded ? '' : 'padding="all-1"'}>`)
         for (const item of items) {
           html.push(formatSentence.call(this, item, params))
         }

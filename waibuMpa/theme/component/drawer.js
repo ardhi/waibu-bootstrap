@@ -23,10 +23,10 @@ const drawer = {
       header.push('</div>')
     }
     params.html = `${header.join('\n')}<div${params.attr.noPadding ? '' : ' class="offcanvas-body"'}>${params.html}</div>`
-    if (isString(params.attr.launch)) {
+    if (params.attr.launch) {
       group.launch.dataBsTarget = `#${params.attr.id}`
       group.launch.dataBsToggle = 'offcanvas'
-      group.launch.ariaControls = params.attr.i
+      group.launch.ariaControls = params.attr.id
       if (params.attr.responsive) group.launch.display = `type:none-${params.attr.responsive}`
       const btnParams = {
         tag: 'btn',

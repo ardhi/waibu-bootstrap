@@ -18,6 +18,7 @@ class Wbs {
   }
 
   getInstance (type, id) {
+    if (type === 'Drawer') type = 'Offcanvas'
     const el = typeof id === 'string' ? document.getElementById(id) : id
     return bootstrap[type].getOrCreateInstance(el)
   }

@@ -1,6 +1,6 @@
 import { sizes } from './_after-build-tag/_lib.js'
 
-function getInputAttr (group, formControl = true) {
+function getInputAttr (group, formControl = true, ro) {
   const { omit, get, isPlainObject, isArray } = this.plugin.app.bajo.lib._
   const { escape } = this.plugin.app.bajo
   if (formControl) group._.class.push('form-control')
@@ -10,7 +10,8 @@ function getInputAttr (group, formControl = true) {
     const val = get(this, `locals.form.${attr.name}`)
     const isJson = isPlainObject(val) || isArray(val)
     attr.dataValue = isJson ? escape(JSON.stringify(val)) : val
-    attr.value = escape(this.req.format(val, attr.dataType))
+    if (ro) attr.value = attr.dataType === 'boolean' ? this.req.t(val ? 'Yes' : 'No') : escape(this.req.format(val, attr.dataType))
+    else attr.value = attr.dataValue
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
   return omit(attr, ['size', 'col'])
@@ -40,15 +41,19 @@ export async function buildFormCheck (group, params) {
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
+  if (attr.name && !attr.value) attr.value = 'true'
   if (attr.name && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
   return await this._render({ tag: 'input', attr, selfClosing: true })
 }
 
 export async function buildFormSwitch (group, params) {
+  const { has, get } = this.plugin.app.bajo.lib._
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
   attr.role = 'switch'
+  if (attr.name && !attr.value) attr.value = 'true'
+  if (attr.name && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
   return await this._render({ tag: 'input', attr, selfClosing: true })
 }
 
@@ -76,7 +81,7 @@ export async function buildFormRadioToggle (group, params) {
 }
 
 export async function buildFormPlaintext (group, params) {
-  const attr = getInputAttr.call(this, group, false)
+  const attr = getInputAttr.call(this, group, false, true)
   attr.class.push('form-control-plaintext')
   attr.readonly = ''
   return await this._render({ tag: 'input', attr, selfClosing: true })
@@ -102,6 +107,7 @@ export async function buildFormTextarea (group, params) {
 export async function buildFormSelect (group, params) {
   const { omit, trim } = this.plugin.app.bajo.lib._
   let attr = getInputAttr.call(this, group, false)
+  attr.value = attr.value + ''
   attr.class.push('form-select')
   let html = params.html
   if (sizes.includes(attr.size)) attr.class.push(`form-select-${attr.size}`)
@@ -114,7 +120,7 @@ export async function buildFormSelect (group, params) {
     })
     html = items.join('\n')
   }
-  attr = omit(attr, ['size', 'type', 'options'])
+  attr = omit(attr, ['size', 'type', 'options', 'value'])
   return await this._render({ tag: 'select', attr, html })
 }
 

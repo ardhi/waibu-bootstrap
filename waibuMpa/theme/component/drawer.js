@@ -23,7 +23,7 @@ const drawer = {
       header.push('</div>')
     }
     params.html = `${header.join('\n')}<div${params.attr.noPadding ? '' : ' class="offcanvas-body"'}>${params.html}</div>`
-    if (params.attr.launch) {
+    if (group.launch) {
       group.launch.dataBsTarget = `#${params.attr.id}`
       group.launch.dataBsToggle = 'offcanvas'
       group.launch.ariaControls = params.attr.id

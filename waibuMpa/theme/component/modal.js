@@ -6,11 +6,11 @@ const fullscreens = breakpoints.map(b => `${b}-down`)
 const modal = {
   selector: '.' + cls,
   handler: async function (params = {}) {
-    const { isString, merge, omit } = this.plugin.app.bajo.lib._
+    const { isString, omit } = this.plugin.app.bajo.lib._
     const { groupAttrs } = this.plugin.app.waibuMpa
     this._normalizeAttr(params, { tag: 'div', cls, autoId: true, tabIndex: -1, ariaHidden: 'true' })
-    const attr = groupAttrs(params.attr, ['launch'])
-    params.attr = attr._
+    const group = groupAttrs(params.attr, ['launch'])
+    params.attr = group._
     params.attr.class.push(params.attr.noFade ? '' : 'fade')
     if (params.attr.noDismiss) params.attr.dataBsBackdrop = 'static'
     if (params.attr.noKeyboard) params.attr.dataBsKeyboard = 'false'
@@ -33,13 +33,16 @@ const modal = {
       ` ${!params.attr.size ? '' : parseSimple.call(this, { cls, value: params.attr.size, values: modalSizes })}` +
       `${params.attr.noCenter ? '' : 'modal-dialog-centered'} ${fullscreen}">` +
       `<div class="modal-content">${params.html}</div></div>`
-    if (attr.launch) {
+    if (group.launch) {
+      group.launch.dataBsTarget = `#${params.attr.id}`
+      group.launch.dataBsToggle = 'modal'
+      group.launch.ariaControls = params.attr.id
       const btnParams = {
         tag: 'btn',
-        attr: merge(attr.launch, { dataBsTarget: `#${params.attr.id}`, dataBsToggle: 'modal', ariaControls: params.attr.id }),
-        html: attr._.launch
+        attr: group.launch,
+        html: group._.launch
       }
-      const pos = attr.launch.onEnd ? 'append' : 'prepend'
+      const pos = group.launch.onEnd ? 'append' : 'prepend'
       params[pos] = await this.buildTag(btnParams)
     }
     params.attr = omit(params.attr, ['title', 'fullscreen'])

@@ -3,7 +3,6 @@ import { handleInput } from './form-input.js'
 
 async function formSelect (params = {}) {
   const { groupAttrs } = this.plugin.app.waibuMpa
-
   this._normalizeAttr(params, { autoId: true })
   if (!params.attr.label && params.attr.name) params.attr.label = this.req.t(`field.${params.attr.name}`)
   if (params.attr.noLabel) delete params.attr.label

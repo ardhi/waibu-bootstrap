@@ -77,7 +77,7 @@ const dropdown = {
     if (params.attr.menuOnly) params.attr.menuTag = 'div'
     const btnParams = {
       attr: merge(attr, {
-        class: ['dropdown-toggle'],
+        class: params.attr.noCaret ? [] : ['dropdown-toggle'],
         type: 'button',
         dataBsToggle: 'dropdown',
         ariaExpanded: false
@@ -105,6 +105,7 @@ const dropdown = {
       params.html = menu
       params.noTag = true
     } else params.html = [button, btn, menu].join('\n')
+    params.attr = omit(params.attr, ['noCaret'])
   }
 }
 

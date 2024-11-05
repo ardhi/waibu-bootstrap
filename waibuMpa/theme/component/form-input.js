@@ -15,7 +15,9 @@ export async function handleInput ({ handler, group, params } = {}) {
   }
   this.$(`<div>${trim(params.html ?? '')}</div>`).find('[addon]').each(function () {
     const position = this.attribs.addon
-    const html = trim(me.$(this).html())
+    let html = trim(me.$(this).html())
+    const el = me.$(html)
+    if (el.hasClass('dropdown')) html = el.prop('innerHTML')
     addons.push({ position, html })
   })
   const result = {

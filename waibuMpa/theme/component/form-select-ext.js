@@ -2,10 +2,14 @@ import { buildFormSelect } from './_lib.js'
 import { build } from './form-input.js'
 
 export const inlineCss = `
+.ts-dropdown {
+  min-width: 242px;
+}
 .ts-wrapper {
   margin-left: calc(var(--bs-border-width) * -1) !important;
   border-top-left-radius: var(--bs-border-radius) !important;
   border-bottom-left-radius: var(--bs-border-radius) !important;
+  white-space: nowrap !important;
 }
 .ts-control, .ts-control input, .ts-dropdown {
   color: inherit;
@@ -20,7 +24,7 @@ const formSelectExt = {
   scripts,
   handler: async function (params = {}) {
     const { omit } = this.plugin.app.bajo.lib._
-    const { jsonStringify } = this.plugin.app.waibuMpa
+    const { jsonStringify, base64JsonDecode } = this.plugin.app.waibuMpa
     params.attr['x-ref'] = 'select'
     params.attr['x-data'] = `{
       instance: null
@@ -30,10 +34,9 @@ const formSelectExt = {
     if (params.attr.removeBtn) plugins.push('remove_button')
     if (params.attr.clearBtn) plugins.push('clear_button')
     if (params.attr.optgroupColumns) plugins.push('optgroup_columns')
+    const defOpts = { plugins }
     params.attr['@load.window'] = `
-      const options = {
-        plugins: ${jsonStringify(plugins, true)}
-      }
+      const options = ${jsonStringify(params.attr.options ? base64JsonDecode(params.attr.options) : defOpts, true)}
       instance = new TomSelect($refs.select, options)
     `
     await build.call(this, buildFormSelect, params)

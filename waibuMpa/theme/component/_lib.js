@@ -10,8 +10,12 @@ function getInputAttr (group, formControl = true, ro) {
     const val = get(this, `locals.form.${attr.name}`)
     const isJson = isPlainObject(val) || isArray(val)
     attr.dataValue = isJson ? escape(JSON.stringify(val)) : val
-    if (ro) attr.value = attr.dataType === 'boolean' ? this.req.t(val ? 'Yes' : 'No') : escape(this.req.format(val, attr.dataType))
-    else attr.value = attr.dataValue
+    if (ro) {
+      if (attr.dataType === 'boolean') attr.value = this.req.t(val ? 'Yes' : 'No')
+      else if (attr.name === 'lat') attr.value = escape(this.req.format(val, attr.dataType, { latitude: true }))
+      else if (attr.name === 'lng') attr.value = escape(this.req.format(val, attr.dataType, { longitude: true }))
+      else attr.value = escape(this.req.format(val, attr.dataType))
+    } else attr.value = attr.dataValue
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
   return omit(attr, ['size', 'col'])

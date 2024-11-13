@@ -17,7 +17,7 @@ async function theme (ctx) {
     css,
     scripts,
     meta,
-    moveToEnd: '.offcanvas, .modal'
+    moveToEnd: '.offcanvas, .modal, script'
   }
 }
 

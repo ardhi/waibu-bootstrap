@@ -69,6 +69,20 @@ class Wbs {
     return await this.alert(msg, opts.title ?? 'Confirmation', opts)
   }
 
+  async appLauncher (params) {
+    const id = wmpa.randomId()
+    const toolbar = params ? `toolbar="${params}"` : ''
+    const body = [`<c:app-launcher id="${id}" ${toolbar} />`]
+    await wmpa.addComponent(body.join('\n'), 'body')
+    const item = new bootstrap.Offcanvas(`#${id}`)
+    const itemEl = document.getElementById(id)
+    itemEl.addEventListener('hidden.bs.offcanvas', evt => {
+      itemEl.remove()
+    })
+    item.show()
+    return id
+  }
+
   async alert (msg, title, opts = {}) {
     const id = wmpa.randomId()
     if (_.isPlainObject(title)) {
@@ -122,6 +136,18 @@ class Wbs {
     const fn = _.get(window, name)
     if (fn) fn(opts).then()
     else console.error(`Function not found '${name}'`)
+  }
+
+  async openModal (id, body, type = 'modal') {
+    if (!['modal', 'offcanvas'].includes(type)) type = 'modal'
+    await wmpa.addComponent(body.join('\n'))
+    const item = new bootstrap[_.upperFirst(type)](`#${id}`)
+    const itemEl = document.getElementById(id)
+    itemEl.addEventListener(`hidden.bs.${type}`, evt => {
+      itemEl.remove()
+    })
+    item.show()
+    return id
   }
 }
 

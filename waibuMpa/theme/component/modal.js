@@ -14,7 +14,7 @@ const modal = {
     params.attr.class.push(params.attr.noFade ? '' : 'fade')
     if (params.attr.noDismiss) params.attr.dataBsBackdrop = 'static'
     if (params.attr.noKeyboard) params.attr.dataBsKeyboard = 'false'
-    if (this.$(`<div>${params.html}</div>`).find('.modal-body, .modal-footer, .modal-header').length === 0) params.html = `<div class="modal-body">${params.html}</div>`
+    params.html = `<div class="modal-body ${params.attr.noPadding ? 'pt-0 ps-0 pe-0' : ''}">${params.html}</div>`
     const hasHeader = this.$(`<div>${params.html}</div>`).find('.modal-header').length > 0
     if (!hasHeader && (isString(params.attr.title) || !params.attr.noDismiss)) {
       const items = ['<div class="modal-header">', '<h1 class="modal-title fs-5">']
@@ -31,7 +31,7 @@ const modal = {
     }
     params.html = `<div class="modal-dialog${params.attr.scroll ? ' modal-dialog-scrollable' : ''}` +
       ` ${!params.attr.size ? '' : parseSimple.call(this, { cls, value: params.attr.size, values: modalSizes })}` +
-      `${params.attr.noCenter ? '' : 'modal-dialog-centered'} ${fullscreen}">` +
+      ` ${params.attr.noCenter ? '' : 'modal-dialog-centered'} ${fullscreen}">` +
       `<div class="modal-content">${params.html}</div></div>`
     if (group.launch) {
       group.launch.dataBsTarget = `#${params.attr.id}`

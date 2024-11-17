@@ -1,19 +1,20 @@
 import { sizes } from './_after-build-tag/_lib.js'
 
 function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, isPlainObject, isArray } = this.plugin.app.bajo.lib._
+  const { omit, get, isPlainObject, isArray, isString, has } = this.plugin.app.bajo.lib._
   const { escape } = this.plugin.app.bajo
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
-  if (attr.name && !attr.value && this.locals.form) {
+  if (has(attr, 'name') && !attr.value && this.locals.form) {
     attr.dataType = attr.dataType ?? 'auto'
     const val = get(this, `locals.form.${attr.name}`)
-    const isJson = isPlainObject(val) || isArray(val)
-    attr.dataValue = isJson ? escape(JSON.stringify(val)) : val
+    if (isString(val)) attr.dataValue = escape(val)
+    else if (isPlainObject(val) || isArray(val)) attr.dataValue = escape(JSON.stringify(val))
+    else attr.dataValue = val
     if (ro) {
       if (attr.dataType === 'boolean') attr.value = this.req.t(val ? 'Yes' : 'No')
-      else if (attr.name === 'lat') attr.value = escape(this.req.format(val, attr.dataType, { latitude: true }))
-      else if (attr.name === 'lng') attr.value = escape(this.req.format(val, attr.dataType, { longitude: true }))
+      else if (has(attr, 'name') === 'lat') attr.value = escape(this.req.format(val, attr.dataType, { latitude: true }))
+      else if (has(attr, 'name') === 'lng') attr.value = escape(this.req.format(val, attr.dataType, { longitude: true }))
       else attr.value = escape(this.req.format(val, attr.dataType))
     } else attr.value = attr.dataValue
   }
@@ -45,8 +46,8 @@ export async function buildFormCheck (group, params) {
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
-  if (attr.name && !attr.value) attr.value = 'true'
-  if (attr.name && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
+  if (has(attr, 'name') && !attr.value) attr.value = 'true'
+  if (has(attr, 'name') && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
   return await this._render({ tag: 'input', attr, selfClosing: true })
 }
 
@@ -56,8 +57,8 @@ export async function buildFormSwitch (group, params) {
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
   attr.role = 'switch'
-  if (attr.name && !attr.value) attr.value = 'true'
-  if (attr.name && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
+  if (has(attr, 'name') && !attr.value) attr.value = 'true'
+  if (has(attr, 'name') && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
   return await this._render({ tag: 'input', attr, selfClosing: true })
 }
 

@@ -8,8 +8,8 @@ function getInputAttr (group, formControl = true, ro) {
   if (has(attr, 'name') && !attr.value && this.locals.form) {
     attr.dataType = attr.dataType ?? 'auto'
     const val = get(this, `locals.form.${attr.name}`)
-    if (isString(val)) attr.dataValue = escape(val)
-    else if (isPlainObject(val) || isArray(val)) attr.dataValue = escape(JSON.stringify(val))
+    if (isPlainObject(val) || isArray(val)) attr.dataValue = escape(JSON.stringify(val))
+    else if (isString(val)) attr.dataValue = escape(val)
     else attr.dataValue = val
     if (ro) {
       if (attr.dataType === 'boolean') attr.value = this.req.t(val ? 'Yes' : 'No')
@@ -106,7 +106,10 @@ export async function buildFormFile (group, params) {
 }
 
 export async function buildFormTextarea (group, params) {
-  return await this._render({ tag: 'textarea', attr: getInputAttr.call(this, group), html: params.html })
+  const attr = getInputAttr.call(this, group)
+  params.html = attr.value
+  delete attr.value
+  return await this._render({ tag: 'textarea', attr, html: params.html })
 }
 
 export async function buildFormSelect (group, params) {

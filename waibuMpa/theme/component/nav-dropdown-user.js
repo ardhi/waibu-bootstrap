@@ -1,9 +1,11 @@
 async function navDropdownUser (params = {}) {
+  /*
   if (!this.locals._meta.plugins.includes('sumba')) {
     params.noTag = true
     params.html = ''
     return
   }
+  */
   const { routePath } = this.plugin.app.waibu
   const icon = this.req.iconset ? await this.buildTag({ tag: 'icon', attr: { name: 'person' } }) : ''
   const text = this.req.user ? `${this.req.user.firstName} ${this.req.user.lastName}` : this.req.t('Guest')

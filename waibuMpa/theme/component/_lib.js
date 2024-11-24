@@ -2,7 +2,7 @@ import { sizes } from './_after-build-tag/_lib.js'
 
 function getInputAttr (group, formControl = true, ro) {
   const { omit, get, isPlainObject, isArray, isString, has } = this.plugin.app.bajo.lib._
-  const { escape } = this.plugin.app.bajo
+  const { escape } = this.plugin.app.waibu
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
   if (has(attr, 'name') && !attr.value && this.locals.form) {

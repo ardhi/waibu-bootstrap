@@ -139,8 +139,9 @@ class Wbs {
   }
 
   async openModal (id, body, type = 'modal') {
+    if (_.isArray(body)) body = body.join('\n')
     if (!['modal', 'offcanvas'].includes(type)) type = 'modal'
-    await wmpa.addComponent(body.join('\n'))
+    await wmpa.addComponent(body)
     const item = new bootstrap[_.upperFirst(type)](`#${id}`)
     const itemEl = document.getElementById(id)
     itemEl.addEventListener(`hidden.bs.${type}`, evt => {

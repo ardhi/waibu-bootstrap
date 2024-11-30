@@ -1,0 +1,23 @@
+const cls = 'card'
+
+async function card (component) {
+  return class Card extends component.baseFactory {
+    constructor (options) {
+      super(options)
+      this.selector = '.' + cls
+      this.component.normalizeAttr(this.params, { tag: 'div', cls })
+    }
+
+    async build () {
+      const $ = this.component.$
+      const children = this.component.$(`<div>${this.params.html}</div>`).children()
+      this.params.html = children.each(function (idx) {
+        if (idx === 0 && this.name === 'img') $(this).addClass('card-img-top')
+        if ($(this).hasClass('list-group')) $(this).addClass('list-group-flush')
+        if (idx === (children.length - 1) && this.name === 'img') $(this).addClass('card-img-bottom')
+      }).parent().html()
+    }
+  }
+}
+
+export default card

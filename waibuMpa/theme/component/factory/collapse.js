@@ -13,9 +13,10 @@ async function collapse (component) {
       const { merge, isString } = this.plugin.app.bajo.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       const items = []
-      const $ = this.component.$
+      const { $ } = this.component
+      const me = this
       if (this.params.attr.toggleAll) this.params.attr.toggleAll = generateId('alpha')
-      const contents = this.component.$(`<div>${this.params.html}</div>`).children().each(function () {
+      const contents = $(`<div>${this.params.html}</div>`).children().each(function () {
         const classes = attrToArray(this.attribs.class)
         items.push({
           id: this.attribs.id,
@@ -23,7 +24,7 @@ async function collapse (component) {
           show: classes.includes('show')
         })
         $(this).removeAttr('caption')
-        if (this.params.attr.toggleAll) $(this).addClass('multi-collapse').addClass(this.params.attr.toggleAll)
+        if (me.params.attr.toggleAll) $(this).addClass('multi-collapse').addClass(me.params.attr.toggleAll)
       }).parent().html()
       const tag = isString(this.params.attr.tag) ? this.params.attr.tag : 'div'
       this.component.normalizeAttr(this.params, { tag })

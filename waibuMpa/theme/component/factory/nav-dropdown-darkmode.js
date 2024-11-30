@@ -12,8 +12,8 @@ async function navDropdownDarkmode (component) {
         content
       }
       const html = [
-        await this.component.buildTag({ tag: 'dropdownItem', attr: { href: this._buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') }), active: !this.component.req.darkMode }, html: this.component.req.t('Bright Mode') }),
-        await this.component.buildTag({ tag: 'dropdownItem', attr: { href: this._buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') }), active: this.component.req.darkMode }, html: this.component.req.t('Dark Mode') })
+        await this.component.buildTag({ tag: 'dropdownItem', attr: { href: this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') }), active: !this.component.req.darkMode }, html: this.component.req.t('Bright Mode') }),
+        await this.component.buildTag({ tag: 'dropdownItem', attr: { href: this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') }), active: this.component.req.darkMode }, html: this.component.req.t('Dark Mode') })
       ].join('\n')
       this.params.noTag = true
       this.params.html = await this.component.buildTag({ tag: 'navItem', attr, html })

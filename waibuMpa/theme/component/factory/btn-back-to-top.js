@@ -18,9 +18,9 @@ async function btnBackToTop (component) {
       this.params.attr['x-data'] = `{
         scroll () {
           if (document.body.scrollTop > ${this.params.attr.revealAt} || document.documentElement.scrollTop > ${this.params.attr.revealAt}) {
-            this.component.$refs.btn.style.display = 'block'
+            this.$refs.btn.style.display = 'block'
           } else {
-            this.component.$refs.btn.style.display = 'none'
+            this.$refs.btn.style.display = 'none'
           }
         },
         toTop () {

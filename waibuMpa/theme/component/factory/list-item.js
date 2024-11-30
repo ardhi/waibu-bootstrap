@@ -28,7 +28,7 @@ async function listItem (component) {
           attr.dataBsToggle = toggle
         }
         if (html.includes('<i class="')) attr.class.push('icon-link')
-        this.params.html = await this._render({ tag: 'a', attr, html })
+        this.params.html = await this.component.render({ tag: 'a', attr, html })
       }
       delete this.params.attr.target
     }

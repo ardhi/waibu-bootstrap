@@ -10,7 +10,7 @@ async function progressStack (component) {
 
     async build () {
       const { pick } = this.plugin.app.bajo.lib._
-      const $ = this.component.$
+      const { $ } = this.component
       this.params.html = $(`<div>${this.params.html}</div>`).children().each(function () {
         let style = {}
         $(this).children().each(function () {

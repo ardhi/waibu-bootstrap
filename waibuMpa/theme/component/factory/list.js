@@ -12,22 +12,23 @@ async function list (component) {
     async build () {
       const { isString, omit } = this.plugin.app.bajo.lib._
       const { attribsStringify } = this.plugin.app.waibuMpa
+      const { $ } = this.component
       const me = this
       if (this.params.attr.hover) this.params.tag = 'div'
       if (isString(this.params.attr.type)) {
         this.params.attr.class.push(`${cls}-${this.params.attr.type}`)
         if (this.params.attr.type === 'group') {
-          this.params.html = this.component.$(`<div>${this.params.html}</div>`).children().each(function () {
+          this.params.html = $(`<div>${this.params.html}</div>`).children().each(function () {
             if (this.attribs['child-color']) {
               const color = parseVariant.call(me, {
-                cls: `${cls}-${this.params.attr.type}-item`,
+                cls: `${cls}-${me.params.attr.type}-item`,
                 value: this.attribs['child-color'],
                 values: colors
               })
-              me.$(this).addClass(color).removeAttr('child-color')
+              $(this).addClass(color).removeAttr('child-color')
             }
-            if (me.$(this).find('.badge').length > 0) me.$(this).addClass('d-flex justify-content-between align-items-center')
-            me.$(this).find('label.form-check-label').addClass('stretched-link ms-1')
+            if ($(this).find('.badge').length > 0) $(this).addClass('d-flex justify-content-between align-items-center')
+            $(this).find('label.form-check-label').addClass('stretched-link ms-1')
           }).parent().html()
           this.params.attr.class.push(parseVariant.call(this, {
             cls: `${cls}-${this.params.attr.type}-horizontal`,
@@ -39,16 +40,16 @@ async function list (component) {
         }
         if (this.params.attr.hover) this.params.tag = 'div'
         const html = []
-        this.params.html = this.component.$(`<div>${this.params.html}</div>`).children().each(function () {
-          if (['group', 'inline'].includes(this.params.attr.type)) {
-            me.$(this).addClass(`${cls}-${this.params.attr.type}-item`)
+        this.params.html = $(`<div>${this.params.html}</div>`).children().each(function () {
+          if (['group', 'inline'].includes(me.params.attr.type)) {
+            $(this).addClass(`${cls}-${me.params.attr.type}-item`)
           }
-          if (this.params.attr.hover) {
-            if (this.params.attr.type === 'group') this.attribs.class += ' list-group-item-action'
+          if (me.params.attr.hover) {
+            if (me.params.attr.type === 'group') this.attribs.class += ' list-group-item-action'
             const attrs = attribsStringify(this.attribs)
-            const item = me.$(this).html()
-            if ((me.$(item)[0] ?? {}).name === 'a') html.push(me.$(item).addClass(this.attribs.class).prop('outerHTML'))
-            else html.push(`<a href="#" ${attrs}>${me.$(this).html()}</a>`)
+            const item = $(this).html()
+            if (($(item)[0] ?? {}).name === 'a') html.push($(item).addClass(this.attribs.class).prop('outerHTML'))
+            else html.push(`<a href="#" ${attrs}>${$(this).html()}</a>`)
           }
         }).parent().html()
         if (html.length > 0) this.params.html = html.join('\n')

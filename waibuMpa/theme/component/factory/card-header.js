@@ -4,9 +4,10 @@ const cls = 'card-header'
 export async function handler (cls, params = {}) {
   const headings = levels.map(l => `h${l}`)
   const { isString } = this.plugin.app.bajo.lib._
+  const { $ } = this.component
   const tag = isString(this.params.attr.tag) && headings.includes(this.params.attr.tag) ? this.params.attr.tag : 'div'
   this.component.normalizeAttr(this.params, { tag, cls })
-  const tabs = this.component.$(`<div>${this.params.html}</div>`).find('.nav-tabs')
+  const tabs = $(`<div>${this.params.html}</div>`).find('.nav-tabs')
   if (tabs.length > 0) this.params.html = tabs.addClass('card-header-tabs').parent().prop('outerHTML')
 }
 

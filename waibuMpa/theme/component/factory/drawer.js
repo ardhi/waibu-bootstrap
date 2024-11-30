@@ -12,7 +12,7 @@ async function drawer (component) {
     async build () {
       const { isString, omit, trim } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
-      const $ = this.component.$
+      const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['launch'])
       this.params.attr.responsive = this.params.attr.responsive ?? true
       this.params.attr.class.push(parseVariant.call(this, { cls, value: this.params.attr.responsive, values: breakpoints }))

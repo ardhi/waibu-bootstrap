@@ -13,7 +13,7 @@ async function navDropdownLanguage (component) {
       for (const s of supportedLngs) {
         html.push(await this.component.buildTag({
           tag: 'dropdownItem',
-          attr: { href: this._buildUrl({ params: { lang: s } }), active: lang === s },
+          attr: { href: this.component.buildUrl({ params: { lang: s } }), active: lang === s },
           html: this.component.req.t(camelCase(`lang ${s}`))
         }))
       }

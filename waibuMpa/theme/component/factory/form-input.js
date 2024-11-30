@@ -4,7 +4,7 @@ import { sizes } from '../method/after-build-tag/_lib.js'
 export async function handleInput ({ handler, group, params } = {}) {
   const { trim, filter, has, omit, pull, find, get } = this.plugin.app.bajo.lib._
   const { attrToArray } = this.plugin.app.waibuMpa
-  const me = this
+  const { $ } = this.component
   const addons = []
   const isLabel = has(this.params.attr, 'label')
   const isLabelFloating = group.label && group.label.floating && isLabel
@@ -13,10 +13,10 @@ export async function handleInput ({ handler, group, params } = {}) {
     group._.placeholder = group._.label
     group._ = omit(group._, ['rows'])
   }
-  this.component.$(`<div>${trim(this.params.html ?? '')}</div>`).find('[addon]').each(function () {
+  $(`<div>${trim(this.params.html ?? '')}</div>`).find('[addon]').each(function () {
     const position = this.attribs.addon
-    let html = trim(me.$(this).html())
-    const el = me.$(html)
+    let html = trim($(this).html())
+    const el = $(html)
     if (el.hasClass('dropdown')) html = el.prop('innerHTML')
     addons.push({ position, html })
   })
@@ -30,7 +30,7 @@ export async function handleInput ({ handler, group, params } = {}) {
     const err = find(details, { field: group._.name })
     if (err) {
       const ext = err.ext ?? {}
-      result.input = this.component.$(result.input).addClass('is-invalid').prop('outerHTML')
+      result.input = $(result.input).addClass('is-invalid').prop('outerHTML')
       result.input += `\n<div class="invalid-feedback">${this.component.req.t(ext.type ? `validation.${ext.type}` : err.error, ext.context)}</div>`
     }
   }
@@ -41,18 +41,18 @@ export async function handleInput ({ handler, group, params } = {}) {
   for (const pos of ['prepend', 'append']) {
     for (const i of el[pos]) {
       const html = `<div class="input-group-text">${i.html}</div>`
-      this.component.$(html).each(function () {
+      $(html).each(function () {
         const parent = this
         let isBtn = false
-        me.$(parent).children().each(function () {
-          if (this.name === 'input' && ['checkbox', 'radio'].includes(this.attribs.type)) me.$(this).addClass('form-check-input')
+        $(parent).children().each(function () {
+          if (this.name === 'input' && ['checkbox', 'radio'].includes(this.attribs.type)) $(this).addClass('form-check-input')
           else if (this.name === 'button') {
             const hasCls = find(attrToArray(this.attribs.class ?? ''), c => c.includes('btn-'))
-            if (!hasCls) me.$(this).addClass('btn btn-outline-secondary')
+            if (!hasCls) $(this).addClass('btn btn-outline-secondary')
             isBtn = true
           }
         })
-        result[pos].push(isBtn ? me.$(parent).html() : me.$(parent).prop('outerHTML'))
+        result[pos].push(isBtn ? $(parent).html() : $(parent).prop('outerHTML'))
       })
     }
   }
@@ -68,7 +68,7 @@ export async function handleInput ({ handler, group, params } = {}) {
     const html = []
     const label = await buildFormLabel.call(this, group)
     if (result.prepend.length > 0) html.push(result.prepend.join('\n'))
-    html.push(await this._render({ tag: 'div', attr: _attr, html: `${result.input}\n${label}\n${hint}` }))
+    html.push(await this.component.render({ tag: 'div', attr: _attr, html: `${result.input}\n${label}\n${hint}` }))
     if (result.append.length > 0) html.push(result.append.join('\n'))
     contents.push(html.join('\n'))
   } else {
@@ -78,7 +78,7 @@ export async function handleInput ({ handler, group, params } = {}) {
     if (result.prepend.length > 0) html.push(result.prepend.join('\n'))
     html.push(result.input)
     if (result.append.length > 0) html.push(result.append.join('\n'))
-    contents.push(await this._render({ tag: 'div', attr: _attr, html: html.join('\n') }), hint)
+    contents.push(await this.component.render({ tag: 'div', attr: _attr, html: html.join('\n') }), hint)
   }
   return contents
 }

@@ -14,7 +14,7 @@ async function nav (component) {
     }
 
     async build () {
-      const $ = this.component.$
+      const { $ } = this.component
       if (!['ol', 'ul'].includes(this.params.tag)) {
         const html = []
         $(`<div>${this.params.html}</div>`).children().each(function () {

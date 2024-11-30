@@ -15,7 +15,7 @@ async function carousel (component) {
 
     async build () {
       const { attrToArray } = this.plugin.app.waibuMpa
-      const $ = this.component.$
+      const { $ } = this.component
       let activeItem = 0
       $(this.params.html).children().each(function (idx) {
         const classes = attrToArray(this.attribs.class)
@@ -27,7 +27,7 @@ async function carousel (component) {
       }).parent().prop('outerHTML')
 
       if (this.params.attr.indicator) {
-        const count = this.component.$(this.params.html).children().length
+        const count = $(this.params.html).children().length
         const btns = []
         for (let i = 0; i < count; i++) {
           btns.push(`<button type="button" data-bs-target="#${this.params.attr.id}" data-bs-slide-to="${i}"`)

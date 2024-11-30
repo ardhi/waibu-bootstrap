@@ -9,8 +9,8 @@ async function figure (component) {
     }
 
     async build () {
-      const $ = this.component.$
-      this.params.html = this.component.$(`<div>${this.params.html}</div>`).children().each(function () {
+      const { $ } = this.component
+      this.params.html = $(`<div>${this.params.html}</div>`).children().each(function () {
         if (this.name === 'img') $(this).addClass('figure-img')
       }).parent().html()
     }

@@ -11,6 +11,7 @@ async function masonry (component) {
     async build () {
       const { pick } = this.plugin.app.bajo.lib._
       const { attribsStringify } = this.plugin.app.waibuMpa
+      const { $ } = this.component
 
       const gparams = { attr: pick(this.params.attr, ['gutter']) }
       gparams.attr.class = ['row']
@@ -19,10 +20,9 @@ async function masonry (component) {
 
       this.params.prepend = `<div ${attribsStringify(gparams.attr)} data-masonry='{ "percentPosition": true }'>`
       this.params.append = '</div>'
-      const me = this
       const html = []
-      this.component.$(`<div>${this.params.html}</div>`).children().each(function () {
-        html.push(me.$(this).prop('outerHTML'))
+      $(`<div>${this.params.html}</div>`).children().each(function () {
+        html.push($(this).prop('outerHTML'))
       })
       this.params.html = html.map(item => {
         return `<div class="col-sm-6 col-lg-4">${item}</div>`

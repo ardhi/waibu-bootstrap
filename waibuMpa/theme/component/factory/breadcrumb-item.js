@@ -15,7 +15,7 @@ async function breadcrumbItem (component) {
         if (this.params.attr.hrefRebuild) {
           this.params.attr.hrefRebuild = attrToArray(this.params.attr.hrefRebuild)
           const [path, ...exclude] = this.params.attr.hrefRebuild
-          this.params.attr.href = this._buildUrl({ exclude, base: path })
+          this.params.attr.href = this.component.buildUrl({ exclude, base: path })
         }
         this.params.html = `<a href="${this.params.attr.href}">${this.params.html}</a>`
       }

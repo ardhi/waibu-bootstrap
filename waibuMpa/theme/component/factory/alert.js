@@ -15,10 +15,10 @@ async function alert (component) {
 
     async build () {
       const { isEmpty } = this.plugin.app.bajo.lib._
-      const me = this
-      const html = this.component.$(`<div>${this.params.html}</div>`).children().each(function () {
-        if (this.name === 'a') me.$(this).addClass('alert-link')
-        if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(this.name)) me.$(this).addClass('alert-heading')
+      const { $ } = this.component
+      const html = $(`<div>${this.params.html}</div>`).children().each(function () {
+        if (this.name === 'a') $(this).addClass('alert-link')
+        if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(this.name)) $(this).addClass('alert-heading')
       }).parent().html()
       if (!isEmpty(html)) this.params.html = html
       if (this.params.attr.dismiss) {

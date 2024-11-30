@@ -13,7 +13,7 @@ async function navbar (component) {
       const { omit, cloneDeep, has } = this.plugin.app.bajo.lib._
       const { generateId, numUnit } = this.plugin.app.bajo
       const { groupAttrs } = this.plugin.app.waibuMpa
-      const $ = this.component.$
+      const { $ } = this.component
 
       this.params.group = groupAttrs(this.params.attr, ['container', 'drawer'])
       this.params.attr = cloneDeep(this.params.group._)
@@ -24,7 +24,7 @@ async function navbar (component) {
         delete this.params.attr.scroll
       }
       let brand = ''
-      let html = this.component.$(`<div>${this.params.html}</div>`).children().each(function () {
+      let html = $(`<div>${this.params.html}</div>`).children().each(function () {
         if ($(this).hasClass('navbar-brand') && !has(this.attribs, 'collapse')) {
           brand = $(this).removeAttr('collapse').prop('outerHTML')
           $(this).remove()
@@ -50,12 +50,12 @@ async function navbar (component) {
       this.params.attr = omit(this.params.attr, ['container'])
     }
 
-    async after (params = {}) {
-      let result = this.params.result
-      if (this.params.group.container) {
-        result = await this.component.buildTag({ tag: 'container', attr: this.params.group.container, html: '---' })
-        result = result.replace('---', this.params.html)
-        result = `<${this.params.tag}${this.params.attrs}>${result}</${this.params.tag}>`
+    static async after (params = {}) {
+      let result = params.result
+      if (params.group.container) {
+        result = await this.buildTag({ tag: 'container', attr: params.group.container, html: '---' })
+        result = result.replace('---', params.html)
+        result = `<${params.tag}${params.attrs}>${result}</${params.tag}>`
       }
       return result
     }

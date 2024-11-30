@@ -12,6 +12,7 @@ async function navItem (component) {
     async build () {
       const { isString } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
+      const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['dropdown'])
       if (group.dropdown) {
         this.params.attr = group._
@@ -22,7 +23,7 @@ async function navItem (component) {
         if (group.dropdown.autoClose && autoCloses.includes(group.dropdown.autoClose)) this.params.attr.dataBsAutoClose = group.dropdown.autoClose
         this.params.dropdownMenu = this.params.html
         // find icon
-        const icon = this.component.$(`<div>${this.params.html}</div>`).find('i').prop('outerHTML')
+        const icon = $(`<div>${this.params.html}</div>`).find('i').prop('outerHTML')
         this.params.dropdown = group.dropdown
         this.params.html = icon ?? this.params.attr.content
       }
@@ -37,16 +38,16 @@ async function navItem (component) {
       delete this.params.attr.dropdown
     }
 
-    async after () {
-      if (!this.params.dropdown) return
-      this.params.dropdown.menuTag = 'div'
-      const $ = this.component.$
+    static async after (params = {}) {
+      if (!params.dropdown) return
+      params.dropdown.menuTag = 'div'
+      const $ = this.$
       const items = []
-      $(`<div>${this.params.dropdownMenu}</div>`).children().each(function () {
+      $(`<div>${params.dropdownMenu}</div>`).children().each(function () {
         if (this.name !== 'i') items.push($(this).prop('outerHTML'))
       })
-      const menu = await buildMenu.call(this, { attr: this.params.dropdown, html: items.join('\n') })
-      return `${this.params.result}${menu}`
+      const menu = await buildMenu.call(this, { attr: params.dropdown, html: items.join('\n') })
+      return `${params.result}${menu}`
     }
   }
 }

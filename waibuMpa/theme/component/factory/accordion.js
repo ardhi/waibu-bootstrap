@@ -10,10 +10,11 @@ async function accordion (component) {
     }
 
     async build () {
-      const $ = this.component.$
+      const { $ } = this.component
       if (!this.params.attr.alwaysOpen) {
+        const me = this
         this.params.html = $(`<div>${this.params.html}</div>`).children().each(function () {
-          $(this).find('.accordion-collapse').prop('data-bs-parent', '#' + this.params.attr.id)
+          $(this).find('.accordion-collapse').prop('data-bs-parent', '#' + me.params.attr.id)
         }).parent().html()
       }
     }

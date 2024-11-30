@@ -12,7 +12,7 @@ async function btnGroup (component) {
     }
 
     async build () {
-      const $ = this.component.$
+      const { $ } = this.component
       const html = []
       $(`<div>${this.params.html}</div>`).children().each(function () {
         html.push($(this).hasClass('dropdown') ? $(this).html() : $(this).prop('outerHTML'))

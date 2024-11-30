@@ -3,6 +3,7 @@ import { buildFormHint, buildFormLabel, buildFormCheck } from './_lib.js'
 export async function build (handler, params = {}) {
   const { isEmpty, get, find } = this.plugin.app.bajo.lib._
   const { groupAttrs } = this.plugin.app.waibuMpa
+  const { $ } = this.component
   this.component.normalizeAttr(this.params)
   if (!this.params.attr.label && this.params.attr.name) this.params.attr.label = this.component.req.t(`field.${this.params.attr.name}`)
   if (this.params.attr.noLabel) this.params.attr.label = undefined
@@ -22,7 +23,7 @@ export async function build (handler, params = {}) {
     const err = find(details, { field: group._.name })
     if (err) {
       const ext = err.ext ?? {}
-      input = this.component.$(input).addClass('is-invalid').prop('outerHTML')
+      input = $(input).addClass('is-invalid').prop('outerHTML')
       input += `\n${label}`
       input += `\n<div class="invalid-feedback">${this.component.req.t(ext.type ? `validation.${ext.type}` : err.error, ext.context)}</div>`
     } else input += `\n${label}`

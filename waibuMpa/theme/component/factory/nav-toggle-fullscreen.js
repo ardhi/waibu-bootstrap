@@ -1,9 +1,10 @@
 async function navToggleFullscreen (component) {
   return class NavToggleFullscreen extends component.baseFactory {
     async build () {
-      if (!this.component.req.iconset) return
-      const inIcon = this.iconset.resolve('fullscreen')
-      const outIcon = this.iconset.resolve('fullscreenExit')
+      const { iconset, req } = this.component
+      if (!req.iconset) return
+      const inIcon = iconset.resolve('fullscreen')
+      const outIcon = iconset.resolve('fullscreenExit')
       const content = await this.component.buildTag({ tag: 'icon', attr: { oname: inIcon } })
       const attr = {
         'x-ref': 'fullscreen',

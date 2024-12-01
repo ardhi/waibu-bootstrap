@@ -1,7 +1,7 @@
 const cls = 'breadcrumb-item'
 
-async function breadcrumbItem (component) {
-  return class BreadcrumbItem extends component.baseFactory {
+async function breadcrumbItem () {
+  return class BreadcrumbItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

@@ -2,8 +2,8 @@ import { parseSimple, sizes } from '../method/after-build-tag/_lib.js'
 
 const cls = 'btn-group'
 
-async function btnGroup (component) {
-  return class BtnGroup extends component.baseFactory {
+async function btnGroup () {
+  return class BtnGroup extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

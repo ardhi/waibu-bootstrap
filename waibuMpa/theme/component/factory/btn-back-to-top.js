@@ -1,5 +1,5 @@
-async function btnBackToTop (component) {
-  return class BtnBackToTop extends component.baseFactory {
+async function btnBackToTop () {
+  return class BtnBackToTop extends this.baseFactory {
     constructor (options) {
       super(options)
       this.params.noTag = true

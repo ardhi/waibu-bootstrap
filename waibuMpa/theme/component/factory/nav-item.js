@@ -1,8 +1,8 @@
 import { buildMenu, autoCloses } from './dropdown.js'
 const cls = 'nav-item'
 
-async function navItem (component) {
-  return class NavItem extends component.baseFactory {
+async function navItem () {
+  return class NavItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

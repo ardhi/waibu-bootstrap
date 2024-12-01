@@ -1,5 +1,5 @@
-async function navToggleFullscreen (component) {
-  return class NavToggleFullscreen extends component.baseFactory {
+async function navToggleFullscreen () {
+  return class NavToggleFullscreen extends this.baseFactory {
     async build () {
       const { iconset, req } = this.component
       if (!req.iconset) return

@@ -1,8 +1,8 @@
 import { breakpoints, parseSimple } from '../method/after-build-tag/_lib.js'
 const cls = 'container'
 
-async function container (component) {
-  return class Container extends component.baseFactory {
+async function container () {
+  return class Container extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

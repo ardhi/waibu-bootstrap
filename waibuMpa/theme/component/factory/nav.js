@@ -1,8 +1,8 @@
 const cls = 'nav'
 const types = ['tabs', 'pills', 'underline']
 
-async function nav (component) {
-  return class Nav extends component.baseFactory {
+async function nav () {
+  return class Nav extends this.baseFactory {
     constructor (options) {
       super(options)
       const { isString } = this.plugin.app.bajo.lib._

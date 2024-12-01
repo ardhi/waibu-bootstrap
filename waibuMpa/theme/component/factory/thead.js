@@ -1,7 +1,7 @@
 const cls = 'table'
 
-async function thead (component) {
-  return class Thead extends component.baseFactory {
+async function thead () {
+  return class Thead extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = `.${cls} thead`

@@ -1,5 +1,5 @@
-async function navDropdownDarkmode (component) {
-  return class NavDropdownDarkmode extends component.baseFactory {
+async function navDropdownDarkmode () {
+  return class NavDropdownDarkmode extends this.baseFactory {
     async build () {
       const { titleize } = this.plugin.app.bajo
       const { set } = this.plugin.app.bajo.lib._

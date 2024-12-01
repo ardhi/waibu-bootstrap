@@ -1,5 +1,5 @@
-async function heading (component) {
-  return class Heading extends component.baseFactory {
+async function heading () {
+  return class Heading extends this.baseFactory {
     constructor (options) {
       super(options)
       this.params.attr.type = this.params.attr.type ?? '1'

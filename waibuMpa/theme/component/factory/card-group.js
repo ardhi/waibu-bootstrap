@@ -1,7 +1,7 @@
 const cls = 'card-group'
 
-async function cardGroup (component) {
-  return class CardGroup extends component.baseFactory {
+async function cardGroup () {
+  return class CardGroup extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

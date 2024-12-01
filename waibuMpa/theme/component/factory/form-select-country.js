@@ -1,7 +1,7 @@
 import { inlineCss, css, scripts } from './form-select-ext.js'
 
-async function formSelectCountry (component) {
-  return class FormSelectCountry extends component.baseFactory {
+async function formSelectCountry () {
+  return class FormSelectCountry extends this.baseFactory {
     constructor (options) {
       super(options)
       this.css = css

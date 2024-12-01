@@ -1,8 +1,8 @@
 import { buildFormRange } from './_lib.js'
 import { build } from './form-input.js'
 
-async function formRange (component) {
-  return class FormRange extends component.baseFactory {
+async function formRange () {
+  return class FormRange extends this.baseFactory {
     async build () {
       this.params.attr.type = 'range'
       delete this.params.attr.labelFloating

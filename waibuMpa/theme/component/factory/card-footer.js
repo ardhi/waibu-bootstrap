@@ -1,8 +1,8 @@
 import { handler } from './card-header.js'
 const cls = 'card-footer'
 
-async function cardFooter (component) {
-  return class CardFooter extends component.baseFactory {
+async function cardFooter () {
+  return class CardFooter extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

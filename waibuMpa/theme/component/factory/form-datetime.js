@@ -58,8 +58,8 @@ export async function handler (opts, params = {}) {
   await build.call(this, buildFormInput, this.params)
 }
 
-async function formDatetime (component) {
-  return class FormDatetime extends component.baseFactory {
+async function formDatetime () {
+  return class FormDatetime extends this.baseFactory {
     constructor (options) {
       super(options)
       this.css = css

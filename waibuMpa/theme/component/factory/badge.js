@@ -1,7 +1,7 @@
 const cls = 'badge'
 
-async function badge (component) {
-  return class Badge extends component.baseFactory {
+async function badge () {
+  return class Badge extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

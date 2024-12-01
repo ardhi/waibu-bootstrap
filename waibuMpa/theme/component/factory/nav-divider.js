@@ -1,7 +1,7 @@
 const cls = 'nav-item'
 
-async function navDivider (component) {
-  return class NavDivider extends component.baseFactory {
+async function navDivider () {
+  return class NavDivider extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

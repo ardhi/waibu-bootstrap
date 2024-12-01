@@ -1,8 +1,8 @@
 import { sizes, parseSimple } from '../method/after-build-tag/_lib.js'
 const cls = 'pagination'
 
-async function pagination (component) {
-  return class Pagination extends component.baseFactory {
+async function pagination () {
+  return class Pagination extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

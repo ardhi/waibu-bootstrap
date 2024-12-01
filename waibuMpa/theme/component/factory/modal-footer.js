@@ -1,7 +1,7 @@
 const cls = 'modal-footer'
 
-async function modalFooter (component) {
-  return class ModalFooter extends component.baseFactory {
+async function modalFooter () {
+  return class ModalFooter extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

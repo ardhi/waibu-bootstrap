@@ -1,5 +1,5 @@
-async function drawerToolbar (component) {
-  return class DrawerToolbar extends component.baseFactory {
+async function drawerToolbar () {
+  return class DrawerToolbar extends this.baseFactory {
   }
 }
 

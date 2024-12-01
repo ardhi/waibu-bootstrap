@@ -1,8 +1,8 @@
 import { colors, parseVariant } from '../method/after-build-tag/_lib.js'
 const cls = 'table'
 
-async function th (component) {
-  return class Th extends component.baseFactory {
+async function th () {
+  return class Th extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = `.${cls} th`

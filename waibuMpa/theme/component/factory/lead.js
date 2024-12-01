@@ -1,7 +1,7 @@
 const cls = 'lead'
 
-async function lead (component) {
-  return class Lead extends component.baseFactory {
+async function lead () {
+  return class Lead extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

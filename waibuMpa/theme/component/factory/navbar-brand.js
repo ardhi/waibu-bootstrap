@@ -1,7 +1,7 @@
 const cls = 'navbar-brand'
 
-async function navbarBrand (component) {
-  return class NavbarBrand extends component.baseFactory {
+async function navbarBrand () {
+  return class NavbarBrand extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

@@ -1,7 +1,7 @@
 const cls = 'card-title'
 
-async function cardTitle (component) {
-  return class CardTitle extends component.baseFactory {
+async function cardTitle () {
+  return class CardTitle extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

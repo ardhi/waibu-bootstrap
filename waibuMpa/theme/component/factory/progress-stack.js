@@ -1,7 +1,7 @@
 const cls = 'progress-stacked'
 
-async function progressStack (component) {
-  return class ProgressStack extends component.baseFactory {
+async function progressStack () {
+  return class ProgressStack extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

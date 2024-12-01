@@ -1,7 +1,7 @@
 const cls = 'navbar-text'
 
-async function navbarText (component) {
-  return class NavbarText extends component.baseFactory {
+async function navbarText () {
+  return class NavbarText extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

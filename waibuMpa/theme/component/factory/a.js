@@ -1,5 +1,5 @@
-async function a (component) {
-  return class A extends component.baseFactory {
+async function a () {
+  return class A extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'a' })

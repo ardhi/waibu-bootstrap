@@ -1,8 +1,8 @@
 import { buildFormSwitch } from './_lib.js'
 import { build } from './form-check.js'
 
-async function formSwitch (component) {
-  return class FormSwitch extends component.baseFactory {
+async function formSwitch () {
+  return class FormSwitch extends this.baseFactory {
     constructor (options) {
       super(options)
       this.params.attr.wrapperClass = this.params.attr.wrapperClass ?? ''

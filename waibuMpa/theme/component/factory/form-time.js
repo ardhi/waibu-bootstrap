@@ -1,7 +1,7 @@
 import { css, scripts, inlineScript, handler } from './form-datetime.js'
 
-async function formTime (component) {
-  return class FormTime extends component.baseFactory {
+async function formTime () {
+  return class FormTime extends this.baseFactory {
     constructor (options) {
       super(options)
       this.css = css

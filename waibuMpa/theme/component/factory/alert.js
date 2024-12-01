@@ -2,8 +2,8 @@ import { colors, parseVariant } from '../method/after-build-tag/_lib.js'
 
 const cls = 'alert'
 
-async function alert (component) {
-  return class Alert extends component.baseFactory {
+async function alert () {
+  return class Alert extends this.baseFactory {
     constructor (options) {
       super(options)
       const { without } = this.plugin.app.bajo.lib._

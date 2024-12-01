@@ -14,8 +14,8 @@ function setResponsive (params) {
   this.params.append = '</div>'
 }
 
-async function table (component) {
-  return class Table extends component.baseFactory {
+async function table () {
+  return class Table extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

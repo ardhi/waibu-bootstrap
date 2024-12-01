@@ -121,8 +121,8 @@ export async function build (handler, params = {}) {
   }
 }
 
-async function formInput (component) {
-  return class FormInput extends component.baseFactory {
+async function formInput () {
+  return class FormInput extends this.baseFactory {
     async build () {
       await build.call(this, buildFormInput, this.params)
     }

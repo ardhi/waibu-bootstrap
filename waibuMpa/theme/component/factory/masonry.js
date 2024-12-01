@@ -1,7 +1,7 @@
 import gutter from '../method/after-build-tag/gutter.js'
 
-async function masonry (component) {
-  return class Masonry extends component.baseFactory {
+async function masonry () {
+  return class Masonry extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params)

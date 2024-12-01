@@ -1,7 +1,7 @@
 const cls = 'carousel'
 
-async function carousel (component) {
-  return class Carousel extends component.baseFactory {
+async function carousel () {
+  return class Carousel extends this.baseFactory {
     constructor (options) {
       super(options)
       const { isEmpty } = this.plugin.app.bajo.lib._

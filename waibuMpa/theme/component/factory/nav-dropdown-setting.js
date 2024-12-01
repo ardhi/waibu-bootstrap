@@ -1,5 +1,5 @@
-async function navDropdownSetting (component) {
-  return class NavDropdownSetting extends component.baseFactory {
+async function navDropdownSetting () {
+  return class NavDropdownSetting extends this.baseFactory {
     async build () {
       const { set, camelCase } = this.plugin.app.bajo.lib._
       const { supportedLngs } = this.plugin.app.bajoI18N.config

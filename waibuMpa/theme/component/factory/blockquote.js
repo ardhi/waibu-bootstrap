@@ -1,7 +1,7 @@
 const cls = 'blockquote'
 
-async function blockquote (component) {
-  return class Blockquote extends component.baseFactory {
+async function blockquote () {
+  return class Blockquote extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

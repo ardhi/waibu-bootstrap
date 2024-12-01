@@ -1,5 +1,5 @@
-async function form (component) {
-  return class Form extends component.baseFactory {
+async function form () {
+  return class Form extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'form' })

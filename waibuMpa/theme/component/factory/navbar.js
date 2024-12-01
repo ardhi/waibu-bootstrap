@@ -1,8 +1,8 @@
 import { breakpoints, parseSimple } from '../method/after-build-tag/_lib.js'
 const cls = 'navbar'
 
-async function navbar (component) {
-  return class Navbar extends component.baseFactory {
+async function navbar () {
+  return class Navbar extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

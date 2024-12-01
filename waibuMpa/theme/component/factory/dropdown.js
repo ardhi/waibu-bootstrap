@@ -4,7 +4,7 @@ const cls = 'dropdown'
 const variants = ['center']
 export const autoCloses = ['true', 'false', 'inside', 'outside']
 
-export async function buildMenu (params = {}) {
+export async function buildMenu (params = {}) { // scope: component
   const { numUnit } = this.plugin.app.bajo
   const { isString } = this.plugin.app.bajo.lib._
   const $ = this.$
@@ -58,11 +58,11 @@ export async function buildMenu (params = {}) {
     html: menuHtml
   }
   if (params.attr.id) args.attr.id = params.attr.id + '-menu'
-  return await this.component.buildTag(args)
+  return await this.buildTag(args)
 }
 
-async function dropdown (component) {
-  return class Dropdown extends component.baseFactory {
+async function dropdown () {
+  return class Dropdown extends this.baseFactory {
     constructor (options) {
       super(options)
       const { isString } = this.plugin.app.bajo.lib._

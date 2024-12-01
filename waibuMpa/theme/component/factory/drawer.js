@@ -1,8 +1,8 @@
 import { aligns, breakpoints, parseVariant, parseSimple } from '../method/after-build-tag/_lib.js'
 const cls = 'offcanvas'
 
-async function drawer (component) {
-  return class Drawer extends component.baseFactory {
+async function drawer () {
+  return class Drawer extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

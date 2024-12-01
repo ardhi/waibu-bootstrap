@@ -1,7 +1,7 @@
 const cls = 'dropdown-item'
 
-async function dropdownItem (component) {
-  return class DropdownItem extends component.baseFactory {
+async function dropdownItem () {
+  return class DropdownItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

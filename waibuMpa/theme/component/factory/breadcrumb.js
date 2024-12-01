@@ -28,8 +28,8 @@ async function generateItems (breadcrumb) {
   return await this.component.buildSentence(html.join('\n'))
 }
 
-async function breadcrumb (component) {
-  return class Breadcrumb extends component.baseFactory {
+async function breadcrumb () {
+  return class Breadcrumb extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

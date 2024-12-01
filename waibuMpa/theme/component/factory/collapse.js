@@ -6,8 +6,8 @@ function collectAttr (params, item) {
   })
 }
 
-async function collapse (component) {
-  return class Collapse extends component.baseFactory {
+async function collapse () {
+  return class Collapse extends this.baseFactory {
     async build () {
       const { generateId } = this.plugin.app.bajo
       const { merge, isString } = this.plugin.app.bajo.lib._

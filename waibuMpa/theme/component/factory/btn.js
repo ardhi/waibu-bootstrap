@@ -2,8 +2,8 @@ import { parseVariant, parseSimple, sizes, colors, colorVariants } from '../meth
 
 const cls = 'btn'
 
-async function btn (component) {
-  return class Btn extends component.baseFactory {
+async function btn () {
+  return class Btn extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

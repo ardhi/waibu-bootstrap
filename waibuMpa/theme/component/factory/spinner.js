@@ -1,8 +1,8 @@
 import { sizes, parseSimple } from '../method/after-build-tag/_lib.js'
 const types = ['border', 'grow']
 
-async function spinner (component) {
-  return class Spinner extends component.baseFactory {
+async function spinner () {
+  return class Spinner extends this.baseFactory {
     constructor (options) {
       super(options)
       const type = types.includes(this.params.attr.type) ? this.params.attr.type : 'border'

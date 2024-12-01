@@ -1,7 +1,7 @@
 const cls = 'card-subtitle'
 
-async function cardSubtitle (component) {
-  return class CardSubtitle extends component.baseFactory {
+async function cardSubtitle () {
+  return class CardSubtitle extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

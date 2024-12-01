@@ -21,8 +21,8 @@ function formatSentence (item, params) {
   return result.join(' ')
 }
 
-async function sidebar (component) {
-  return class Sidebar extends component.baseFactory {
+async function sidebar () {
+  return class Sidebar extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'div', flex: 'column' })

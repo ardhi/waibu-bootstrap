@@ -1,7 +1,7 @@
 const cls = 'accordion-item'
 
-async function accordionItem (component) {
-  return class AccordionItem extends component.baseFactory {
+async function accordionItem () {
+  return class AccordionItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

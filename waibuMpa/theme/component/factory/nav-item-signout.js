@@ -1,5 +1,5 @@
-async function navItemSignout (component) {
-  return class NavItemSignout extends component.baseFactory {
+async function navItemSignout () {
+  return class NavItemSignout extends this.baseFactory {
     async build () {
       if (!this.component.req.user) return
       const { generateId } = this.plugin.app.bajo

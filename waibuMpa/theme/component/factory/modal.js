@@ -3,8 +3,8 @@ const cls = 'modal'
 const modalSizes = ['xl', ...sizes]
 const fullscreens = breakpoints.map(b => `${b}-down`)
 
-async function modal (component) {
-  return class Modal extends component.baseFactory {
+async function modal () {
+  return class Modal extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

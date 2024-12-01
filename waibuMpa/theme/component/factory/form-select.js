@@ -1,8 +1,8 @@
 import { buildFormSelect } from './_lib.js'
 import { handleInput } from './form-input.js'
 
-async function formSelect (component) {
-  return class FormSelect extends component.baseFactory {
+async function formSelect () {
+  return class FormSelect extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { autoId: true })

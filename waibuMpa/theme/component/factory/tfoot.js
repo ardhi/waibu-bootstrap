@@ -1,7 +1,7 @@
 const cls = 'table'
 
-async function tfoot (component) {
-  return class Tfoot extends component.baseFactory {
+async function tfoot () {
+  return class Tfoot extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = `.${cls} tfoot`

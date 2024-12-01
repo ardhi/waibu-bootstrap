@@ -12,8 +12,8 @@ function parse (item) {
   return breakpoints.includes(b) ? `${cls}-${b}${cols[w]}` : `${cls}${cols[w]}`
 }
 
-async function gridCol (component) {
-  return class GridCol extends component.baseFactory {
+async function gridCol () {
+  return class GridCol extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = `[class^=${cls}]`

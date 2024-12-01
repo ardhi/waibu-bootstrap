@@ -1,7 +1,7 @@
 const cls = 'btn-close'
 
-async function btnClose (component) {
-  return class BtnClose extends component.baseFactory {
+async function btnClose () {
+  return class BtnClose extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

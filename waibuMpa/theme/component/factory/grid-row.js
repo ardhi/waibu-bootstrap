@@ -6,8 +6,8 @@ export function buildCol () {
 const cls = 'row'
 const col = buildCol()
 
-async function gridRow (component) {
-  return class GridRow extends component.baseFactory {
+async function gridRow () {
+  return class GridRow extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

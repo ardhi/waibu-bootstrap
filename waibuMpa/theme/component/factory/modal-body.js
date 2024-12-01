@@ -1,7 +1,7 @@
 const cls = 'modal-body'
 
-async function modalBody (component) {
-  return class ModalBody extends component.baseFactory {
+async function modalBody () {
+  return class ModalBody extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

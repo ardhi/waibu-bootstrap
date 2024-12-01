@@ -1,5 +1,5 @@
-async function appLauncher (component) {
-  return class AppLauncher extends component.baseFactory {
+async function appLauncher () {
+  return class AppLauncher extends this.baseFactory {
     constructor (options) {
       super(options)
       const { generateId } = this.plugin.app.bajo

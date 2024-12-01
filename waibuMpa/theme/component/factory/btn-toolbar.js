@@ -1,7 +1,7 @@
 const cls = 'btn-toolbar'
 
-async function btnToolbar (component) {
-  return class BtnToolbar extends component.baseFactory {
+async function btnToolbar () {
+  return class BtnToolbar extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

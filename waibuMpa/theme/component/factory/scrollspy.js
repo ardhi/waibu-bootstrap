@@ -1,7 +1,7 @@
 const cls = 'scrollspy'
 
-async function scrollspy (component) {
-  return class Scrollspy extends component.baseFactory {
+async function scrollspy () {
+  return class Scrollspy extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

@@ -1,7 +1,7 @@
 const cls = 'collapse'
 
-async function collapseItem (component) {
-  return class CollapseItem extends component.baseFactory {
+async function collapseItem () {
+  return class CollapseItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

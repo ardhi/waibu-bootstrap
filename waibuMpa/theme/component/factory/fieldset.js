@@ -1,5 +1,5 @@
-async function fieldset (component) {
-  return class Fieldset extends component.baseFactory {
+async function fieldset () {
+  return class Fieldset extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'fieldset' })

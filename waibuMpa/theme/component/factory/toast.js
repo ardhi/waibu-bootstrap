@@ -1,7 +1,7 @@
 const cls = 'toast'
 
-async function toast (component) {
-  return class Toast extends component.baseFactory {
+async function toast () {
+  return class Toast extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

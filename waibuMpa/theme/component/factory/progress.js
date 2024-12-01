@@ -1,7 +1,7 @@
 const cls = 'progress'
 
-async function progress (component) {
-  return class Progress extends component.baseFactory {
+async function progress () {
+  return class Progress extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

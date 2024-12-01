@@ -19,8 +19,8 @@ export async function build (handler, params = {}) {
   this.params.html = contents.join('\n')
 }
 
-async function formCheckToggle (component) {
-  return class FormCheckToggle extends component.baseFactory {
+async function formCheckToggle () {
+  return class FormCheckToggle extends this.baseFactory {
     async build () {
       const { has } = this.plugin.app.bajo.lib._
       const { req } = this.component

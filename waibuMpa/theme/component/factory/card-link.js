@@ -1,7 +1,7 @@
 const cls = 'card-link'
 
-async function cardLink (component) {
-  return class CardLink extends component.baseFactory {
+async function cardLink () {
+  return class CardLink extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

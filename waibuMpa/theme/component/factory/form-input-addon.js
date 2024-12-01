@@ -1,5 +1,5 @@
-async function formInputAddon (component) {
-  return class FormInputAddon extends component.baseFactory {
+async function formInputAddon () {
+  return class FormInputAddon extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'div', addon: this.params.attr.prepend ? 'prepend' : 'append' })

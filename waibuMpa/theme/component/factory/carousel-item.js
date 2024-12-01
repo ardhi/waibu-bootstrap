@@ -1,7 +1,7 @@
 const cls = 'carousel-item'
 
-async function carouselItem (component) {
-  return class CarouselItem extends component.baseFactory {
+async function carouselItem () {
+  return class CarouselItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

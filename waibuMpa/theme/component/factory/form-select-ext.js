@@ -18,8 +18,8 @@ export const inlineCss = `
 export const css = 'waibuExtra.virtual:/tom-select/css/tom-select.bootstrap5.min.css'
 export const scripts = 'waibuExtra.virtual:/tom-select/js/tom-select.complete.min.js'
 
-async function formSelectExt (component) {
-  return class FormSelectExt extends component.baseFactory {
+async function formSelectExt () {
+  return class FormSelectExt extends this.baseFactory {
     constructor (options) {
       super(options)
       this.css = css

@@ -11,8 +11,8 @@ export async function handler (cls, params = {}) {
   if (tabs.length > 0) this.params.html = tabs.addClass('card-header-tabs').parent().prop('outerHTML')
 }
 
-async function cardHeader (component) {
-  return class CardHeader extends component.baseFactory {
+async function cardHeader () {
+  return class CardHeader extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

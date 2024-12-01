@@ -1,8 +1,8 @@
 import { breakpoints, colors, parseVariant } from '../method/after-build-tag/_lib.js'
 const cls = 'list'
 
-async function list (component) {
-  return class List extends component.baseFactory {
+async function list () {
+  return class List extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

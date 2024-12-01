@@ -1,7 +1,7 @@
 const cls = 'page-item'
 
-async function paginationItem (component) {
-  return class PaginationItem extends component.baseFactory {
+async function paginationItem () {
+  return class PaginationItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

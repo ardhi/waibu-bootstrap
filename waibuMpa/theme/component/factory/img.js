@@ -1,7 +1,7 @@
 const cls = 'img'
 
-async function img (component) {
-  return class Img extends component.baseFactory {
+async function img () {
+  return class Img extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = `img[class^='${cls}']`

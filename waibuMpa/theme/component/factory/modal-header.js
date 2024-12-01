@@ -1,7 +1,7 @@
 const cls = 'modal-header'
 
-async function modalHeader (component) {
-  return class ModalHeader extends component.baseFactory {
+async function modalHeader () {
+  return class ModalHeader extends this.baseFactory {
     constructor (options) {
       super(options)
       this.selector = '.' + cls

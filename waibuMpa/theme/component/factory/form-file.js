@@ -1,8 +1,8 @@
 import { buildFormFile } from './_lib.js'
 import { build } from './form-input.js'
 
-async function formFile (component) {
-  return class FormFile extends component.baseFactory {
+async function formFile () {
+  return class FormFile extends this.baseFactory {
     constructor (options) {
       super(options)
       this.params.attr.type = 'file'

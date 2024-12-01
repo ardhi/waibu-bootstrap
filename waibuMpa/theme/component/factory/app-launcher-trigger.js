@@ -1,5 +1,5 @@
-async function appLauncherTrigger (component) {
-  return class AppLauncherTrigger extends component.baseFactory {
+async function appLauncherTrigger () {
+  return class AppLauncherTrigger extends this.baseFactory {
     constructor (options) {
       super(options)
       const { isString } = this.plugin.app.bajo.lib._

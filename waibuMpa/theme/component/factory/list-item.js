@@ -1,7 +1,7 @@
 const inlineClass = 'list-inline-item'
 
-async function listItem (component) {
-  return class ListItem extends component.baseFactory {
+async function listItem () {
+  return class ListItem extends this.baseFactory {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'li' })

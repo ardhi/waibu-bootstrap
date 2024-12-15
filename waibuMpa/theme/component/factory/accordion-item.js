@@ -10,14 +10,17 @@ async function accordionItem () {
     }
 
     async build () {
-      const { omit } = this.plugin.app.bajo.lib._
+      const { omit, without } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['body'])
       if (!group.body.noPadding) group.body.class.push('accordion-body')
+      const clsList = without(this.params.attr.class, cls)
       const header = ['<h2 class="accordion-header">',
         `<button class="${this.params.attr.narrowHeader ? 'px-3 py-2 ' : ''}accordion-button${this.params.attr.showOnStart ? '' : ' collapsed'}"`,
         `type="button" data-bs-toggle="collapse" data-bs-target="#${this.params.attr.id}"`,
         `aria-expanded="${this.params.attr.showOnStart}"`,
+        'x-data',
+        `@click="$dispatch('accordion-item', { id: $el.closest('.accordion').id, cls: '${clsList.join(' ')}' })"`,
         `aria-controls="${this.params.attr.id}">${this.params.attr.header}</button></h2>`]
       const body = await this.component.buildTag({ tag: 'div', attr: group.body, html: this.params.html })
       const details = [`<div id="${this.params.attr.id}" class="accordion-collapse collapse${this.params.attr.showOnStart ? ' show' : ''}">`,

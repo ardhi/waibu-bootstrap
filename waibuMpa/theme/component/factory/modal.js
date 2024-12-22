@@ -20,9 +20,10 @@ async function modal () {
       this.params.attr.class.push(this.params.attr.noFade ? '' : 'fade')
       if (this.params.attr.noDismiss) this.params.attr.dataBsBackdrop = 'static'
       if (this.params.attr.noKeyboard) this.params.attr.dataBsKeyboard = 'false'
-      this.params.html = `<div class="modal-body ${this.params.attr.noPadding ? 'pt-0 ps-0 pe-0' : ''}">${this.params.html}</div>`
-      const hasHeader = $(`<div>${this.params.html}</div>`).find('.modal-header').length > 0
-      if (!hasHeader && (isString(this.params.attr.title) || !this.params.attr.noDismiss)) {
+      let hasHeader = $(`<div>${this.params.html}</div>`).find('.modal-header').length > 0
+      if (this.params.attr.noHeader) hasHeader = false
+      if (!hasHeader) this.params.html = `<div class="modal-body ${this.params.attr.noPadding ? 'pt-0 ps-0 pe-0' : ''}">${this.params.html}</div>`
+      if (!hasHeader && isString(this.params.attr.title)) {
         const items = ['<div class="modal-header">', '<h1 class="modal-title fs-5">']
         items.push(this.params.attr.title)
         items.push('</h1>')

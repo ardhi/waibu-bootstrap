@@ -23,12 +23,14 @@ class Wbs {
     return bootstrap[type].getOrCreateInstance(el)
   }
 
-  async notify (msg, { title, caption, type = 'info' } = {}) {
+  async notify (msg, { title, caption, type = 'info', transValue = [] } = {}) {
     const id = wmpa.randomId()
-    let body = `<c:toast id="${id}" t:content="${msg}" background="color:${type}" `
+    if (_.isString(transValue)) transValue = [transValue]
+    transValue = transValue.join('|')
+    let body = `<c:toast id="${id}" background="color:${type}" `
     if (title) body += `title="${title}" `
     if (caption) body += `caption="${caption}" `
-    body += '/>'
+    body += `><c:t value="${transValue}">${msg}</c:t></c:toast>`
     await wmpa.addComponent(body, '.toast-container')
     const el = document.getElementById(id)
     if (!el) return
@@ -64,9 +66,28 @@ class Wbs {
     opts.icon = 'signQuestion'
     opts.buttons = [
       { label: 'Cancel', color: 'secondary', dismiss: true },
-      { label: 'OK', color: 'primary', dismiss: !opts.ok, handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
+      { label: 'OK', color: 'primary', dismiss: !opts.ok, alertType: 'confirmation', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
     ]
     return await this.alert(msg, opts.title ?? 'Confirmation', opts)
+  }
+
+  async prompt (msg, handler, opts = {}) {
+    if (_.isPlainObject(handler)) {
+      opts = handler
+      handler = undefined
+    }
+    opts.content = [
+      '<c:form-input />',
+      '<c:div margin="top-3">',
+      msg,
+      '</c:div>'
+    ].join('\n')
+    opts.close = opts.close ?? ''
+    opts.buttons = [
+      { label: 'Cancel', color: 'secondary', dismiss: true },
+      { label: 'OK', color: 'primary', dismiss: !opts.ok, alertType: 'prompt', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
+    ]
+    return await this.alert(msg, opts.title ?? 'Prompt', opts)
   }
 
   async appLauncher (params) {
@@ -89,7 +110,9 @@ class Wbs {
       opts = title
       title = undefined
     }
-    let { type = 'info', icon, centered = true, buttons } = opts
+    let { type = 'info', icon, centered = true, buttons, transValue = [] } = opts
+    if (_.isString(transValue)) transValue = [transValue]
+    transValue = transValue.join('|')
     buttons = buttons ?? [{ label: 'OK', color: 'primary', dismiss: true }]
     icon = icon ?? 'sign' + (type.charAt(0).toUpperCase() + type.slice(1))
     switch (type) {
@@ -100,12 +123,18 @@ class Wbs {
     buttons = buttons.map(b => {
       let btn = `<c:btn margin="start-2" ${b.id ? `id="${b.id}"` : ''} color="${b.color}" t:content="${b.label}" `
       if (b.dismiss) btn += 'dismiss />'
-      else if (b.handler) btn += `x-data @click="wbs.dispatchAlert('${b.handler}', '${id}', '${b.handlerOpts ?? ''}', '${b.close ?? ''}')" />`
+      else if (b.handler) btn += `x-data @click="wbs.handleAlert('${b.handler}', '${id}', '${b.handlerOpts ?? ''}', '${b.close ?? ''}', '${b.alertType ?? 'alert'}')" />`
       else btn += '/>'
       return btn
     })
-    const body = [`<c:modal id="${id}" ${centered ? 'centered' : ''} t:title="${title}"><c:div flex="justify-content:between align-items:start">`]
-    body.push(`<c:div margin="end-3"><c:icon font="size:1" name="${icon}" /></c:div><c:div dim="width:100">${msg}</c:div></c:div>`)
+    const body = [`<c:modal id="${id}" ${centered ? 'centered' : ''} t:title="${title}">`]
+    if (opts.content) body.push(opts.content)
+    else {
+      body.push('<c:div flex="justify-content:between align-items:start">')
+      body.push(`<c:div margin="end-3"><c:icon font="size:1" name="${icon}" /></c:div>`)
+      body.push(`<c:div dim="width:100"><c:t value="${transValue}">${msg}</c:t></c:div>`)
+      body.push('</c:div>')
+    }
     body.push('<c:div flex="justify-content:end" margin="top-3">')
     body.push(...buttons)
     body.push('</c:div></c:modal>')
@@ -119,22 +148,25 @@ class Wbs {
     return id
   }
 
-  dispatchAlert (name, id, opts, close) {
-    if (close !== '') {
-      const instance = this.getInstance('Modal', id)
-      instance.hide()
+  handleAlert (name, modalId, opts, close, alertType) {
+    const callFn = (fn) => {
+      let value
+      if (alertType === 'prompt') {
+        value = document.querySelector('#' + modalId + ' input.form-control').value
+      }
+      if (wmpa.isAsync(fn)) fn(modalId, opts, value).then()
+      else fn(modalId, opts, value)
     }
+    if (close !== '') this.getInstance('Modal', modalId).hide()
     if (name.includes(':')) {
-      const [id, method] = name.split(':')
-      const el = document.getElementById(id)
-      const fn = _.get(el, `_x_dataStack.0.${method}`)
-      if (!fn) console.error(`Component method not found: ${name}`)
-      else if (wmpa.isAsync(fn)) fn(opts).then()
-      else fn(opts)
+      const [ns, ...method] = name.split(':')
+      const fn = wmpa.alpineScopeMethod('#' + ns, method.join(':'))
+      if (fn) callFn(fn)
+      else console.error(`Component method not found: ${name}`)
       return
     }
     const fn = _.get(window, name)
-    if (fn) fn(opts).then()
+    if (fn) callFn(fn)
     else console.error(`Function not found '${name}'`)
   }
 

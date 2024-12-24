@@ -77,7 +77,7 @@ class Wbs {
       handler = undefined
     }
     opts.content = [
-      '<c:form-input />',
+      '<c:form-input/>',
       '<c:div margin="top-3">',
       msg,
       '</c:div>'
@@ -143,6 +143,10 @@ class Wbs {
     const modalEl = document.getElementById(id)
     modalEl.addEventListener('hidden.bs.modal', evt => {
       modalEl.remove()
+    })
+    modalEl.addEventListener('shown.bs.modal', evt => {
+      const input = modalEl.querySelector('input')
+      if (input) input.focus()
     })
     modal.show()
     return id

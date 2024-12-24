@@ -41,7 +41,7 @@ const styles = [
   { key: 'vAlign', val: 'align{value}', values: vAligns },
   { key: 'float', val: 'float{type}{value}', values: floats, types: breakpoints },
   { key: 'userSelect', val: 'user-select{value}', values: ['all', ...peEvents] },
-  { key: 'pointerEvent', val: 'pointer-event{value}', values: peEvents },
+  { key: 'pointerEvent', val: 'pe{value}', values: peEvents },
   { key: 'objectFit', val: 'object-fit{type}{value}', values: fits, types: breakpoints, tags: ['img', 'video', 'iframe', 'embed', 'audio', 'canvas', 'object'] },
   { key: 'opacity', val: 'opacity{value}', values: opacities },
   { key: 'overflow', val: 'overflow{type}{value}', types: ['x', 'y'], values: overflows },

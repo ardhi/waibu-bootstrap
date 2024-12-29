@@ -77,7 +77,11 @@ class Wbs {
       handler = undefined
     }
     opts.content = [
-      '<c:form-input/>',
+      `<c:form-input x-data="{
+        submit (evt) {
+          this.$el.closest('.modal-body').querySelector('button[type=submit]').click()
+        }
+      }" @keyup.enter="submit" />`,
       '<c:div margin="top-3">',
       msg,
       '</c:div>'
@@ -85,7 +89,7 @@ class Wbs {
     opts.close = opts.close ?? ''
     opts.buttons = [
       { label: 'Cancel', color: 'secondary', dismiss: true },
-      { label: 'OK', color: 'primary', dismiss: !opts.ok, alertType: 'prompt', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
+      { label: 'OK', type: 'submit', color: 'primary', dismiss: !opts.ok, alertType: 'prompt', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
     ]
     return await this.alert(msg, opts.title ?? 'Prompt', opts)
   }
@@ -121,7 +125,7 @@ class Wbs {
       default: title = title ?? 'Information'
     }
     buttons = buttons.map(b => {
-      let btn = `<c:btn margin="start-2" ${b.id ? `id="${b.id}"` : ''} color="${b.color}" t:content="${b.label}" `
+      let btn = `<c:btn type="${b.type ?? 'button'}" margin="start-2" ${b.id ? `id="${b.id}"` : ''} color="${b.color}" t:content="${b.label}" `
       if (b.dismiss) btn += 'dismiss />'
       else if (b.handler) btn += `x-data @click="wbs.handleAlert('${b.handler}', '${id}', '${b.handlerOpts ?? ''}', '${b.close ?? ''}', '${b.alertType ?? 'alert'}')" />`
       else btn += '/>'
@@ -164,7 +168,7 @@ class Wbs {
     if (close !== '') this.getInstance('Modal', modalId).hide()
     if (name.includes(':')) {
       const [ns, ...method] = name.split(':')
-      const fn = wmpa.alpineScopeMethod('#' + ns, method.join(':'))
+      const fn = wmpa.alpineScopeMethod(method.join(':'), '#' + ns)
       if (fn) callFn(fn)
       else console.error(`Component method not found: ${name}`)
       return

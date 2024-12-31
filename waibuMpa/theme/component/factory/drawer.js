@@ -32,10 +32,10 @@ async function drawer () {
       if (isString(this.params.attr.title) || !this.params.attr.noDismiss) {
         header.push('<div class="offcanvas-header justify-content-between">')
         if (isString(this.params.attr.title)) header.push(`<h5 class="offcanvas-title"${isString(this.params.attr.idLabel) ? ` id="${this.params.attr.idLabel}"` : ''}>${this.params.attr.title}</h5>`)
-        header.push('<div class="d-flex align-items-center">')
+        header.push('<ul class="nav d-flex align-items-center">')
         header.push(...buttons)
         if (!this.params.attr.noDismiss) header.push(await this.component.buildTag({ tag: 'btnClose', attr: { dataBsDismiss: 'offcanvas' } }))
-        header.push('</div></div>')
+        header.push('</ul></div>')
       }
       if (this.params.attr.divider) header.push('<hr class="m-0" />')
       this.params.html = `${header.join('\n')}<div${this.params.attr.noPadding ? '' : ' class="offcanvas-body"'}>${this.params.html}</div>`

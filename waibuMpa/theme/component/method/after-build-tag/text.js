@@ -3,7 +3,7 @@ import { breakpoints, opacities, heights, parseVariant, parseSimple, colors } fr
 const decorations = ['underline', 'line-through', 'none']
 const transforms = ['lowercase', 'uppercase', 'capitalize', 'monospace']
 const alignments = ['start', 'center', 'break', 'reset', 'end']
-const directs = ['wrap', 'nowrap', 'mark', 'small']
+const directs = ['wrap', 'nowrap', 'mark', 'small', 'truncate']
 const variants = ['emphasis', 'secondary', 'tertiary']
 
 function text ({ key, params }) {

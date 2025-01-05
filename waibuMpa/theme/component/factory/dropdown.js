@@ -51,7 +51,7 @@ export async function buildMenu (params = {}) { // scope: component
     attr: {
       class: [
         'dropdown-menu',
-        parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.menu, values: dirs, variants: breakpoints, prepend: true })
+        parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.dir, values: dirs, variants: breakpoints, prepend: true })
       ],
       style
     },
@@ -73,16 +73,18 @@ async function dropdown () {
 
     async build () {
       const { merge, cloneDeep, omit } = this.plugin.app.bajo.lib._
+      const { groupAttrs } = this.plugin.app.waibuMpa
       const alpinejs = this.plugin.app.waibuAlpinejs
       const [dir, variant] = (this.params.attr.dir ?? 'down').split('-')
       const xcls = ['drop' + parseSimple.call(this, { value: dir, values: dirs })]
       if (variants.includes(variant)) xcls.push(`${xcls[0]}-${variant}`)
       this.params.attr.class.push(...xcls)
-      const attr = cloneDeep(omit(this.params.attr, ['margin', 'padding']))
+      const group = groupAttrs(this.params.attr, ['trigger'])
+      this.params.attr = group._
       let button = ''
       if (this.params.attr.menuOnly) this.params.attr.menuTag = 'div'
       const btnParams = {
-        attr: merge(attr, {
+        attr: merge(group.trigger, {
           class: this.params.attr.noCaret ? [] : ['dropdown-toggle'],
           type: 'button',
           dataBsToggle: 'dropdown',

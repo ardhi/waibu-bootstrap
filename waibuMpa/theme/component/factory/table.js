@@ -30,7 +30,7 @@ async function table () {
       else if (this.params.attr.border) this.params.attr.class.push(`${cls}-bordered`)
       if (this.params.attr.hover) this.params.attr.class.push(`${cls}-hover`)
       if (this.params.attr.topCaption) this.params.attr.class.push('caption-top')
-      if (this.params.attr.size === 'sm') this.params.attr.class.push(`${cls}-sm`)
+      if (this.params.attr.size === 'small') this.params.attr.class.push(`${cls}-sm`)
       if (this.params.attr.color) this.params.attr.class.push(parseVariant.call(this, { cls, value: this.params.attr.color, values: colors }))
       this.params.attr = omit(this.params.attr, ['strip', 'noBorder', 'border', 'hover', 'size'])
     }

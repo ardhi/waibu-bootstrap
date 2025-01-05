@@ -95,6 +95,7 @@ class Wbs {
   }
 
   async appLauncher (params) {
+    document.body.click()
     const id = wmpa.randomId()
     const toolbar = params ? `toolbar="${params}"` : ''
     const body = [`<c:app-launcher id="${id}" ${toolbar} />`]

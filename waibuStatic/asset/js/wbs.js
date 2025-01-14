@@ -157,6 +157,10 @@ class Wbs {
     return id
   }
 
+  closeModal (id) {
+    this.getInstance('Modal', id).hide()
+  }
+
   handleAlert (name, modalId, opts, close, alertType) {
     const callFn = (fn) => {
       let value
@@ -166,7 +170,7 @@ class Wbs {
       if (wmpa.isAsync(fn)) fn(modalId, opts, value).then()
       else fn(modalId, opts, value)
     }
-    if (close !== '') this.getInstance('Modal', modalId).hide()
+    if (close !== '') this.closeModal(modalId)
     if (name.includes(':')) {
       const [ns, ...method] = name.split(':')
       const fn = wmpa.alpineScopeMethod(method.join(':'), '#' + ns)

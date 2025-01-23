@@ -13,10 +13,11 @@ async function formSelectCountry () {
     async build () {
       const { readConfig } = this.plugin.app.bajo
       const { map } = this.plugin.app.bajo.lib._
+      const { base64JsonEncode } = this.plugin.app.waibuMpa
       const countries = await readConfig('bajoCommonDb:/dobo/fixture/country.json', { ignoreError: true, defValue: [] })
-      this.params.attr.options = map(countries, c => {
+      this.params.attr.options = base64JsonEncode(map(countries, c => {
         return { value: c.id, text: c.name }
-      })
+      }))
       this.params.html = await this.component.buildTag({ tag: 'formSelectExt', attr: this.params.attr, html: '' })
     }
   }

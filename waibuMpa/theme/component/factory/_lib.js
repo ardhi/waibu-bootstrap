@@ -7,7 +7,7 @@ function getInputAttr (group, formControl = true, ro) {
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
   if (has(attr, 'name') && !attr.value && this.component.locals.form) {
     attr.dataType = attr.dataType ?? 'auto'
-    const val = get(this, `locals.form.${attr.name}`)
+    const val = get(this, `component.locals.form.${attr.name}`)
     if (isPlainObject(val) || isArray(val)) attr.dataValue = escape(JSON.stringify(val))
     else if (isString(val)) attr.dataValue = escape(val)
     else attr.dataValue = val
@@ -120,7 +120,7 @@ export async function buildFormSelect (group, params) {
   attr.class.push('form-select')
   let html = params.html
   if (sizes.includes(attr.size)) attr.class.push(`form-select-${attr.size}`)
-  if (attr.options) html = this._buildOptions({ attr, html: '' })
+  if (attr.options) html = this.component.buildOptions({ attr, html: '' })
   else {
     const items = []
     $(`<div>${trim(html ?? '')}</div>`).find('option').each(function () {

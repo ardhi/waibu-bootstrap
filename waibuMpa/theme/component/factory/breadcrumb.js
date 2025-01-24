@@ -10,6 +10,7 @@ function bcHandler (href, source, opts = {}) {
 }
 
 async function generateItems (breadcrumb) {
+  const { get } = this.plugin.app.bajo.lib._
   const html = []
   for (const b of breadcrumb) {
     let href = ''
@@ -20,7 +21,7 @@ async function generateItems (breadcrumb) {
       }
     }
     const icon = b.icon ? (' icon="' + b.icon + '"') : ''
-    const title = b.href && b.hrefRebuild && !this.component.locals._meta.this.params.model ? this.component.locals.page.title : b.content
+    const title = b.href && b.hrefRebuild && !get(this, 'component.locals._meta.params.model') ? this.component.locals.page.title : b.content
     const content = b.content ? (' t:content="' + title + '"') : ''
     const active = b.href ? ' active' : ''
     html.push(`<c:breadcrumb-item ${icon} ${href} ${content} ${active} />`)

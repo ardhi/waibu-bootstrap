@@ -20,6 +20,12 @@ export const scripts = 'waibuExtra.virtual:/tom-select/js/tom-select.complete.mi
 
 async function formSelectExt () {
   return class FormSelectExt extends this.baseFactory {
+    static css = [...super.css, css]
+
+    static scripts = [...super.scripts, scripts]
+
+    static inlineCss = inlineCss
+
     constructor (options) {
       super(options)
       this.css = css
@@ -40,8 +46,9 @@ async function formSelectExt () {
       if (this.params.attr.clearBtn) plugins.push('clear_button')
       if (this.params.attr.optgroupColumns) plugins.push('optgroup_columns')
       const defOpts = { plugins }
+      this.params.attr.options = this.params.attr.options ? base64JsonDecode(this.params.attr.options) : defOpts
       this.params.attr['@load.window'] = `
-        const options = ${jsonStringify(this.params.attr.options ? base64JsonDecode(this.params.attr.options) : defOpts, true)}
+        const options = ${jsonStringify(this.params.attr.options, true)}
         instance = new TomSelect($refs.select, options)
       `
       await build.call(this, buildFormSelect, this.params)

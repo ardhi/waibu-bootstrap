@@ -21,7 +21,7 @@ async function appLauncherTrigger () {
 
     async build () {
       const { fastGlob } = this.plugin.app.bajo.lib
-      const { get, omit } = this.plugin.app.bajo.lib._
+      const { omit } = this.plugin.app.bajo.lib._
       let logo = 'waibu'
       const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/bajo/logo.*`)
       if (files.length > 0) logo = 'main'

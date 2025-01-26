@@ -1,6 +1,5 @@
 {
   "waibu": {
     "prefix": "bootstrap"
-  },
-  "dependencies": ["waibu-mpa", "waibu-extra"]
+  }
 }

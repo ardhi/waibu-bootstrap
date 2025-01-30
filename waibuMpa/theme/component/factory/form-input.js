@@ -26,7 +26,7 @@ export async function handleInput ({ handler, group, params } = {}) {
     input: await handler.call(this, group, this.params)
   }
   if (group._.name) {
-    const details = get(this, 'locals.error.details', [])
+    const details = get(this, 'component.locals.error.details', [])
     const err = find(details, { field: group._.name })
     if (err) {
       const ext = err.ext ?? {}

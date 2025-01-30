@@ -3,7 +3,7 @@ async function fieldset () {
     constructor (options) {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'fieldset' })
-      if (!this.params.attr.legendType) this.params.attr.legendType = '6-display'
+      if (!this.params.attr.legendType) this.params.attr.legendType = '5'
     }
 
     async build () {

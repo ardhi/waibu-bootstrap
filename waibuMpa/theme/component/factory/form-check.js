@@ -19,7 +19,7 @@ export async function build (handler, params = {}) {
   let input = await handler.call(this, group, this.params)
   const label = this.params.attr.label ? (await buildFormLabel.call(this, group, undefined, 'form-check-label')) : ''
   if (group._.name) {
-    const details = get(this, 'locals.error.details', [])
+    const details = get(this, 'component.locals.error.details', [])
     const err = find(details, { field: group._.name })
     if (err) {
       const ext = err.ext ?? {}

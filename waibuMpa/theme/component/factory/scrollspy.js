@@ -15,7 +15,7 @@ async function scrollspy () {
         tag: 'div',
         dataBsSpy: 'scroll',
         tabIndex: '0',
-        dataBsSmoothScrol: 'true',
+        dataBsSmoothScroll: 'true',
         dataBsTarget: target
       })
     }

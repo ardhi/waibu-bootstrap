@@ -6,7 +6,8 @@ async function navDropdownLanguage () {
       const lang = this.component.req.lang
       const attr = {
         dropdown: true,
-        dropdownMenu: this.params.attr.dropdownMenu,
+        dropdownDir: this.params.attr.dropdownDir,
+        dropdownMenudir: this.params.attr.dropdownMenudir,
         content: lang.toUpperCase()
       }
       const html = []

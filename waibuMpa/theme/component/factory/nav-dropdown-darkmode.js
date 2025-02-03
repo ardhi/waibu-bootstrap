@@ -8,7 +8,8 @@ async function navDropdownDarkmode () {
       const content = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: { name } }) : this.component.req.t(titleize(name))
       const attr = {
         dropdown: true,
-        dropdownMenu: this.params.attr.dropdownMenu,
+        dropdownDir: this.params.attr.dropdownDir,
+        dropdownMenudir: this.params.attr.dropdownMenudir,
         content
       }
       const html = [

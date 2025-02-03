@@ -51,7 +51,7 @@ export async function buildMenu (params = {}) { // scope: component
     attr: {
       class: [
         'dropdown-menu',
-        parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.dir, values: dirs, variants: breakpoints, prepend: true })
+        parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.menudir, values: dirs, variants: breakpoints, prepend: true })
       ],
       style
     },

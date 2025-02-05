@@ -3,7 +3,8 @@ async function navDropdownUser () {
     async build () {
       const { routePath } = this.plugin.app.waibu
       const icon = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: { name: 'person' } }) : ''
-      const text = this.component.req.user ? `${this.component.req.user.firstName} ${this.component.req.user.lastName}` : this.component.req.t('Guest')
+      let text = this.component.req.user ? `${this.component.req.user.firstName} ${this.component.req.user.lastName}` : this.component.req.t('Guest')
+      if (this.params.attr.noText) text = ''
       const html = []
       const attr = {
         dropdown: true,

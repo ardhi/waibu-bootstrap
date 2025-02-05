@@ -14,7 +14,7 @@ async function navDivider () {
         class: ['vr'],
         display: 'type:none type:flex-lg',
         dim: 'height:100',
-        margin: 'x-2'
+        margin: this.params.attr.margin ?? 'x-2'
       }
       this.params.html = await this.component.buildTag({ tag: 'div', attr })
     }

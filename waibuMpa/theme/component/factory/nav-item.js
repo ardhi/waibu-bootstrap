@@ -13,7 +13,7 @@ async function navItem () {
       const { isString } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component
-      const group = groupAttrs(this.params.attr, ['dropdown'])
+      const group = groupAttrs(this.params.attr, ['dropdown', 'badge'])
       if (group.dropdown) {
         this.params.attr = group._
         this.params.attr.class.push('dropdown-toggle')
@@ -35,6 +35,12 @@ async function navItem () {
       }
       this.params.prepend = `<li class="${cls}${group.dropdown ? ' dropdown' : ''}${(group.dropdown ?? {}).dir ? (' drop' + group.dropdown.dir) : ''}">`
       this.params.append = '</li>'
+      if (group.badge) {
+        group.badge.color = group.badge.color ?? 'danger'
+        group.badge.content = group.badge.content ?? ''
+        const badge = await this.component.buildSentence(`<c:badge position="relative top-0 start-0 true" rounded="type:pill" background="color:${group.badge.color}" t:content="${group.badge.content}" />`)
+        this.params.html += badge
+      }
       delete this.params.attr.dropdown
     }
 

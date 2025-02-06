@@ -8,7 +8,8 @@ async function navDropdownUser () {
       const html = []
       const attr = {
         dropdown: true,
-        dropdownMenu: this.params.attr.dropdownMenu,
+        dropdownDir: this.params.attr.dropdownDir,
+        dropdownMenudir: this.params.attr.dropdownMenudir,
         content: `${icon} ${text}`
       }
       if (this.params.attr.noMenu) {

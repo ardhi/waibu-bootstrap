@@ -126,6 +126,7 @@ class Wbs {
       default: title = title ?? 'Information'
     }
     buttons = buttons.map(b => {
+      b.handlerOpts = wmpa.toBase64(JSON.stringify(b.handlerOpts))
       let btn = `<c:btn type="${b.type ?? 'button'}" margin="start-2" ${b.id ? `id="${b.id}"` : ''} color="${b.color}" t:content="${b.label}" `
       if (b.dismiss) btn += 'dismiss />'
       else if (b.handler) btn += `x-data @click="wbs.handleAlert('${b.handler}', '${id}', '${b.handlerOpts ?? ''}', '${b.close ?? ''}', '${b.alertType ?? 'alert'}')" />`

@@ -13,7 +13,7 @@ async function drawer () {
       const { isString, omit, trim } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component
-      const group = groupAttrs(this.params.attr, ['launch'])
+      const group = groupAttrs(this.params.attr, ['trigger'])
       this.params.attr.responsive = this.params.attr.responsive ?? true
       this.params.attr.class.push(parseVariant.call(this, { cls, value: this.params.attr.responsive, values: breakpoints }))
       this.params.attr = group._
@@ -39,15 +39,15 @@ async function drawer () {
       }
       if (this.params.attr.divider) header.push('<hr class="m-0" />')
       this.params.html = `${header.join('\n')}<div${this.params.attr.noPadding ? '' : ' class="offcanvas-body"'}>${this.params.html}</div>`
-      if (group.launch) {
-        group.launch.dataBsTarget = `#${this.params.attr.id}`
-        group.launch.dataBsToggle = 'offcanvas'
-        group.launch.ariaControls = this.params.attr.id
-        if (this.params.attr.responsive) group.launch.display = `type:none-${this.params.attr.responsive}`
+      if (group.trigger) {
+        group.trigger.dataBsTarget = `#${this.params.attr.id}`
+        group.trigger.dataBsToggle = 'offcanvas'
+        group.trigger.ariaControls = this.params.attr.id
+        if (this.params.attr.responsive) group.trigger.display = `type:none-${this.params.attr.responsive}`
         const btnParams = {
           tag: 'btn',
-          attr: group.launch,
-          html: group._.launch
+          attr: group.trigger,
+          html: group._.trigger
         }
         this.params.prepend = await this.component.buildTag(btnParams)
       }

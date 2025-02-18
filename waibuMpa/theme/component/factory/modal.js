@@ -15,7 +15,7 @@ async function modal () {
       const { isString, omit } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component
-      const group = groupAttrs(this.params.attr, ['launch'])
+      const group = groupAttrs(this.params.attr, ['trigger'])
       this.params.attr = group._
       this.params.attr.class.push(this.params.attr.noFade ? '' : 'fade')
       if (this.params.attr.noDismiss) this.params.attr.dataBsBackdrop = 'static'
@@ -40,16 +40,16 @@ async function modal () {
         ` ${!this.params.attr.size ? '' : parseSimple.call(this, { cls, value: this.params.attr.size, values: modalSizes })}` +
         ` ${this.params.attr.noCenter ? '' : 'modal-dialog-centered'} ${fullscreen}">` +
         `<div class="modal-content">${this.params.html}</div></div>`
-      if (group.launch) {
-        group.launch.dataBsTarget = `#${this.params.attr.id}`
-        group.launch.dataBsToggle = 'modal'
-        group.launch.ariaControls = this.params.attr.id
+      if (group.trigger) {
+        group.trigger.dataBsTarget = `#${this.params.attr.id}`
+        group.trigger.dataBsToggle = 'modal'
+        group.trigger.ariaControls = this.params.attr.id
         const btnParams = {
           tag: 'btn',
-          attr: group.launch,
-          html: group._.launch
+          attr: group.trigger,
+          html: group._.trigger
         }
-        const pos = group.launch.onEnd ? 'append' : 'prepend'
+        const pos = group.trigger.onEnd ? 'append' : 'prepend'
         this.params[pos] = await this.component.buildTag(btnParams)
       }
       this.params.attr = omit(this.params.attr, ['title', 'fullscreen'])

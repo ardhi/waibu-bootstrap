@@ -65,10 +65,10 @@ class Wbs {
     }
     opts.icon = 'signQuestion'
     opts.buttons = [
-      { label: 'Cancel', color: 'secondary', dismiss: true },
-      { label: 'OK', color: 'primary', dismiss: !opts.ok, alertType: 'confirmation', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
+      { label: 'cancel', color: 'secondary', dismiss: true },
+      { label: 'ok', color: 'primary', dismiss: !opts.ok, alertType: 'confirmation', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
     ]
-    return await this.alert(msg, opts.title ?? 'Confirmation', opts)
+    return await this.alert(msg, opts.title ?? 'confirmation', opts)
   }
 
   async prompt (msg, handler, opts = {}) {
@@ -88,8 +88,8 @@ class Wbs {
     ].join('\n')
     opts.close = opts.close ?? ''
     opts.buttons = [
-      { label: 'Cancel', color: 'secondary', dismiss: true },
-      { label: 'OK', type: 'submit', color: 'primary', dismiss: !opts.ok, alertType: 'prompt', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
+      { label: 'cancel', color: 'secondary', dismiss: true },
+      { label: 'ok', type: 'submit', color: 'primary', dismiss: !opts.ok, alertType: 'prompt', handler: opts.ok, handlerOpts: opts.opts ?? '', close: opts.close ?? '' }
     ]
     return await this.alert(msg, opts.title ?? 'Prompt', opts)
   }
@@ -121,9 +121,9 @@ class Wbs {
     buttons = buttons ?? [{ label: 'OK', color: 'primary', dismiss: true }]
     icon = icon ?? 'sign' + (type.charAt(0).toUpperCase() + type.slice(1))
     switch (type) {
-      case 'danger': title = title ?? 'Error'; break
-      case 'warning': title = title ?? 'Warning'; break
-      default: title = title ?? 'Information'
+      case 'danger': title = title ?? 'error'; break
+      case 'warning': title = title ?? 'warning'; break
+      default: title = title ?? 'information'
     }
     buttons = buttons.map(b => {
       b.handlerOpts = wmpa.toBase64(JSON.stringify(b.handlerOpts))

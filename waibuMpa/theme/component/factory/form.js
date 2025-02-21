@@ -19,7 +19,7 @@ async function form () {
       const group = groupAttrs(this.params.attr, ['grid'])
       this.params.attr = group._
       if (group.grid) this.params.html = await this.component.buildTag({ tag: 'gridRow', attr: group.grid, html: this.params.html })
-      if (this.params.attr.button === true) this.params.attr.button = 'reset:Reset-link submit:Submit-primary'
+      if (this.params.attr.button === true) this.params.attr.button = 'reset:reset-link submit:submit-primary'
       if (this.params.attr.button) {
         const rBtns = []
         const lBtns = []

@@ -2,7 +2,7 @@ async function navDropdownSetting () {
   return class NavDropdownSetting extends this.baseFactory {
     async build () {
       const { set, camelCase } = this.plugin.app.bajo.lib._
-      const { supportedLngs } = this.plugin.app.bajoI18N.config
+      const { supported } = this.plugin.app.bajo.config.intl
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { generateId } = this.plugin.app.bajo
       const { routePath } = this.plugin.app.waibu
@@ -18,28 +18,28 @@ async function navDropdownSetting () {
         <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') })}" ${this.component.req.darkMode ? '' : 'active'} t:content="Bright" />
         <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') })}" ${!this.component.req.darkMode ? '' : 'active'} t:content="Dark" />
       `
-      if (supportedLngs.length > 0) {
+      if (supported.length > 0) {
         html += `
           <c:dropdown-item divider />
           <c:dropdown-item header t:content="Language" />
         `
-        for (const s of supportedLngs) {
+        for (const s of supported) {
           html += `<c:dropdown-item href="${this.component.buildUrl({ params: { lang: s } })}" ${this.component.req.lang === s ? 'active' : ''} t:content="${camelCase('lang ' + s)}" />`
         }
       }
       html += `
         <c:dropdown-item divider />
-        <c:dropdown-item t:content="Fullscreen"
+        <c:dropdown-item t:content="fullscreen"
           x-data="{
-            inText: '${this.component.req.t('Fullscreen')}',
-            outText: '${this.component.req.t('Exit Fullscreen')}',
+            inText: '${this.component.req.t('fullscreen')}',
+            outText: '${this.component.req.t('exitFullscreen')}',
             async toggle () {
               const el = document.querySelector('body')
               if (!document.fullscreenElement) {
                 try {
                   await el.requestFullscreen()
                 } catch (err) {
-                  await wbs.notify('Can\\'t go fullscreen, sorry!', { type: 'danger' })
+                  await wbs.notify('cantGoFullscreen', { type: 'danger' })
                 }
               } else {
                 document.exitFullscreen()
@@ -61,7 +61,7 @@ async function navDropdownSetting () {
       if (this.component.req.user) {
         const id = generateId('alpha')
         html += `
-          <c:dropdown-item t:content="Signout"
+          <c:dropdown-item t:content="signout"
             id="${id}"
             x-data="{
               async signout () {

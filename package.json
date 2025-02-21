@@ -1,6 +1,6 @@
 {
   "name": "waibu-bootstrap",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Bootstrap suport for Waibu Framework",
   "main": "index.js",
   "scripts": {

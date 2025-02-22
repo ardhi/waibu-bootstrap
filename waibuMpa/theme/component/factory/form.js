@@ -27,7 +27,7 @@ async function form () {
         for (const _attr of attrs) {
           const [type, val] = _attr.split(':')
           const [label, color] = (val ?? '').split('-')
-          if (!['submit', 'reset', 'button'].includes(type)) continue
+          if (!['submit', 'reset', 'button', 'a'].includes(type)) continue
           const attr = { type, color: color ?? 'secondary', margin: 'start-2' }
           const html = this.component.req.t(isEmpty(label) ? pascalCase(type) : label)
           rBtns.push(await this.component.buildTag({ tag: 'btn', attr, html }))

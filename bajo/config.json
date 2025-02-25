@@ -1,5 +1,8 @@
 {
   "waibu": {
     "prefix": "bootstrap"
+  },
+  "siteSetting": {
+    "toastAutohideDelayDur": "5s"
   }
 }

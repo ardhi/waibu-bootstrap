@@ -20,7 +20,7 @@ async function gridCol () {
       this.component.normalizeAttr(this.params, { tag: 'div' })
     }
 
-    async build () {
+    build = async () => {
       const { map, without, isString } = this.plugin.app.bajo.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       if (this.params.attr.break) {

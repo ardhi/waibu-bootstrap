@@ -18,7 +18,7 @@ async function cardHeader () {
       this.selector = '.' + cls
     }
 
-    async build () {
+    build = async () => {
       await handler.call(this, cls, this.params)
     }
   }

@@ -71,7 +71,7 @@ async function dropdown () {
       this.component.normalizeAttr(this.params, { tag })
     }
 
-    async build () {
+    build = async () => {
       const { merge, cloneDeep, omit } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const alpinejs = this.plugin.app.waibuAlpinejs

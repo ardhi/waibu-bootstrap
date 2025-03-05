@@ -22,7 +22,7 @@ async function table () {
       this.component.normalizeAttr(this.params, { cls })
     }
 
-    async build () {
+    build = async () => {
       const { omit } = this.plugin.app.bajo.lib._
       if (this.params.attr.strip) setStrip.call(this, this.params)
       if (this.params.attr.responsive) setResponsive.call(this, this.params)

@@ -9,7 +9,7 @@ async function navItem () {
       this.component.normalizeAttr(this.params, { tag: 'a', cls: 'nav-link', href: this.params.attr.href ?? '#' })
     }
 
-    async build () {
+    build = async () => {
       const { isString } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component

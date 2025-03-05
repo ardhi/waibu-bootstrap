@@ -3,7 +3,7 @@ import { build } from './form-input.js'
 
 async function formRange () {
   return class FormRange extends this.baseFactory {
-    async build () {
+    build = async () => {
       this.params.attr.type = 'range'
       delete this.params.attr.labelFloating
       await build.call(this, buildFormRange, this.params)

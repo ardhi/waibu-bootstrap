@@ -14,7 +14,7 @@ async function btnBackToTop () {
       }
     }
 
-    async build () {
+    build = async () => {
       this.params.attr['x-data'] = `{
         scroll () {
           if (document.body.scrollTop > ${this.params.attr.revealAt} || document.documentElement.scrollTop > ${this.params.attr.revealAt}) {

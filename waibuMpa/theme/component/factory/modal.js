@@ -11,7 +11,7 @@ async function modal () {
       this.component.normalizeAttr(this.params, { tag: 'div', cls, autoId: true, tabIndex: -1, ariaHidden: 'true' })
     }
 
-    async build () {
+    build = async () => {
       const { isString, omit } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component

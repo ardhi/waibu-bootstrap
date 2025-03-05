@@ -15,7 +15,7 @@ async function img () {
       delete this.params.attr.holder
     }
 
-    async build () {
+    build = async () => {
       const { isString } = this.plugin.app.bajo.lib._
       const mouseenter = []
       const mouseleave = []

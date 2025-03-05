@@ -7,7 +7,7 @@ async function blockquote () {
       this.selector = '.' + cls
     }
 
-    async build () {
+    build = async () => {
       const { isString } = this.plugin.app.bajo.lib._
       this.component.normalizeAttr(this.params, { cls })
       if (isString(this.params.attr.attribution)) {

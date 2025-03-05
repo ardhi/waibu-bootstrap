@@ -8,7 +8,7 @@ async function badge () {
       this.component.normalizeAttr(this.params, { tag: 'span' })
     }
 
-    async build () {
+    build = async () => {
       const { isString, omit } = this.plugin.app.bajo.lib._
       if (isString(this.params.attr.alt)) this.params.html += `<span class="visually-hidden">${this.params.attr.alt}</span>`
       if (this.params.attr.dot) {

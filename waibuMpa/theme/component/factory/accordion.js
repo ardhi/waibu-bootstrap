@@ -9,7 +9,7 @@ async function accordion () {
       if (this.params.attr.noBorder) this.params.attr.class.push('accordion-flush')
     }
 
-    async build () {
+    build = async () => {
       const { $ } = this.component
       if (!this.params.attr.alwaysOpen) {
         const me = this

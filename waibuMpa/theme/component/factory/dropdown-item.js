@@ -8,7 +8,7 @@ async function dropdownItem () {
       this.component.normalizeAttr(this.params, { tag: 'a' })
     }
 
-    async build () {
+    build = async () => {
       const { $ } = this.component
       if ($(this.params.html).children().length === 0 && !this.params.attr.href) this.params.attr.href = '#'
       if (this.params.attr.divider) {

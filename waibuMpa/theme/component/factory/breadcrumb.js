@@ -37,7 +37,7 @@ async function breadcrumb () {
       this.component.normalizeAttr(this.params, { tag: 'ol', cls })
     }
 
-    async build () {
+    build = async () => {
       const { isString, omit } = this.plugin.app.bajo.lib._
       const { routePath } = this.plugin.app.waibu
       const { urlToBreadcrumb, attrToArray } = this.plugin.app.waibuMpa

@@ -9,7 +9,7 @@ async function formSwitch () {
       this.params.attr.wrapperClass += ' form-switch'
     }
 
-    async build () {
+    build = async () => {
       await build.call(this, buildFormSwitch, this.params)
     }
   }

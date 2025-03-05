@@ -3,7 +3,7 @@ import { build } from './form-input.js'
 
 async function formColor () {
   return class FormColor extends this.baseFactory {
-    async build () {
+    build = async () => {
       await build.call(this, buildFormColor, this.params)
     }
   }

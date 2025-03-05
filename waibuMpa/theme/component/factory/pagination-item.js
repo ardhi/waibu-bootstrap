@@ -8,7 +8,7 @@ async function paginationItem () {
       this.component.normalizeAttr(this.params, { tag: 'li', cls })
     }
 
-    async build () {
+    build = async () => {
       const attr = { class: 'page-link', href: this.params.attr.href ?? '#' }
       const tag = this.params.attr.active || this.params.attr.disabled ? 'span' : 'a'
       if (this.params.attr.active || this.params.attr.disabled) delete attr.href

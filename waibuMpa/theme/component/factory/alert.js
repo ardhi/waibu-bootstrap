@@ -13,7 +13,7 @@ async function alert () {
       if (this.params.attr.color) this.params.attr.class.push(parseVariant.call(this, { cls, value: this.params.attr.color, values: myColors, prepend: true }))
     }
 
-    async build () {
+    build = async () => {
       const { isEmpty } = this.plugin.app.bajo.lib._
       const { $ } = this.component
       const html = $(`<div>${this.params.html}</div>`).children().each(function () {

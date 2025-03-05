@@ -33,7 +33,7 @@ async function formSelectExt () {
       this.scripts = scripts
     }
 
-    async build () {
+    build = async () => {
       const { omit } = this.plugin.app.bajo.lib._
       const { jsonStringify, base64JsonDecode } = this.plugin.app.waibuMpa
       this.params.attr['x-ref'] = 'select'

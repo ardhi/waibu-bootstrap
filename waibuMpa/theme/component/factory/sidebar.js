@@ -28,7 +28,7 @@ async function sidebar () {
       this.component.normalizeAttr(this.params, { tag: 'div', flex: 'column' })
     }
 
-    async build () {
+    build = async () => {
       const { generateId } = this.plugin.app.bajo
       const { omit, filter } = this.plugin.app.bajo.lib._
       this.params.attr.margin = this.params.attr.margin ?? 'all-3'
@@ -55,7 +55,7 @@ async function sidebar () {
           }
           items = filter(this.component.locals.sidebar ?? [], s => s.bottom)
           if (items.length > 0) {
-            html.push(`<c:nav tag="ul" flex="column" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'}>`)
+            html.push(`<c:nav tag="ul" flex="column" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'} ${this.params.attr.fancyProfile ? 'fancy-profile' : ''}>`)
             for (const item of items) {
               html.push(formatSentence.call(this, item, this.params))
             }

@@ -9,7 +9,7 @@ async function accordionItem () {
       this.params.attr.body = this.params.attr.body ?? true
     }
 
-    async build () {
+    build = async () => {
       const { omit, without } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['body'])

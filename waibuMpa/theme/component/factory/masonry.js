@@ -8,7 +8,7 @@ async function masonry () {
       this.params.noTag = true
     }
 
-    async build () {
+    build = async () => {
       const { pick } = this.plugin.app.bajo.lib._
       const { attribsStringify } = this.plugin.app.waibuMpa
       const { $ } = this.component

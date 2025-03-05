@@ -8,7 +8,7 @@ async function progressStack () {
       this.component.normalizeAttr(this.params, { tag: 'div', cls })
     }
 
-    async build () {
+    build = async () => {
       const { pick } = this.plugin.app.bajo.lib._
       const { $ } = this.component
       this.params.html = $(`<div>${this.params.html}</div>`).children().each(function () {

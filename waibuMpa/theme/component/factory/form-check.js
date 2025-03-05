@@ -47,7 +47,7 @@ export async function build (handler, params = {}) {
 
 async function formCheck () {
   return class FormCheck extends this.baseFactory {
-    async build () {
+    build = async () => {
       await build.call(this, buildFormCheck, this.params)
     }
   }

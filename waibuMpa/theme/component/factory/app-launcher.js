@@ -8,7 +8,7 @@ async function appLauncher () {
       this.params.attr.type = this.params.attr.type ?? 'drawer'
     }
 
-    async build () {
+    build = async () => {
       const { groupAttrs, attrToArray } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['trigger'])
       let launcher = `<c:drawer id="${this.params.attr.id}" t:title="Modules" no-padding>\n`

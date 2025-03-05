@@ -8,7 +8,7 @@ async function formFile () {
       this.params.attr.type = 'file'
     }
 
-    async build () {
+    build = async () => {
       await build.call(this, buildFormFile, this.params)
     }
   }

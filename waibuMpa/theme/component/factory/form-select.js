@@ -10,7 +10,7 @@ async function formSelect () {
       if (this.params.attr.noLabel) delete this.params.attr.label
     }
 
-    async build () {
+    build = async () => {
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['label', 'hint', 'wrapper', 'col'], false)
       const contents = await handleInput.call(this, { handler: buildFormSelect, params: this.params, group })

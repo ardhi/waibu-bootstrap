@@ -11,7 +11,7 @@ async function btnGroup () {
       if (this.params.attr.size) this.params.attr.class.push(parseSimple.call(this, { cls, value: this.params.attr.size, values: sizes }))
     }
 
-    async build () {
+    build = async () => {
       const { $ } = this.component
       const html = []
       $(`<div>${this.params.html}</div>`).children().each(function () {

@@ -7,7 +7,7 @@ async function listItem () {
       this.component.normalizeAttr(this.params, { tag: 'li' })
     }
 
-    async build () {
+    build = async () => {
       const { isString } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['badge'])

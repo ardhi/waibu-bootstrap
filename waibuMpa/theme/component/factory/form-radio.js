@@ -3,7 +3,7 @@ import { build } from './form-check.js'
 
 async function formRadio () {
   return class FormRadio extends this.baseFactory {
-    async build () {
+    build = async () => {
       await build.call(this, buildFormRadio, this.params)
     }
   }

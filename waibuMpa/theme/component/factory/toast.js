@@ -8,7 +8,7 @@ async function toast () {
       this.component.normalizeAttr(this.params, { cls, tag: 'div', role: 'alert', ariaLive: 'assertive', ariaAtomic: 'true' })
     }
 
-    async build () {
+    build = async () => {
       const { isString, omit, has, get } = this.plugin.app.bajo.lib._
       const header = []
       if (this.params.attr.noHide) this.params.attr.dataBsAutohide = 'false'

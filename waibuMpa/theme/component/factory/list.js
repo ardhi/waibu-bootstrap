@@ -9,7 +9,7 @@ async function list () {
       this.component.normalizeAttr(this.params, { tag: this.params.attr.ordered ? 'ol' : 'ul' })
     }
 
-    async build () {
+    build = async () => {
       const { isString, omit } = this.plugin.app.bajo.lib._
       const { attribsStringify } = this.plugin.app.waibuMpa
       const { $ } = this.component

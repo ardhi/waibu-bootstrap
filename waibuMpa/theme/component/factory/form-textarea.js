@@ -3,7 +3,7 @@ import { build } from './form-input.js'
 
 async function formTextarea () {
   return class FormTextarea extends this.baseFactory {
-    async build () {
+    build = async () => {
       await build.call(this, buildFormTextarea, this.params)
     }
   }

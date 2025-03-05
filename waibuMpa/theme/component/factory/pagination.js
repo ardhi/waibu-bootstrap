@@ -9,7 +9,7 @@ async function pagination () {
       this.component.normalizeAttr(this.params, { tag: 'ul', cls })
     }
 
-    async build () {
+    build = async () => {
       const { isString } = this.plugin.app.bajo.lib._
       if (!this.params.attr.margin) this.params.attr.margin = 'bottom-0'
       if (this.params.attr.size) this.params.attr.class.push(parseSimple.call(this, { cls, value: this.params.attr.size, values: sizes }))

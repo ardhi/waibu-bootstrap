@@ -1,11 +1,12 @@
 async function navDropdownSetting () {
   return class NavDropdownSetting extends this.baseFactory {
-    async build () {
+    build = async () => {
       const { set, camelCase } = this.plugin.app.bajo.lib._
       const { supported } = this.plugin.app.bajo.config.intl
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { generateId } = this.plugin.app.bajo
       const { routePath } = this.plugin.app.waibu
+      const { req } = this.component
       const cfgWmpa = this.plugin.app.waibuMpa.config
 
       const group = groupAttrs(this.params.attr, ['icon'])
@@ -13,15 +14,29 @@ async function navDropdownSetting () {
       const icon = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: group.icon }) : ''
       this.params.attr.dropdown = true
       this.params.attr.content = icon
+      let profile = `
+        <c:dropdown-item href="sumba:/my-stuff/profile" t:content="yourProfile" />
+        <c:dropdown-item href="sumba:/my-stuff/change-password" t:content="changePassword" />
+      `
+      if (this.params.attr.fancyProfile) {
+        profile = await this.component.buildSentence(`
+          <div>
+            <c:dropdown-item href="sumba:/my-stuff/profile">
+              <c:img src="dobo:/attachment/SumbaUser/${req.user.id}/profile/main.png" responsive rounded />
+              <c:div margin="top-1">${req.user.firstName} ${req.user.lastName}</c:div>
+            </c:dropdown-item>
+          </div>
+        `)
+      }
       let html = `
-        <c:dropdown-item header t:content="Display Mode" />
-        <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') })}" ${this.component.req.darkMode ? '' : 'active'} t:content="Bright" />
-        <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') })}" ${!this.component.req.darkMode ? '' : 'active'} t:content="Dark" />
+        ${profile}
+        <c:dropdown-item divider />
+        <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') })}" ${this.component.req.darkMode ? '' : 'active'} t:content="bright" />
+        <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') })}" ${!this.component.req.darkMode ? '' : 'active'} t:content="dark" />
       `
       if (supported.length > 0) {
         html += `
           <c:dropdown-item divider />
-          <c:dropdown-item header t:content="Language" />
         `
         for (const s of supported) {
           html += `<c:dropdown-item href="${this.component.buildUrl({ params: { lang: s } })}" ${this.component.req.lang === s ? 'active' : ''} t:content="${camelCase('lang ' + s)}" />`

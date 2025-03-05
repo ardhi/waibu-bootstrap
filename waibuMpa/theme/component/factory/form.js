@@ -6,7 +6,7 @@ async function form () {
       if (!this.params.attr.method) this.params.attr.method = 'POST'
     }
 
-    async build () {
+    build = async () => {
       this.component.locals.form = this.component.locals.form ?? {}
       const { pascalCase } = this.plugin.app.bajo
       const { isEmpty, omit } = this.plugin.app.bajo.lib._

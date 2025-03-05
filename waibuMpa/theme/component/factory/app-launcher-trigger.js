@@ -19,7 +19,7 @@ async function appLauncherTrigger () {
       this.params.attr.imgDimHeight = this.params.attr.imgDimHeight ?? 48
     }
 
-    async build () {
+    build = async () => {
       const { fastGlob } = this.plugin.app.bajo.lib
       const { omit } = this.plugin.app.bajo.lib._
       let logo = 'waibu'

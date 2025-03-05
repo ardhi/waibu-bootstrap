@@ -13,7 +13,7 @@ async function formSelectCountry () {
       this.params.noTag = true
     }
 
-    async build () {
+    build = async () => {
       const { readConfig } = this.plugin.app.bajo
       const { map } = this.plugin.app.bajo.lib._
       const { base64JsonEncode } = this.plugin.app.waibuMpa

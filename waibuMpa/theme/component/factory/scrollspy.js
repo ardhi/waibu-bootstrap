@@ -7,7 +7,7 @@ async function scrollspy () {
       this.selector = '.' + cls
     }
 
-    async build () {
+    build = async () => {
       const { isString } = this.plugin.app.bajo.lib._
       const { generateId } = this.plugin.app.bajo
       const target = isString(this.params.attr.target) ? this.params.attr.target : generateId()

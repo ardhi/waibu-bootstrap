@@ -8,7 +8,7 @@ async function breadcrumbItem () {
       this.component.normalizeAttr(this.params, { tag: 'li', cls })
     }
 
-    async build () {
+    build = async () => {
       const { omit } = this.plugin.app.bajo.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       if (this.params.attr.href) {

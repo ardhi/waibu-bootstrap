@@ -13,7 +13,7 @@ async function carousel () {
       this.params.html = `<div class="${cls}-inner">${this.params.html}</div>`
     }
 
-    async build () {
+    build = async () => {
       const { attrToArray } = this.plugin.app.waibuMpa
       const { $ } = this.component
       let activeItem = 0

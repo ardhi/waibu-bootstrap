@@ -9,7 +9,7 @@ async function navbar () {
       this.component.normalizeAttr(this.params, { tag: 'nav', cls })
     }
 
-    async build () {
+    build = async () => {
       const { omit, cloneDeep, has } = this.plugin.app.bajo.lib._
       const { generateId, numUnit } = this.plugin.app.bajo
       const { groupAttrs } = this.plugin.app.waibuMpa

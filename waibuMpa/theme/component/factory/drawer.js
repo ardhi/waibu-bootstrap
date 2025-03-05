@@ -9,7 +9,7 @@ async function drawer () {
       this.component.normalizeAttr(this.params, { tag: 'div', autoId: true, tabIndex: -1 })
     }
 
-    async build () {
+    build = async () => {
       const { isString, omit, trim } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component

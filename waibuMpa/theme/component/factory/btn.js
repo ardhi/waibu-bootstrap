@@ -11,7 +11,7 @@ async function btn () {
       this.params.attr.class.push(cls)
     }
 
-    async build () {
+    build = async () => {
       const { has, omit, isString } = this.plugin.app.bajo.lib._
       // tag
       this.params.tag = !!this.params.attr.href || this.params.attr.tag === 'a' ? 'a' : 'button'

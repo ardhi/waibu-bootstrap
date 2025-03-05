@@ -6,7 +6,7 @@ async function fieldset () {
       if (!this.params.attr.legendType) this.params.attr.legendType = '5'
     }
 
-    async build () {
+    build = async () => {
       const { omit } = this.plugin.app.bajo.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['grid', 'legend', 'card'])

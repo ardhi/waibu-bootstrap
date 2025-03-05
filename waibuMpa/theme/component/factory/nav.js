@@ -13,7 +13,7 @@ async function nav () {
       if (isString(this.params.attr.tag)) this.params.tag = this.params.attr.tag
     }
 
-    async build () {
+    build = async () => {
       const { $ } = this.component
       if (!['ol', 'ul'].includes(this.params.tag)) {
         const html = []

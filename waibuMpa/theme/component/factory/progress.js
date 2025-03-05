@@ -7,7 +7,7 @@ async function progress () {
       this.selector = '.' + cls
     }
 
-    async build () {
+    build = async () => {
       const { omit, isString } = this.plugin.app.bajo.lib._
       const { numUnit } = this.plugin.app.bajo
       const min = Number(this.params.attr.min) || 0

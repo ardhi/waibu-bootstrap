@@ -9,7 +9,7 @@ async function formDate () {
       this.inlineScript = inlineScript
     }
 
-    async build () {
+    build = async () => {
       const { set } = this.plugin.app.bajo.lib._
       const opts = {}
       if (this.params.attr.calendarWeeks) set(opts, 'display.calendarWeeks', true)

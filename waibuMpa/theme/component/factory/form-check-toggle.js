@@ -21,7 +21,7 @@ export async function build (handler, params = {}) {
 
 async function formCheckToggle () {
   return class FormCheckToggle extends this.baseFactory {
-    async build () {
+    build = async () => {
       const { has } = this.plugin.app.bajo.lib._
       const { req } = this.component
       if (!has(this.params.attr, 'label')) this.params.attr.label = req.t('Toggle Check')

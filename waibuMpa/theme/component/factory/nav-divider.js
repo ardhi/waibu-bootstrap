@@ -8,7 +8,7 @@ async function navDivider () {
       this.component.normalizeAttr(this.params, { tag: 'li', cls })
     }
 
-    async build () {
+    build = async () => {
       this.params.attr.padding = 'y-2'
       const attr = {
         class: ['vr'],

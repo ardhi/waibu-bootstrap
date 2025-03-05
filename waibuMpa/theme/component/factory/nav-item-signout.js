@@ -1,6 +1,6 @@
 async function navItemSignout () {
   return class NavItemSignout extends this.baseFactory {
-    async build () {
+    build = async () => {
       if (!this.component.req.user) return
       const { generateId } = this.plugin.app.bajo
       const { routePath } = this.plugin.app.waibu

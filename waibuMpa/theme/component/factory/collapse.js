@@ -8,7 +8,7 @@ function collectAttr (group, item) {
 
 async function collapse () {
   return class Collapse extends this.baseFactory {
-    async build () {
+    build = async () => {
       const { generateId } = this.plugin.app.bajo
       const { merge, isString } = this.plugin.app.bajo.lib._
       const { attrToArray, groupAttrs } = this.plugin.app.waibuMpa

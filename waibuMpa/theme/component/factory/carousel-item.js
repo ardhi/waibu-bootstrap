@@ -8,7 +8,7 @@ async function carouselItem () {
       this.component.normalizeAttr(this.params, { tag: 'div', cls, dataBsInterval: this.params.attr.interval })
     }
 
-    async build () {
+    build = async () => {
       const { isString } = this.plugin.app.bajo.lib._
       if (isString(this.params.attr.caption)) {
         const captions = ['<div class="carousel-caption d-none d-md-block">']

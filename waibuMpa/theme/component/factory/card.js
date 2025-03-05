@@ -8,7 +8,7 @@ async function card () {
       this.component.normalizeAttr(this.params, { tag: 'div', cls })
     }
 
-    async build () {
+    build = async () => {
       const { $ } = this.component
       const children = $(`<div>${this.params.html}</div>`).children()
       this.params.html = children.each(function (idx) {

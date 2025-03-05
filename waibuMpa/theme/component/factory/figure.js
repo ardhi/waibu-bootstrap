@@ -8,7 +8,7 @@ async function figure () {
       this.component.normalizeAttr(this.params, { cls })
     }
 
-    async build () {
+    build = async () => {
       const { $ } = this.component
       this.params.html = $(`<div>${this.params.html}</div>`).children().each(function () {
         if (this.name === 'img') $(this).addClass('figure-img')

@@ -67,7 +67,7 @@ async function formDatetime () {
       this.inlineScript = inlineScript
     }
 
-    async build () {
+    build = async () => {
       const { set } = this.plugin.app.bajo.lib._
       const opts = {}
       if (this.params.attr.sideBySide) set(opts, 'display.sideBySide', true)

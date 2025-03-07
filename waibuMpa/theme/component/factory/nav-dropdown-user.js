@@ -27,11 +27,12 @@ async function navDropdownUser () {
       } else {
         if (req.user) {
           if (this.params.attr.fancyProfile) {
+            const replacer = 'sumba.asset:/user-profile.png'
             const profile = await this.component.buildSentence(`
               <div>
                 <c:dropdown-item href="sumba:/my-stuff/profile">
-                  <c:img src="dobo:/attachment/SumbaUser/${req.user.id}/profile/main.png" responsive rounded />
-                  <c:div margin="top-1">${req.user.firstName} ${req.user.lastName}</c:div>
+                  <c:img src="dobo:/attachment/SumbaUser/${req.user.id}/profile/main.png?notfound=${replacer}" responsive rounded />
+                  <c:div margin="top-1" text="align:center">${req.user.firstName} ${req.user.lastName}</c:div>
                 </c:dropdown-item>
               </div>
             `)

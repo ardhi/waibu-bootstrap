@@ -5,7 +5,7 @@ async function nav () {
   return class Nav extends this.baseFactory {
     constructor (options) {
       super(options)
-      const { isString } = this.plugin.app.bajo.lib._
+      const { isString } = this.plugin.lib._
       this.selector = '.' + cls
       this.component.normalizeAttr(this.params, { tag: 'nav', cls })
       if (types.includes(this.params.attr.type)) this.params.attr.class.push(`nav-${this.params.attr.type}`)

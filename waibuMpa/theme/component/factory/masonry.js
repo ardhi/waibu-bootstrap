@@ -9,7 +9,7 @@ async function masonry () {
     }
 
     build = async () => {
-      const { pick } = this.plugin.app.bajo.lib._
+      const { pick } = this.plugin.lib._
       const { attribsStringify } = this.plugin.app.waibuMpa
       const { $ } = this.component
 

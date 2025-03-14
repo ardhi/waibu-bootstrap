@@ -7,7 +7,7 @@ const directs = ['wrap', 'nowrap', 'mark', 'small', 'truncate']
 const variants = ['emphasis', 'secondary', 'tertiary']
 
 function text ({ key, params }) {
-  const { uniq } = this.plugin.app.bajo.lib._
+  const { uniq } = this.plugin.lib._
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const textColors = ['body', 'black', 'white', ...colors]
   for (const attr of attrs) {

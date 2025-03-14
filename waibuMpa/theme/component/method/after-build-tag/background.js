@@ -4,7 +4,7 @@ const directs = ['gradient']
 const variants = ['subtle', 'secondary', 'tertiary']
 
 function background ({ key, params }) {
-  const { uniq } = this.plugin.app.bajo.lib._
+  const { uniq } = this.plugin.lib._
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const bgColors = ['body', 'black', 'white', 'transparent', ...colors]
   for (const attr of attrs) {

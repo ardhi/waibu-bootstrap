@@ -2,7 +2,7 @@ async function navDropdownDarkmode () {
   return class NavDropdownDarkmode extends this.baseFactory {
     build = async () => {
       const { titleize } = this.plugin.app.bajo
-      const { set } = this.plugin.app.bajo.lib._
+      const { set } = this.plugin.lib._
       const cfgWmpa = this.plugin.app.waibuMpa.config
       const name = this.component.req.darkMode ? 'dark' : 'bright'
       const content = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: { name } }) : this.component.req.t(titleize(name))

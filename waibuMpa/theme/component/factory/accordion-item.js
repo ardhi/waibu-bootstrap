@@ -10,7 +10,7 @@ async function accordionItem () {
     }
 
     build = async () => {
-      const { omit, without } = this.plugin.app.bajo.lib._
+      const { omit, without } = this.plugin.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['body'])
       if (!group.body.noPadding) group.body.class.push('accordion-body')

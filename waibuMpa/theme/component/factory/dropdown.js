@@ -6,7 +6,7 @@ export const autoCloses = ['true', 'false', 'inside', 'outside']
 
 export async function buildMenu (params = {}) { // scope: component
   const { numUnit } = this.plugin.app.bajo
-  const { isString } = this.plugin.app.bajo.lib._
+  const { isString } = this.plugin.lib._
   const $ = this.$
   let menuHtml = params.html
   let style = params.attr.menuOnly ? 'display:block;' : ''
@@ -65,14 +65,14 @@ async function dropdown () {
   return class Dropdown extends this.baseFactory {
     constructor (options) {
       super(options)
-      const { isString } = this.plugin.app.bajo.lib._
+      const { isString } = this.plugin.lib._
       this.selector = '.' + cls
       const tag = isString(this.params.attr.tag) ? this.params.attr.tag : 'div'
       this.component.normalizeAttr(this.params, { tag })
     }
 
     build = async () => {
-      const { merge, cloneDeep, omit } = this.plugin.app.bajo.lib._
+      const { merge, cloneDeep, omit } = this.plugin.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const alpinejs = this.plugin.app.waibuAlpinejs
       const [dir, variant] = (this.params.attr.dir ?? 'down').split('-')

@@ -1,7 +1,7 @@
 async function navDropdownSetting () {
   return class NavDropdownSetting extends this.baseFactory {
     build = async () => {
-      const { set, camelCase } = this.plugin.app.bajo.lib._
+      const { set, camelCase } = this.plugin.lib._
       const { supported } = this.plugin.app.bajo.config.intl
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { generateId } = this.plugin.app.bajo

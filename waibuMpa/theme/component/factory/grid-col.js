@@ -21,7 +21,7 @@ async function gridCol () {
     }
 
     build = async () => {
-      const { map, without, isString } = this.plugin.app.bajo.lib._
+      const { map, without, isString } = this.plugin.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       if (this.params.attr.break) {
         const ext = breakpoints.includes(this.params.attr.break) ? `d-none d-${this.params.attr.break}-block` : ''

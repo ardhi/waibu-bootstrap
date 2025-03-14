@@ -10,7 +10,7 @@ async function navItem () {
     }
 
     build = async () => {
-      const { isString } = this.plugin.app.bajo.lib._
+      const { isString } = this.plugin.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['dropdown', 'badge'])

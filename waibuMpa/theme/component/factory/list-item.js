@@ -8,7 +8,7 @@ async function listItem () {
     }
 
     build = async () => {
-      const { isString } = this.plugin.app.bajo.lib._
+      const { isString } = this.plugin.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['badge'])
       this.params.attr = group._

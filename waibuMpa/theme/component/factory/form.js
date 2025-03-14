@@ -9,7 +9,7 @@ async function form () {
     build = async () => {
       this.component.locals.form = this.component.locals.form ?? {}
       const { pascalCase } = this.plugin.app.bajo
-      const { isEmpty, omit } = this.plugin.app.bajo.lib._
+      const { isEmpty, omit } = this.plugin.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       const { groupAttrs } = this.plugin.app.waibuMpa
       if (this.params.attr.referer) {

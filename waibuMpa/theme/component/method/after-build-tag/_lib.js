@@ -28,7 +28,7 @@ export const colorVariants = ['outline']
 export const placements = ['top', 'bottom', 'left', 'right']
 
 export function parseVariant ({ cls = '', value = '', values = [], variants = [], prepend } = {}) {
-  const { isEmpty } = this.plugin.app.bajo.lib._
+  const { isEmpty } = this.plugin.lib._
   if (value === true) return cls
   const [core, variant] = value.split('-')
   const items = []
@@ -41,7 +41,7 @@ export function parseVariant ({ cls = '', value = '', values = [], variants = []
 }
 
 export function parseSimple ({ cls = '', value = '', values = [], acceptTrue } = {}) {
-  const { isEmpty } = this.plugin.app.bajo.lib._
+  const { isEmpty } = this.plugin.lib._
   if (values.includes(value) || (acceptTrue && value === true)) {
     if (isEmpty(cls)) return value
     return acceptTrue && value === true ? cls : `${cls}-${value}`

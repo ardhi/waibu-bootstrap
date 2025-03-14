@@ -1,7 +1,7 @@
 import { breakpoints, displays } from './_lib.js'
 
 function display ({ key, params }) {
-  const { uniq, isEmpty } = this.plugin.app.bajo.lib._
+  const { uniq, isEmpty } = this.plugin.lib._
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   let canHaveGap
   for (const attr of attrs) {

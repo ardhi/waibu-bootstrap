@@ -1,7 +1,7 @@
 import { buildFormHint, buildFormLabel, buildFormCheck } from './_lib.js'
 
 export async function build (handler, params = {}) {
-  const { isEmpty, get, find } = this.plugin.app.bajo.lib._
+  const { isEmpty, get, find } = this.plugin.lib._
   const { groupAttrs } = this.plugin.app.waibuMpa
   const { $ } = this.component
   this.component.normalizeAttr(this.params)

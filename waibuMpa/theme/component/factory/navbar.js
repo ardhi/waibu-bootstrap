@@ -10,7 +10,7 @@ async function navbar () {
     }
 
     build = async () => {
-      const { omit, cloneDeep, has } = this.plugin.app.bajo.lib._
+      const { omit, cloneDeep, has } = this.plugin.lib._
       const { generateId, numUnit } = this.plugin.app.bajo
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component

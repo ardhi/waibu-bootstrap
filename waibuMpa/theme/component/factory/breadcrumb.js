@@ -1,7 +1,7 @@
 const cls = 'breadcrumb'
 
 function bcHandler (href, source, opts = {}) {
-  const { last } = this.plugin.app.bajo.lib._
+  const { last } = this.plugin.lib._
   const { titleize } = this.plugin.app.bajo
   const parts = href.split('/')
   const content = titleize(last(parts))
@@ -10,7 +10,7 @@ function bcHandler (href, source, opts = {}) {
 }
 
 async function generateItems (breadcrumb) {
-  const { get } = this.plugin.app.bajo.lib._
+  const { get } = this.plugin.lib._
   const html = []
   for (const b of breadcrumb) {
     let href = ''
@@ -38,7 +38,7 @@ async function breadcrumb () {
     }
 
     build = async () => {
-      const { isString, omit } = this.plugin.app.bajo.lib._
+      const { isString, omit } = this.plugin.lib._
       const { routePath } = this.plugin.app.waibu
       const { urlToBreadcrumb, attrToArray } = this.plugin.app.waibuMpa
       let divider = ''

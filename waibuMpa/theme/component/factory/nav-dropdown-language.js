@@ -1,7 +1,7 @@
 async function navDropdownLanguage () {
   return class NavDropdownLanguage extends this.baseFactory {
     build = async () => {
-      const { camelCase } = this.plugin.app.bajo.lib._
+      const { camelCase } = this.plugin.lib._
       const { supported } = this.plugin.app.bajo.config.intl
       const lang = this.component.req.lang
       const attr = {

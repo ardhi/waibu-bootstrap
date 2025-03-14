@@ -4,7 +4,7 @@ const offsets = ['1', '2', '3']
 const ovariants = ['hover']
 
 function link ({ key, params }) {
-  const { uniq } = this.plugin.app.bajo.lib._
+  const { uniq } = this.plugin.lib._
   const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
   const linkColors = ['body', 'black', 'white', ...colors]
   for (const attr of attrs) {

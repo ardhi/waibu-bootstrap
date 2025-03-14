@@ -8,7 +8,7 @@ async function blockquote () {
     }
 
     build = async () => {
-      const { isString } = this.plugin.app.bajo.lib._
+      const { isString } = this.plugin.lib._
       this.component.normalizeAttr(this.params, { cls })
       if (isString(this.params.attr.attribution)) {
         this.params.prepend = '<figure>'

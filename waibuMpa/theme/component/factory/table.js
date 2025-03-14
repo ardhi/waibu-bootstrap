@@ -7,7 +7,7 @@ function setStrip (params) {
 }
 
 function setResponsive (params) {
-  const { isString } = this.plugin.app.bajo.lib._
+  const { isString } = this.plugin.lib._
   let xcls = `${cls}-responsive`
   if (isString(this.params.attr.responsive)) xcls += '-' + this.params.attr.responsive
   this.params.prepend = `<div class="${xcls}">`
@@ -23,7 +23,7 @@ async function table () {
     }
 
     build = async () => {
-      const { omit } = this.plugin.app.bajo.lib._
+      const { omit } = this.plugin.lib._
       if (this.params.attr.strip) setStrip.call(this, this.params)
       if (this.params.attr.responsive) setResponsive.call(this, this.params)
       if (this.params.attr.noBorder) this.params.attr.class.push(`${cls}-borderless`)

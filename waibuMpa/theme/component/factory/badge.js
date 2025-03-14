@@ -9,7 +9,7 @@ async function badge () {
     }
 
     build = async () => {
-      const { isString, omit } = this.plugin.app.bajo.lib._
+      const { isString, omit } = this.plugin.lib._
       if (isString(this.params.attr.alt)) this.params.html += `<span class="visually-hidden">${this.params.attr.alt}</span>`
       if (this.params.attr.dot) {
         this.params.attr.class.push('p-2')

@@ -10,7 +10,7 @@ async function formTime () {
     }
 
     build = async () => {
-      const { set } = this.plugin.app.bajo.lib._
+      const { set } = this.plugin.lib._
       const opts = {}
       set(opts, 'display.components.calendar', false)
       set(opts, 'localization.format', 'LTS')

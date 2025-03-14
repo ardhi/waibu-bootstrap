@@ -4,7 +4,7 @@ async function carousel () {
   return class Carousel extends this.baseFactory {
     constructor (options) {
       super(options)
-      const { isEmpty } = this.plugin.app.bajo.lib._
+      const { isEmpty } = this.plugin.lib._
       this.selector = '.' + cls
       this.component.normalizeAttr(this.params, { tag: 'div', cls: [cls, 'slide'], autoId: true })
       if (this.params.attr.fade) this.params.attr.class.push(`${cls}-fade`)

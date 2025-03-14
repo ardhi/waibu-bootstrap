@@ -2,7 +2,7 @@ async function appLauncherTrigger () {
   return class AppLauncherTrigger extends this.baseFactory {
     constructor (options) {
       super(options)
-      const { isString } = this.plugin.app.bajo.lib._
+      const { isString } = this.plugin.lib._
       this.params.attr.color = this.params.attr.color ?? 'color:body-emphasis'
       this.params.attr.text = this.params.attr.text ?? 'decoration:none'
       this.params.attr.display = 'type:block'
@@ -20,8 +20,8 @@ async function appLauncherTrigger () {
     }
 
     build = async () => {
-      const { fastGlob } = this.plugin.app.bajo.lib
-      const { omit } = this.plugin.app.bajo.lib._
+      const { fastGlob } = this.plugin.lib
+      const { omit } = this.plugin.lib._
       let logo = 'waibu'
       const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/bajo/logo.*`)
       if (files.length > 0) logo = 'main'

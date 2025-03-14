@@ -12,7 +12,7 @@ async function btn () {
     }
 
     build = async () => {
-      const { has, omit, isString } = this.plugin.app.bajo.lib._
+      const { has, omit, isString } = this.plugin.lib._
       // tag
       this.params.tag = !!this.params.attr.href || this.params.attr.tag === 'a' ? 'a' : 'button'
       if (this.params.tag === 'button' && this.params.attr.href) delete this.params.attr.href

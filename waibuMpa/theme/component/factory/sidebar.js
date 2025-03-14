@@ -1,5 +1,5 @@
 function formatSentence (item, params) {
-  const { kebabCase, omit, merge } = this.plugin.app.bajo.lib._
+  const { kebabCase, omit, merge } = this.plugin.lib._
   const cmp = kebabCase(item.component ?? 'navItem')
   const icon = item.icon
   const html = item.html ?? ''
@@ -30,7 +30,7 @@ async function sidebar () {
 
     build = async () => {
       const { generateId } = this.plugin.app.bajo
-      const { omit, filter } = this.plugin.app.bajo.lib._
+      const { omit, filter } = this.plugin.lib._
       this.params.attr.margin = this.params.attr.margin ?? 'all-3'
       this.params.attr.style.position = 'sticky'
       this.params.attr.style.top = 0

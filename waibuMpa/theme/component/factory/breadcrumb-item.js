@@ -9,7 +9,7 @@ async function breadcrumbItem () {
     }
 
     build = async () => {
-      const { omit } = this.plugin.app.bajo.lib._
+      const { omit } = this.plugin.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       if (this.params.attr.href) {
         if (this.params.attr.hrefRebuild) {

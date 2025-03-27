@@ -25,6 +25,7 @@ async function navDropdownUser () {
         dropdownMenudir: this.params.attr.dropdownMenudir,
         content: `${icon} ${text}`
       }
+      if (this.params.attr.text) attr.text = this.params.attr.text
       if (this.params.attr.noMenu) {
         delete attr.dropdown
         delete attr.dropdownMenu

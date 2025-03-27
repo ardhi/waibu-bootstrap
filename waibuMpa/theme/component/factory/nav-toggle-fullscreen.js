@@ -11,6 +11,7 @@ async function navToggleFullscreen () {
         '@click': 'toggle()',
         content
       }
+      if (this.params.attr.text) attr.text = this.params.attr.text
       attr['@fullscreenchange.document'] = `
         const el = $refs.fullscreen.querySelector('i')
         if (document.fullscreenElement) {

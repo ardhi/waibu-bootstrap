@@ -23,7 +23,7 @@ async function appLauncherTrigger () {
       const { fastGlob } = this.plugin.lib
       const { omit } = this.plugin.lib._
       let logo = 'waibu'
-      const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/bajo/logo.*`)
+      const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/plugin/logo.*`)
       if (files.length > 0) logo = 'main'
       this.params.tag = 'a'
       const sentence = [

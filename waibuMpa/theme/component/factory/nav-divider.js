@@ -12,7 +12,7 @@ async function navDivider () {
       this.params.attr.padding = 'y-2'
       const attr = {
         class: ['vr'],
-        display: 'type:none type:flex-lg',
+        display: 'type:flex-lg',
         dim: 'height:100',
         margin: this.params.attr.margin ?? 'x-2'
       }

@@ -6,6 +6,7 @@ async function navDropdownSetting () {
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { generateId } = this.plugin.app.bajo
       const { routePath } = this.plugin.app.waibu
+      const { isSet } = this.plugin.app.bajo
       const { req } = this.component
       const cfgWmpa = this.plugin.app.waibuMpa.config
 
@@ -28,11 +29,17 @@ async function navDropdownSetting () {
           </div>
         `)
       }
+      let darkMode = ''
+      if (!isSet(cfgWmpa.darkMode.set)) {
+        darkMode = `
+          <c:dropdown-item divider />
+          <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') })}" ${this.component.req.darkMode ? '' : 'active'} t:content="bright" />
+          <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') })}" ${!this.component.req.darkMode ? '' : 'active'} t:content="dark" />
+        `
+      }
       let html = `
         ${profile}
-        <c:dropdown-item divider />
-        <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') })}" ${this.component.req.darkMode ? '' : 'active'} t:content="bright" />
-        <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') })}" ${!this.component.req.darkMode ? '' : 'active'} t:content="dark" />
+        ${darkMode}
       `
       if (supported.length > 0) {
         html += `

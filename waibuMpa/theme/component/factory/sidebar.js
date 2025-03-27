@@ -7,6 +7,7 @@ function formatSentence (item, params) {
   if (this.params.attr.divider) attr.border = `side:${item.bottom ? 'top' : 'bottom'}`
   if (this.params.attr.expanded) attr.rounded = 'width:0'
   merge(attr, omit(item, ['component', 'icon', 'ohref', 'html']))
+  if (this.params.attr.text && !attr.active) attr.text = this.params.attr.text
   const result = [`<c:${cmp}`]
   for (const k in attr) {
     result.push(attr[k] === true ? k : `${k}="${attr[k]}"`)

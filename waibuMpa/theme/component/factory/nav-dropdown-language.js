@@ -10,6 +10,7 @@ async function navDropdownLanguage () {
         dropdownMenudir: this.params.attr.dropdownMenudir,
         content: lang.toUpperCase()
       }
+      if (this.params.attr.text) attr.text = this.params.attr.text
       const html = []
       for (const s of supported) {
         html.push(await this.component.buildTag({

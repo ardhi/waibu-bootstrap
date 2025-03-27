@@ -1,10 +1,9 @@
 const cls = 'breadcrumb'
 
 function bcHandler (href, source, opts = {}) {
-  const { last } = this.plugin.lib._
-  const { titleize } = this.plugin.app.bajo
+  const { last, camelCase } = this.plugin.lib._
   const parts = href.split('/')
-  const content = titleize(last(parts))
+  const content = this.component.req.t(camelCase(last(parts)))
   if (href === source) return { content }
   return { content, href, hrefRebuild: opts.hrefRebuild }
 }

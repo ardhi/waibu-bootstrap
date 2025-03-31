@@ -5,7 +5,8 @@ async function cardSubtitle () {
     constructor (options) {
       super(options)
       this.selector = '.' + cls
-      this.component.normalizeAttr(this.params, { tag: 'h6', cls: [cls, 'mb-2', 'text-body-secondary'] })
+      this.component.normalizeAttr(this.params, { tag: 'h6', cls: [cls, 'mb-2'] })
+      if (!this.params.attr.text) this.params.attr.class.push('text-body-secondary')
     }
   }
 }

@@ -71,20 +71,18 @@ class Wbs {
     return await this.alert(msg, opts.title ?? 'confirmation', opts)
   }
 
-  async prompt (msg, handler, opts = {}) {
-    if (_.isPlainObject(handler)) {
-      opts = handler
-      handler = undefined
+  async prompt (msg, value, opts = {}) {
+    if (_.isPlainObject(value)) {
+      opts = value
+      value = undefined
     }
     opts.content = [
       `<c:form-input x-data="{
         submit (evt) {
           this.$el.closest('.modal-body').querySelector('button[type=submit]').click()
         }
-      }" @keyup.enter="submit" />`,
-      '<c:div margin="top-3">',
-      msg,
-      '</c:div>'
+      }" @keyup.enter="submit" value="` + (value ?? opts.value) + '"/>',
+      msg ? ('<c:div margin="top-3">' + msg + '</c:div>') : ''
     ].join('\n')
     opts.close = opts.close ?? ''
     opts.buttons = [

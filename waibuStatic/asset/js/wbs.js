@@ -92,11 +92,12 @@ class Wbs {
     return await this.alert(msg, opts.title ?? 'Prompt', opts)
   }
 
-  async appLauncher (params) {
+  async appLauncher (params, menu) {
     document.body.click()
     const id = wmpa.randomId()
     const toolbar = params ? `toolbar="${params}"` : ''
-    const body = [`<c:app-launcher id="${id}" ${toolbar} />`]
+    const menuId = menu ? `menu="${menu}"` : ''
+    const body = [`<c:app-launcher id="${id}" ${toolbar} ${menuId} />`]
     await wmpa.addComponent(body.join('\n'), 'body')
     const item = new bootstrap.Offcanvas(`#${id}`)
     const itemEl = document.getElementById(id)

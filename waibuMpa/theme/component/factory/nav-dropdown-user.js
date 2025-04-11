@@ -6,7 +6,7 @@ async function navDropdownUser () {
         this.params.html = ''
         return
       }
-      const { has } = this.plugin.lib._
+      const { has, omit } = this.plugin.lib._
       const { routePath } = this.plugin.app.waibu
       const { req } = this.component
       const icon = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: { name: 'person' } }) : ''
@@ -19,24 +19,20 @@ async function navDropdownUser () {
         } else text = req.t('guest')
       }
       const html = []
-      const attr = {
-        dropdown: true,
-        dropdownDir: this.params.attr.dropdownDir,
-        dropdownMenudir: this.params.attr.dropdownMenudir,
-        content: `${icon} ${text}`
-      }
-      if (this.params.attr.text) attr.text = this.params.attr.text
+      const attr = omit(this.params.attr, ['text'])
+      attr.dropdown = true
+      attr.content = `${icon} ${text}`
       if (this.params.attr.noMenu) {
         delete attr.dropdown
         delete attr.dropdownMenu
-        attr.href = routePath(this.component.req.user ? 'sumba:/my-stuff/profile' : 'sumba:/signin')
+        attr.href = routePath(this.component.req.user ? 'sumba:/your-stuff/profile' : 'sumba:/signin')
       } else {
         if (req.user) {
           if (this.params.attr.fancyProfile) {
             const replacer = 'sumba.asset:/user-profile.png'
             const profile = await this.component.buildSentence(`
               <div>
-                <c:dropdown-item href="sumba:/my-stuff/profile">
+                <c:dropdown-item href="sumba:/your-stuff/profile">
                   <c:img src="dobo:/attachment/SumbaUser/${req.user.id}/profile/main.png?notfound=${replacer}" responsive rounded />
                   <c:div margin="top-1" text="align:center">${req.user.firstName} ${req.user.lastName}</c:div>
                 </c:dropdown-item>
@@ -44,11 +40,11 @@ async function navDropdownUser () {
             `)
             html.push(profile)
             html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { divider: true } }))
-            html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/my-stuff/change-password') }, html: this.component.req.t('changePassword') }))
+            html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/your-stuff/change-password') }, html: this.component.req.t('changePassword') }))
             html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/signout') }, html: this.component.req.t('signout') }))
           } else {
-            html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/my-stuff/profile') }, html: this.component.req.t('yourProfile') }))
-            html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/my-stuff/change-password') }, html: this.component.req.t('changePassword') }))
+            html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/your-stuff/profile') }, html: this.component.req.t('yourProfile') }))
+            html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/your-stuff/change-password') }, html: this.component.req.t('changePassword') }))
             html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { divider: true } }))
             html.push(await this.component.buildTag({ tag: 'dropdownItem', attr: { href: routePath('sumba:/signout') }, html: this.component.req.t('signout') }))
           }

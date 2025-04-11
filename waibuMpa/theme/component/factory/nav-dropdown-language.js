@@ -1,16 +1,13 @@
 async function navDropdownLanguage () {
   return class NavDropdownLanguage extends this.baseFactory {
     build = async () => {
-      const { camelCase } = this.plugin.lib._
+      const { camelCase, cloneDeep, omit } = this.plugin.lib._
       const { supported } = this.plugin.app.bajo.config.intl
       const lang = this.component.req.lang
-      const attr = {
-        dropdown: true,
-        dropdownDir: this.params.attr.dropdownDir,
-        dropdownMenudir: this.params.attr.dropdownMenudir,
-        content: lang.toUpperCase()
-      }
-      if (this.params.attr.text) attr.text = this.params.attr.text
+      const attr = cloneDeep(this.params.attr)
+      this.params.attr = omit(this.params.attr, ['text'])
+      attr.dropdown = true
+      attr.content = lang.toUpperCase()
       const html = []
       for (const s of supported) {
         html.push(await this.component.buildTag({

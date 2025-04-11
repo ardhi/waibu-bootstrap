@@ -16,13 +16,13 @@ async function navDropdownSetting () {
       this.params.attr.dropdown = true
       this.params.attr.content = icon
       let profile = `
-        <c:dropdown-item href="sumba:/my-stuff/profile" t:content="yourProfile" />
-        <c:dropdown-item href="sumba:/my-stuff/change-password" t:content="changePassword" />
+        <c:dropdown-item href="sumba:/your-stuff/profile" t:content="yourProfile" />
+        <c:dropdown-item href="sumba:/your-stuff/change-password" t:content="changePassword" />
       `
       if (this.params.attr.fancyProfile) {
         profile = await this.component.buildSentence(`
           <div>
-            <c:dropdown-item href="sumba:/my-stuff/profile">
+            <c:dropdown-item href="sumba:/your-stuff/profile">
               <c:img src="dobo:/attachment/SumbaUser/${req.user.id}/profile/main.png" responsive rounded />
               <c:div margin="top-1">${req.user.firstName} ${req.user.lastName}</c:div>
             </c:dropdown-item>

@@ -20,7 +20,7 @@ async function listItem () {
       }
       if (isString(this.params.attr.target) && !this.params.attr.href) this.params.attr.href = '#'
       if (this.params.attr.href) {
-        const attr = { href: this.params.attr.href, class: [] }
+        const attr = this.params.attr
         const html = this.params.html
         if (isString(this.params.attr.target)) {
           const [id, toggle = 'modal'] = this.params.attr.target.split(':')

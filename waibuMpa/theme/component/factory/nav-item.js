@@ -14,8 +14,8 @@ async function navItem () {
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['dropdown', 'badge'])
+      this.params.attr = group._
       if (group.dropdown) {
-        this.params.attr = group._
         this.params.attr.class.push('dropdown-toggle')
         this.params.attr.role = 'button'
         this.params.attr.dataBsToggle = 'dropdown'

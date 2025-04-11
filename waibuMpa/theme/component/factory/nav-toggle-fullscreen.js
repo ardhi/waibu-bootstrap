@@ -5,14 +5,10 @@ async function navToggleFullscreen () {
       if (!req.iconset) return
       const inIcon = iconset.resolve('fullscreen')
       const outIcon = iconset.resolve('fullscreenExit')
-      const content = await this.component.buildTag({ tag: 'icon', attr: { oname: inIcon } })
-      const attr = {
-        'x-ref': 'fullscreen',
-        '@click': 'toggle()',
-        content
-      }
-      if (this.params.attr.text) attr.text = this.params.attr.text
-      attr['@fullscreenchange.document'] = `
+      this.params.attr['x-ref'] = 'fullscreen'
+      this.params.attr['@click'] = 'toggle()'
+      this.params.attr.content = await this.component.buildTag({ tag: 'icon', attr: { oname: inIcon } })
+      this.params.attr['@fullscreenchange.document'] = `
         const el = $refs.fullscreen.querySelector('i')
         if (document.fullscreenElement) {
           el.classList.remove(inIcon)
@@ -22,7 +18,7 @@ async function navToggleFullscreen () {
           el.classList.add(inIcon)
         }
       `
-      attr['x-data'] = `{
+      this.params.attr['x-data'] = `{
         inIcon: '${inIcon}',
         outIcon: '${outIcon}',
         async toggle () {
@@ -40,7 +36,7 @@ async function navToggleFullscreen () {
         }
       }`
       this.params.noTag = true
-      this.params.html = await this.component.buildTag({ tag: 'navItem', attr })
+      this.params.html = await this.component.buildTag({ tag: 'navItem', attr: this.params.attr })
     }
   }
 }

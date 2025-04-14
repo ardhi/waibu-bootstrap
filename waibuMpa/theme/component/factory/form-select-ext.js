@@ -21,17 +21,8 @@ export const scripts = 'waibuExtra.virtual:/tom-select/js/tom-select.complete.mi
 async function formSelectExt () {
   return class FormSelectExt extends this.baseFactory {
     static css = [...super.css, css]
-
     static scripts = [...super.scripts, scripts]
-
     static inlineCss = inlineCss
-
-    constructor (options) {
-      super(options)
-      this.css = css
-      this.inlineCss = inlineCss
-      this.scripts = scripts
-    }
 
     build = async () => {
       const { omit } = this.plugin.lib._

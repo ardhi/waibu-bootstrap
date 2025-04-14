@@ -60,12 +60,9 @@ export async function handler (opts, params = {}) {
 
 async function formDatetime () {
   return class FormDatetime extends this.baseFactory {
-    constructor (options) {
-      super(options)
-      this.css = css
-      this.scripts = scripts
-      this.inlineScript = inlineScript
-    }
+    static css = [...super.css, ...css]
+    static scripts = [...super.scripts, ...scripts(this.component.req)]
+    static inlineScript = inlineScript(this.component.req)
 
     build = async () => {
       const { set } = this.plugin.lib._

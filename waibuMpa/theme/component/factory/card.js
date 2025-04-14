@@ -6,6 +6,7 @@ async function card () {
       super(options)
       this.selector = '.' + cls
       this.component.normalizeAttr(this.params, { tag: 'div', cls })
+      if (this.params.attr.noBorder) this.params.attr.border = 'none'
     }
 
     build = async () => {

@@ -94,6 +94,7 @@ export async function build (handler, params = {}) {
   }
 
   const group = groupAttrs(this.params.attr, ['label', 'hint', 'wrapper', 'col'], false)
+  if (group.label && group.label.floating && this.params.tag === 'formColor') group.label.style.top = '-1px'
   let datalist
 
   if (group._.datalist && !['password', 'file', 'checkbox', 'radio'].includes(group._.type)) {

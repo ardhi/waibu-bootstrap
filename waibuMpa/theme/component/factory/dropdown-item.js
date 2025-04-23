@@ -9,8 +9,7 @@ async function dropdownItem () {
     }
 
     build = async () => {
-      const { $ } = this.component
-      if ($(this.params.html).children().length === 0 && !this.params.attr.href) this.params.attr.href = '#'
+      if (!this.params.attr.href) this.params.attr.href = '#'
       if (this.params.attr.divider) {
         this.params.tag = 'hr'
         this.params.attr.class.push('dropdown-divider')

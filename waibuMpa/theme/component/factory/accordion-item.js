@@ -22,7 +22,7 @@ async function accordionItem () {
         `aria-expanded="${this.params.attr.showOnStart}"`,
         'x-data',
         `@click="$dispatch('accordion-item', { id: $el.closest('.accordion').id, cls: '${clsList.join(' ')}' })"`,
-        `aria-controls="${this.params.attr.id}">${this.params.attr.header}</button></c:h2>`]
+        `aria-controls="${this.params.attr.id}"><c:span margin="end-2">${this.params.attr.header}</c:span></button></c:h2>`]
       const body = await this.component.buildTag({ tag: 'div', attr: group.body, html: this.params.html })
       const details = [`<div id="${this.params.attr.id}" class="accordion-collapse collapse${this.params.attr.showOnStart ? ' show' : ''}">`,
         body, '</div']

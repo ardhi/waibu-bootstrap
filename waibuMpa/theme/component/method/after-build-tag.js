@@ -56,7 +56,7 @@ const styles = [
 async function afterBuildTag (tag, params) {
   const { omit, map, isEmpty } = this.plugin.lib._
   const keys = map(styles, 'key')
-  const excluded = []
+  let excluded = []
   params.attr = params.attr ?? {}
   tag = tag ?? params.tag
   if (tag === 'any') tag = params.tag
@@ -98,6 +98,7 @@ async function afterBuildTag (tag, params) {
       if (key.includes(k)) excluded.push(key)
     }
   }
+  excluded = excluded.filter(item => !['disabled'].includes(item))
   params.attr = omit(params.attr, ['color', 'noDismiss', 'size', 'split', 'ordered',
     'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'noNavigation', 'noTouch', 'alwaysOpen',

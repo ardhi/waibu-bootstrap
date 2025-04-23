@@ -96,6 +96,7 @@ export async function buildFormColor (group, params) {
   const attr = getInputAttr.call(this, group)
   attr.class.push('form-control-color')
   attr.type = 'color'
+  if (!attr.dim) attr.dim = 'width:100'
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 

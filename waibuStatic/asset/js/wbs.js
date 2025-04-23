@@ -82,7 +82,7 @@ class Wbs {
           this.$el.closest('.modal-body').querySelector('button[type=submit]').click()
         }
       }" @keyup.enter="submit" value="` + (value ?? opts.value) + '"/>',
-      msg ? ('<c:div margin="top-3">' + msg + '</c:div>') : ''
+      msg ? ('<c:div margin="top-3"><c:t>' + msg + '</c:t></c:div>') : ''
     ].join('\n')
     opts.close = opts.close ?? ''
     opts.buttons = [

@@ -14,6 +14,21 @@ export const inlineCss = `
 .ts-control, .ts-control input, .ts-dropdown {
   color: inherit;
 }
+.form-floating > .ts-wrapper {
+  padding-top: 1.625rem !important;
+}
+
+.ts-wrapper.focus {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.focus .ts-control {
+  box-shadow: none;
+  border: none;
+  box-shadow: none;
+}
 `
 export const css = 'waibuExtra.virtual:/tom-select/css/tom-select.bootstrap5.min.css'
 export const scripts = 'waibuExtra.virtual:/tom-select/js/tom-select.complete.min.js'
@@ -36,11 +51,21 @@ async function formSelectExt () {
       if (this.params.attr.removeBtn) plugins.push('remove_button')
       if (this.params.attr.clearBtn) plugins.push('clear_button')
       if (this.params.attr.optgroupColumns) plugins.push('optgroup_columns')
-      const defOpts = { plugins }
-      this.params.attr.options = this.params.attr.options ? base64JsonDecode(this.params.attr.options) : defOpts
+      let options = []
+      if (this.params.attr.options) {
+        try {
+          options = base64JsonDecode(this.params.attr.options)
+        } catch (err) {
+          options = this.params.attr.options.split(' ').map(item => {
+            return { value: item, text: item }
+          })
+        }
+        this.params.attr.options = options
+      }
+      const opts = { plugins }
       this.params.attr['@load.window'] = `
-        const options = ${jsonStringify(this.params.attr.options, true)}
-        instance = new TomSelect($refs.select, options)
+        const opts = ${jsonStringify(opts, true)}
+        instance = new TomSelect($refs.select, opts)
       `
       await build.call(this, buildFormSelect, this.params)
       this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn'])

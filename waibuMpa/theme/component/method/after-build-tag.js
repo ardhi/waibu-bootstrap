@@ -98,7 +98,7 @@ async function afterBuildTag (tag, params) {
       if (key.includes(k)) excluded.push(key)
     }
   }
-  excluded = excluded.filter(item => !['disabled'].includes(item))
+  if (!['btn'].includes(tag)) excluded = excluded.filter(item => !['disabled'].includes(item))
   params.attr = omit(params.attr, ['color', 'noDismiss', 'size', 'split', 'ordered',
     'dir', 'menu', 'divider', 'header', 'autoClose', 'offset', 'group', 'toggleAll',
     'showOnStart', 'autoPlay', 'fade', 'indicator', 'noNavigation', 'noTouch', 'alwaysOpen',

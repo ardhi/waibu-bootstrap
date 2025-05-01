@@ -17,6 +17,7 @@ function getInputAttr (group, formControl = true, ro) {
       else if (has(attr, 'name') === 'lng') attr.value = escape(this.component.req.format(val, attr.dataType, { longitude: true }))
       else attr.value = escape(this.component.req.format(val, attr.dataType))
     } else attr.value = attr.dataValue
+    if (isArray(val)) attr.value = val.join(' ')
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
   return omit(attr, ['size', 'col'])

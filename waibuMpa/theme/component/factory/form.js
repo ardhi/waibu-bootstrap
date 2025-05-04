@@ -9,9 +9,11 @@ async function form () {
     build = async () => {
       this.component.locals.form = this.component.locals.form ?? {}
       const { pascalCase } = this.plugin.app.bajo
-      const { isEmpty, omit } = this.plugin.lib._
+      const { isEmpty, omit, has } = this.plugin.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       const { groupAttrs } = this.plugin.app.waibuMpa
+      if (!has(this.params.attr, 'autocomplete')) this.params.attr.autocomplete = 'off'
+      if (!has(this.params.attr, 'method')) this.params.attr.method = 'POST'
       if (this.params.attr.referer) {
         const referer = `<input type="hidden" name="referer" value="${this.component.locals.form.referer ?? ''}" />`
         this.params.html = `${referer}\n${this.params.html}`

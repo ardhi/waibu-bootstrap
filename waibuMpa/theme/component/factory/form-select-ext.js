@@ -1,6 +1,7 @@
 import { buildFormSelect } from './_lib.js'
 import { build } from './form-input.js'
 
+// TODO: load default values from remote
 export const inlineCss = `
 .ts-dropdown {
   min-width: 242px;
@@ -40,9 +41,13 @@ async function formSelectExt () {
     static inlineCss = inlineCss
 
     build = async () => {
-      const { omit } = this.plugin.lib._
-      const { jsonStringify, base64JsonDecode } = this.plugin.app.waibuMpa
-      this.params.attr['x-ref'] = 'select'
+      const { generateId } = this.plugin.app.bajo
+      const { omit, merge } = this.plugin.lib._
+      const { routePath } = this.plugin.app.waibu
+      const { jsonStringify, base64JsonDecode, groupAttrs } = this.plugin.app.waibuMpa
+      const xref = this.params.attr['x-ref'] ?? 'select'
+      this.params.attr.id = this.params.attr.id ?? generateId('alpha')
+      this.params.attr['x-ref'] = xref
       this.params.attr['x-data'] = `{
         instance: null
       }`
@@ -62,13 +67,53 @@ async function formSelectExt () {
         }
         this.params.attr.options = options
       }
-      const opts = { plugins }
+      let opts = { plugins }
+      let cOpts = {}
+      if (this.params.attr.cOpts) {
+        try {
+          cOpts = base64JsonDecode(this.params.attr.cOpts)
+        } catch (err) {}
+      }
+      if (!cOpts.optsText) opts = jsonStringify(merge(opts, cOpts), true)
+      else opts = cOpts.optsText
+      const group = groupAttrs(this.params.attr, ['remote'])
+      if (group.remote) {
+        group.remote.url = routePath(group.remote.url)
+        group.remote.searchField = group.remote.searchField ?? 'name'
+        group.remote.labelField = group.remote.labelField ?? 'name'
+        group.remote.valueField = group.remote.valueField ?? 'id'
+        opts = `{
+          searchField: '${group.remote.searchField}',
+          labelField: '${group.remote.labelField}',
+          valueField: '${group.remote.valueField}',
+          load: (query, callback) => {
+            fetch('${group.remote.url}?query=${group.remote.searchField}:~^\\'' + query + '\\'')
+              .then(resp => resp.json())
+              .then(json => {
+                callback(json.data)
+              })
+              .catch(() => {
+                callback
+              })
+          },
+          render: {
+            option: (data, escape) => {
+              return '<div>' + escape(data.name) + '</div>'
+            },
+            item: (data, escape) => {
+              $dispatch('formselectext', { id: '${this.params.attr.id}', data })
+              return '<div>' + escape(data.name) + '</div>'
+            }
+          }
+        }`
+      }
+
       this.params.attr['@load.window'] = `
-        const opts = ${jsonStringify(opts, true)}
-        instance = new TomSelect($refs.select, opts)
+        const opts = ${opts}
+        instance = new TomSelect($refs.${xref}, opts)
       `
+      this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl'])
       await build.call(this, buildFormSelect, this.params)
-      this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn'])
     }
   }
 }

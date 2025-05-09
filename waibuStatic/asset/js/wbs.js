@@ -23,6 +23,17 @@ class Wbs {
     return bootstrap[type].getOrCreateInstance(el)
   }
 
+  notifyHtml (id, html) {
+    wmpa.addComponentHtml(html, '.toast-container')
+    const el = document.getElementById(id)
+    if (!el) return
+    el.addEventListener('hidden.bs.toast', () => {
+      el.remove()
+    })
+    const instance = this.getInstance('Toast', id)
+    instance.show()
+  }
+
   async notify (msg, { title, caption, type = 'info', transValue = [] } = {}) {
     const id = wmpa.randomId()
     if (_.isString(transValue)) transValue = [transValue]

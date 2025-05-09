@@ -11,6 +11,7 @@ async function navDropdownSetting () {
       const cfgWmpa = this.plugin.app.waibuMpa.config
 
       const group = groupAttrs(this.params.attr, ['icon'])
+      if (!group.icon) group.icon = { style: {}, class: [] }
       group.icon.name = 'gear'
       const icon = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: group.icon }) : ''
       this.params.attr.dropdown = true

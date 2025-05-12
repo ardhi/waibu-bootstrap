@@ -88,8 +88,13 @@ export async function buildFormRadioToggle (group, params) {
 
 export async function buildFormPlaintext (group, params) {
   const attr = getInputAttr.call(this, group, false, true)
+  delete attr.dataValue
   attr.class.push('form-control-plaintext')
   attr.readonly = ''
+  if (['object', 'array', 'text'].includes(attr.dataType)) {
+    attr.style.minHeight = '100px'
+    return await this.component.buildTag({ tag: 'textarea', attr, html: attr.value })
+  }
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
@@ -110,6 +115,7 @@ export async function buildFormFile (group, params) {
 export async function buildFormTextarea (group, params) {
   const attr = getInputAttr.call(this, group)
   params.html = attr.value
+  attr.style.minHeight = '100px'
   delete attr.value
   return await this.component.buildTag({ tag: 'textarea', attr, html: params.html })
 }

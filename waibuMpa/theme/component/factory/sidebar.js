@@ -17,8 +17,12 @@ function formatSentence (item, params) {
     }
   }
   if (cmp.includes('dropdown')) result.push('dropdown-dir="end"')
-  if (this.params.attr.expanded) result.push(`><c:icon name="${icon}" style="font-size: 1.5rem" />${html}</c:${cmp}>`)
-  else result.push(`><c:icon name="${icon}" />${html}</c:${cmp}>`)
+  result.push('>')
+  if (icon) {
+    if (this.params.attr.expanded) result.push(`<c:icon name="${icon}" style="font-size: 1.5rem" />`)
+    else result.push(`<c:icon name="${icon}" />`)
+  }
+  result.push(`${html}</c:${cmp}>`)
   return result.join(' ')
 }
 

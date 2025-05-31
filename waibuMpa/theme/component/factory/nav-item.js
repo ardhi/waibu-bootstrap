@@ -15,6 +15,19 @@ async function navItem () {
       const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['dropdown', 'badge'])
       this.params.attr = group._
+      if (this.plugin.app.waibu &&
+        this.params.attr.href &&
+        this.params.attr.ohref &&
+        !this.params.attr.ohref.startsWith('/') &&
+        !this.params.attr.href.startsWith('#') &&
+        !this.params.attr.href.startsWith('http://') &&
+        !this.params.attr.href.startsWith('https://')) {
+        if (!this.plugin.app.waibu.findRoute(this.params.attr.ohref)) {
+          this.params.html = ''
+          this.params.noTag = true
+          return
+        }
+      }
       if (group.dropdown) {
         this.params.attr.class.push('dropdown-toggle')
         this.params.attr.role = 'button'

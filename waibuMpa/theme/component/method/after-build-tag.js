@@ -108,7 +108,7 @@ async function afterBuildTag (tag, params) {
     'noKeyboard', 'centered', 'noFade', 'expandable', 'fill', 'open', 'dismiss', 'iconEnd',
     'idLabel', 'side', 'col', 'break', 'order', 'gutter', 'dark', 'noBorder', 'noDivider',
     'tooltipPlacement', 'popoverPlacement', 'menuScroll', 'content', 'badge', 'noLabel',
-    'description', 'wrapper', 'noWrapper', 'responsive', 'thumbnail', 'noLabel',
+    'description', 'wrapper', 'noWrapper', 'responsive', 'thumbnail', 'noLabel', 'ohref',
     ...excluded])
 }
 

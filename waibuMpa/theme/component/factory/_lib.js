@@ -1,10 +1,15 @@
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, isPlainObject, isArray, isString, has } = this.plugin.lib._
+  const { omit, get, isPlainObject, isArray, isString, has, forOwn } = this.plugin.lib._
   const { escape } = this.plugin.app.waibu
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
+  if (attr.href) {
+    forOwn(this.component.locals.form, (v, k) => {
+      attr.href = attr.href.replace(`%7B${k}%7D`, v)
+    })
+  }
   if (has(attr, 'name') && !attr.value && this.component.locals.form) {
     attr.dataType = attr.dataType ?? 'auto'
     const val = get(this, `component.locals.form.${attr.name}`)
@@ -94,6 +99,11 @@ export async function buildFormPlaintext (group, params) {
   if (['object', 'array', 'text'].includes(attr.dataType)) {
     attr.style.minHeight = '100px'
     return await this.component.buildTag({ tag: 'textarea', attr, html: attr.value })
+  }
+  if (attr.href) {
+    const content = attr.value ? this.component.req.t(attr.value) : attr.href
+    const html = await this.component.buildTag({ tag: 'a', attr: { href: attr.href, content } })
+    return await this.component.buildTag({ tag: 'div', attr, html })
   }
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }

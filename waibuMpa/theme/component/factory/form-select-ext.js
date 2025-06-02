@@ -6,6 +6,9 @@ export const inlineCss = `
 .ts-dropdown {
   min-width: 242px;
 }
+.ts-control {
+  padding-top: 0px;
+}
 .ts-wrapper {
   margin-left: calc(var(--bs-border-width) * -1) !important;
   border-top-left-radius: var(--bs-border-radius) !important;

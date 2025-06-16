@@ -1,7 +1,7 @@
 async function navDropdownDarkmode () {
   return class NavDropdownDarkmode extends this.baseFactory {
     build = async () => {
-      const { titleize, isSet } = this.plugin.app.bajo
+      const { titleize, isSet } = this.plugin.lib.aneka
       const { set, omit } = this.plugin.lib._
       const cfgWmpa = this.plugin.app.waibuMpa.config
       this.params.noTag = true

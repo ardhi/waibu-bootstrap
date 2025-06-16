@@ -8,7 +8,7 @@ async function form () {
 
     build = async () => {
       this.component.locals.form = this.component.locals.form ?? {}
-      const { pascalCase } = this.plugin.app.bajo
+      const { pascalCase } = this.plugin.lib.aneka
       const { isEmpty, omit, has } = this.plugin.lib._
       const { attrToArray } = this.plugin.app.waibuMpa
       const { groupAttrs } = this.plugin.app.waibuMpa

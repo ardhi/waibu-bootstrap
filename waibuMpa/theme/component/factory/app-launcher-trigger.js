@@ -27,7 +27,7 @@ async function appLauncherTrigger () {
       let src = group.img.src
       if (!src) {
         let logo = 'waibu'
-        const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/plugin/logo.*`)
+        const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/logo.*`)
         if (files.length > 0) logo = 'main'
         src = `waibuMpa:/logo/${logo}`
       }

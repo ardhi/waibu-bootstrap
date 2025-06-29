@@ -6,7 +6,7 @@ async function navDropdownSetting () {
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { generateId } = this.plugin.app.bajo
       const { routePath } = this.plugin.app.waibu
-      const { isSet } = this.plugin.app.bajo
+      const { isSet } = this.plugin.lib.aneka
       const { req } = this.component
       const cfgWmpa = this.plugin.app.waibuMpa.config
 

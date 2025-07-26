@@ -13,6 +13,11 @@ async function heading () {
       }
       if (display) this.params.attr.class.push(`display-${type}`)
       delete this.params.attr.type
+      if (this.params.attr.href) {
+        this.params.prepend = `<a class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="${this.params.attr.href}">`
+        this.params.append = '</a>'
+        delete this.params.attr.href
+      }
     }
   }
 }

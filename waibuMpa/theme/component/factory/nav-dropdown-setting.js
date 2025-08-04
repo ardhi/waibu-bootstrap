@@ -54,15 +54,15 @@ async function navDropdownSetting () {
         <c:dropdown-item divider />
         <c:dropdown-item t:content="fullscreen"
           x-data="{
-            inText: '${this.component.req.t('fullscreen')}',
-            outText: '${this.component.req.t('exitFullscreen')}',
+            inText: \`${this.component.req.t('fullscreen')}\`,
+            outText: \`${this.component.req.t('exitFullscreen')}\`,
             async toggle () {
               const el = document.querySelector('body')
               if (!document.fullscreenElement) {
                 try {
                   await el.requestFullscreen()
                 } catch (err) {
-                  await wbs.notify('cantGoFullscreen', { type: 'danger' })
+                  await wbs.notify(\`${this.component.req.t('cantGoFullscreen')}\`, { type: 'danger' })
                 }
               } else {
                 document.exitFullscreen()
@@ -88,7 +88,7 @@ async function navDropdownSetting () {
             id="${id}"
             x-data="{
               async signout () {
-                await wbs.confirmation('${this.component.req.t('signoutWarning')}', { ok: '${id}:post', close: 'y' })
+                await wbs.confirmation(\`${this.component.req.t('signoutWarning')}\`, { ok: '${id}:post', close: 'y' })
               },
               post () {
                 wmpa.postForm({}, '${routePath('sumba:/signout')}')

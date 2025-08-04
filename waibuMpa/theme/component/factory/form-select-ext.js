@@ -82,15 +82,15 @@ async function formSelectExt () {
       const group = groupAttrs(this.params.attr, ['remote'])
       if (group.remote) {
         group.remote.url = routePath(group.remote.url)
-        group.remote.searchField = group.remote.searchField ?? 'name'
-        group.remote.labelField = group.remote.labelField ?? 'name'
+        group.remote.searchField = group.remote.searchField ?? 'id'
+        group.remote.labelField = group.remote.labelField ?? 'id'
         group.remote.valueField = group.remote.valueField ?? 'id'
         opts = `{
           searchField: '${group.remote.searchField}',
           labelField: '${group.remote.labelField}',
           valueField: '${group.remote.valueField}',
           load: (query, callback) => {
-            fetch('${group.remote.url}?query=${group.remote.searchField}:~^\\'' + query + '\\'')
+            fetch('${group.remote.url}?query=${group.remote.searchField}:~\\'' + query + '\\'')
               .then(resp => resp.json())
               .then(json => {
                 callback(json.data)
@@ -101,11 +101,11 @@ async function formSelectExt () {
           },
           render: {
             option: (data, escape) => {
-              return '<div>' + escape(data.name) + '</div>'
+              return '<div>' + escape(data.${group.remote.labelField}) + '</div>'
             },
             item: (data, escape) => {
               $dispatch('formselectext', { id: '${this.params.attr.id}', data })
-              return '<div>' + escape(data.name) + '</div>'
+              return '<div>' + escape(data.${group.remote.labelField}) + '</div>'
             }
           }
         }`

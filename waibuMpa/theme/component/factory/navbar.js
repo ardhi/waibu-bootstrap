@@ -39,7 +39,7 @@ async function navbar () {
         const id = generateId()
         if (this.params.group.drawer) this.params.group.drawer.id = id
         const btn = `<button class="navbar-toggler" type="button" data-bs-toggle="${type}" ` +
-          `data-bs-target="#${id}" aria-controls="${id}"${this.params.attr.drawer ? '' : ' aria-expanded="false"'} aria-label="${this.component.req.t('Toggle Navigation')}">` +
+          `data-bs-target="#${id}" aria-controls="${id}"${this.params.attr.drawer ? '' : ' aria-expanded="false"'} aria-label="${this.component.req.t('toggleNavigation')}">` +
           '<span class="navbar-toggler-icon"></span></button>'
         if (type === 'offcanvas') html = await this.component.buildTag({ tag: 'drawer', attr: this.params.group.drawer, html })
         else html = `<div class="collapse navbar-collapse justify-content-between" id="${id}">${html}</div>`

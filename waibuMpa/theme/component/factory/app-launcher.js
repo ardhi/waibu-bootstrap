@@ -21,7 +21,7 @@ async function appLauncher () {
         launcher += '<c:navbar padding="y-0">\n<c:nav tag="ul" dim="width:100" flex="justify-content:end">\n'
         for (const t of toolbar) {
           if (t === 'home') launcher += '<c:nav-item href="/" icon="house" padding="end-2" />\n'
-          if (t === 'user') launcher += '<c:nav-dropdown-user padding="end-2" />\n'
+          if (t === 'user' && this.plugin.app.sumba) launcher += '<c:sumba-nav-dropdown-user padding="end-2" />\n'
           if (t === '-') launcher += '<c:nav-divider />\n'
           if (t === 'fullscreen') launcher += '<c:nav-toggle-fullscreen padding="end-2" />\n'
           if (t === 'darkmode') launcher += '<c:nav-dropdown-darkmode padding="end-2" dropdown-menudir="end" />\n'

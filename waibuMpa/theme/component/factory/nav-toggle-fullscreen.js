@@ -36,7 +36,7 @@ async function navToggleFullscreen () {
         }
       }`
       this.params.noTag = true
-      this.params.html = await this.component.buildTag({ tag: 'navItem', attr: this.params.attr })
+      this.params.html = await this.component.buildTag({ tag: 'navItem', attr: this.params.attr, noEscape: true })
     }
   }
 }

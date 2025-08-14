@@ -115,7 +115,7 @@ async function formSelectExt () {
         const opts = ${opts}
         instance = new TomSelect($refs.${xref}, opts)
       `
-      this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl'])
+      this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl', 'remoteSearchField', 'remoteLabelField', 'remoteValueField'])
       await build.call(this, buildFormSelect, this.params)
     }
   }

@@ -17,7 +17,10 @@ function getInputAttr (group, formControl = true, ro) {
     else if (isString(val)) attr.dataValue = escape(val)
     else attr.dataValue = val
     if (ro) {
-      if (attr.dataType === 'boolean') attr.value = this.component.req.t(val ? 'Yes' : 'No')
+      if (attr.rel) {
+        const [rel, fieldName = 'id'] = attr.rel.split(':')
+        attr.value = get(this, `component.locals.form._rel.${rel}.${fieldName}`, val)
+      } else if (attr.dataType === 'boolean') attr.value = this.component.req.t(val ? 'Yes' : 'No')
       else if (has(attr, 'name') === 'lat') attr.value = escape(this.component.req.format(val, attr.dataType, { latitude: true }))
       else if (has(attr, 'name') === 'lng') attr.value = escape(this.component.req.format(val, attr.dataType, { longitude: true }))
       else attr.value = escape(this.component.req.format(val, attr.dataType))

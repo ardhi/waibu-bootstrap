@@ -45,9 +45,12 @@ async function formSelectExt () {
 
     build = async () => {
       const { generateId } = this.plugin.app.bajo
-      const { omit, merge } = this.plugin.lib._
+      const { omit, merge, has } = this.plugin.lib._
       const { routePath } = this.plugin.app.waibu
       const { jsonStringify, base64JsonDecode, groupAttrs } = this.plugin.app.waibuMpa
+      const { req } = this.component
+      let apiKey = ''
+      if (req.user && this.plugin.app.sumba) apiKey = await this.plugin.app.sumba.getApiKeyFromUserId(req.user.id)
       const xref = this.params.attr['x-ref'] ?? 'select'
       this.params.attr.id = this.params.attr.id ?? generateId('alpha')
       this.params.attr['x-ref'] = xref
@@ -80,17 +83,22 @@ async function formSelectExt () {
       if (!cOpts.optsText) opts = jsonStringify(merge(opts, cOpts), true)
       else opts = cOpts.optsText
       const group = groupAttrs(this.params.attr, ['remote'])
+      const fetchOpts = { headers: {} }
       if (group.remote) {
         group.remote.url = routePath(group.remote.url)
         group.remote.searchField = group.remote.searchField ?? 'id'
         group.remote.labelField = group.remote.labelField ?? 'id'
         group.remote.valueField = group.remote.valueField ?? 'id'
+        if (has(group.remote, 'apiKey')) {
+          if (group.remote.apiKey === true) fetchOpts.headers.Authorization = `Bearer ${apiKey}` // TODO: get it from wmpa
+          else fetchOpts.headers.Authorization = `Bearer ${group.remote.apiKey}`
+        }
         opts = `{
           searchField: '${group.remote.searchField}',
           labelField: '${group.remote.labelField}',
           valueField: '${group.remote.valueField}',
           load: (query, callback) => {
-            fetch('${group.remote.url}?query=${group.remote.searchField}:~\\'' + query + '\\'')
+            fetch('${group.remote.url}?query=${group.remote.searchField}:~\\'' + query + '\\'', ${jsonStringify(fetchOpts, true)})
               .then(resp => resp.json())
               .then(json => {
                 callback(json.data)

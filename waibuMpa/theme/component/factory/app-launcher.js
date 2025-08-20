@@ -9,7 +9,9 @@ async function appLauncher () {
     }
 
     build = async () => {
-      const { groupAttrs, attrToArray } = this.plugin.app.waibuMpa
+      const { locals } = this.component
+      const { routePath } = this.app.waibu
+      const { groupAttrs, attrToArray } = this.app.waibuMpa
       const menu = this.params.attr.menu ?? 'pages'
       const group = groupAttrs(this.params.attr, ['trigger'])
       let launcher = `<c:drawer id="${this.params.attr.id}" t:title="Modules" no-padding style="${menu === 'pages' ? 'width:350px' : ''}">\n`
@@ -18,7 +20,9 @@ async function appLauncher () {
       if (toolbar.length > 0) {
         if (menu === 'pages') toolbar.unshift('home')
         launcher += `<c:div padding="x-3 ${menu === 'home' ? 'bottom-3' : ''}">`
-        launcher += '<c:navbar padding="y-0">\n<c:nav tag="ul" dim="width:100" flex="justify-content:end">\n'
+        launcher += '<c:navbar padding="y-0"><c:nav tag="ul">\n'
+        if (locals._meta.isAdmin) launcher += '<c:nav-item text="color:danger" href="' + routePath('waibuAdmin:/') + '" icon="lock" padding="start-0" />\n'
+        launcher += '</c:nav>\n<c:nav tag="ul">\n'
         for (const t of toolbar) {
           if (t === 'home') launcher += '<c:nav-item href="/" icon="house" padding="end-2" />\n'
           if (t === 'user' && this.plugin.app.sumba) launcher += '<c:sumba-nav-dropdown-user padding="end-2" />\n'

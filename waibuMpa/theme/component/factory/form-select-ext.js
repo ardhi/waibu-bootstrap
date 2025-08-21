@@ -117,22 +117,25 @@ async function formSelectExt () {
           }
         }`
       }
-
       this.params.attr['@load.window'] = `
         const opts = ${opts}
         instance = new TomSelect($refs.${xref}, opts)
         const val = $refs.${xref}.dataset.value
-        if (!_.isEmpty(val)) {
-          fetch('${group.remote.url}?query=${group.remote.valueField}:' + val, ${jsonStringify(fetchOpts, true)})
-            .then(resp => resp.json())
-            .then(json => {
-              if (json.data.length === 0) return
-              const opt = _.pick(json.data[0], ['${group.remote.valueField}', '${group.remote.labelField}'])
-              instance.addOption(opt)
-              instance.setValue(opt.${group.remote.valueField})
-            })
-        }
       `
+      if (group.remote) {
+        this.params.attr['@load.window'] += `
+          if (!_.isEmpty(val)) {
+            fetch('${group.remote.url}?query=${group.remote.valueField}:' + val, ${jsonStringify(fetchOpts, true)})
+              .then(resp => resp.json())
+              .then(json => {
+                if (json.data.length === 0) return
+                const opt = _.pick(json.data[0], ['${group.remote.valueField}', '${group.remote.labelField}'])
+                instance.addOption(opt)
+                instance.setValue(opt.${group.remote.valueField})
+              })
+          }
+        `
+      }
       this.params.attr.options = options
       this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl', 'remoteSearchField', 'remoteLabelField', 'remoteValueField'])
       await build.call(this, buildFormSelect, this.params)

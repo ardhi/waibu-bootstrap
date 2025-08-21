@@ -17,7 +17,7 @@ async function formSelectCountry () {
       const { readConfig } = this.plugin.app.bajo
       const { map } = this.plugin.lib._
       const { base64JsonEncode } = this.plugin.app.waibuMpa
-      const countries = await readConfig('bajoCommonDb:/dobo/fixture/country.json', { ignoreError: true, defValue: [] })
+      const countries = await readConfig('bajoCommonDb:/extend/dobo/fixture/country.json', { ignoreError: true, defValue: [] })
       this.params.attr.options = base64JsonEncode(map(countries, c => {
         return { value: c.id, text: c.name.replaceAll('\'', '') }
       }))

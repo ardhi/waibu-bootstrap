@@ -1,11 +1,12 @@
 async function factory (pkgName) {
   const me = this
 
-  return class WaibuBootstrap extends this.lib.Plugin {
+  class WaibuBootstrap extends this.lib.Plugin {
+    static alias = 'wbs'
+    static dependencies = ['waibu-mpa', 'waibu-extra']
+
     constructor () {
       super(pkgName, me.app)
-      this.alias = 'wbs'
-      this.dependencies = ['waibu-mpa', 'waibu-extra']
       this.config = {
         waibu: {
           prefix: 'bootstrap'
@@ -16,6 +17,8 @@ async function factory (pkgName) {
       }
     }
   }
+
+  return WaibuBootstrap
 }
 
 export default factory

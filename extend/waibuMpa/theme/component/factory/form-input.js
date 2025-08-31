@@ -2,7 +2,7 @@ import { buildFormHint, buildFormLabel, buildFormInput } from './_lib.js'
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, group, params } = {}) {
-  const { trim, filter, has, omit, pull, find, get } = this.plugin.lib._
+  const { trim, filter, has, omit, pull, find, get } = this.app.lib._
   const { attrToArray } = this.plugin.app.waibuMpa
   const { $ } = this.component
   const addons = []

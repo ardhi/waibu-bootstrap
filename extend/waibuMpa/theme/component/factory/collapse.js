@@ -1,5 +1,5 @@
 function collectAttr (group, item) {
-  const { merge } = this.plugin.lib._
+  const { merge } = this.app.lib._
   return merge(group.trigger, {
     'data-bs-toggle': 'collapse',
     'data-bs-target': item ? ('#' + item.id) : `.multi-collapse.${this.params.attr.toggleAll}`
@@ -10,7 +10,7 @@ async function collapse () {
   return class Collapse extends this.baseFactory {
     build = async () => {
       const { generateId } = this.plugin.app.bajo
-      const { merge, isString } = this.plugin.lib._
+      const { merge, isString } = this.app.lib._
       const { attrToArray, groupAttrs } = this.plugin.app.waibuMpa
       const items = []
       const { $ } = this.component

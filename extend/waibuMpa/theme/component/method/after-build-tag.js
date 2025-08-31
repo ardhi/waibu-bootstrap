@@ -54,7 +54,7 @@ const styles = [
 ]
 
 async function afterBuildTag (tag, params) {
-  const { omit, isEmpty } = this.plugin.lib._
+  const { omit, isEmpty } = this.app.lib._
   let excluded = []
   params.attr = params.attr ?? {}
   tag = tag ?? params.tag

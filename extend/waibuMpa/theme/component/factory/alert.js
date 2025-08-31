@@ -6,7 +6,7 @@ async function alert () {
   return class Alert extends this.baseFactory {
     constructor (options) {
       super(options)
-      const { without } = this.plugin.lib._
+      const { without } = this.app.lib._
       this.selector = '.' + cls
       const myColors = without(colors, 'link')
       this.component.normalizeAttr(this.params, { cls, tag: 'div', role: 'alert' })
@@ -14,7 +14,7 @@ async function alert () {
     }
 
     build = async () => {
-      const { isEmpty } = this.plugin.lib._
+      const { isEmpty } = this.app.lib._
       const { $ } = this.component
       const html = $(`<div>${this.params.html}</div>`).children().each(function () {
         if (this.name === 'a') $(this).addClass('alert-link')

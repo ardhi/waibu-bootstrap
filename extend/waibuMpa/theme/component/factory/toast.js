@@ -9,7 +9,7 @@ async function toast () {
     }
 
     build = async () => {
-      const { isString, omit, has, get } = this.plugin.lib._
+      const { isString, omit, has, get } = this.app.lib._
       const header = []
       if (this.params.attr.noHide) this.params.attr.dataBsAutohide = 'false'
       let delay = get(this, 'component.req.site.setting.waibuBootstrap.toastAutohideDelayDur', 5000)

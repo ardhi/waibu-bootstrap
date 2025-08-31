@@ -10,7 +10,7 @@ async function navItem () {
     }
 
     build = async () => {
-      const { isString } = this.plugin.lib._
+      const { isString } = this.app.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { routePath, findRoute } = this.plugin.app.waibu
       const { breakNsPath, buildNsPath } = this.plugin.app.bajo

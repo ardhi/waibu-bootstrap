@@ -2,7 +2,7 @@ async function appLauncherTrigger () {
   return class AppLauncherTrigger extends this.baseFactory {
     constructor (options) {
       super(options)
-      const { isString } = this.plugin.lib._
+      const { isString } = this.app.lib._
       this.params.attr.color = this.params.attr.color ?? 'color:body-emphasis'
       this.params.attr.text = this.params.attr.text ?? 'decoration:none'
       this.params.attr.display = 'type:block'
@@ -20,7 +20,7 @@ async function appLauncherTrigger () {
     }
 
     build = async () => {
-      const { fastGlob } = this.plugin.lib
+      const { fastGlob } = this.app.lib
       const { groupAttrs, attribsStringify } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['img'])
       this.params.attr = group._

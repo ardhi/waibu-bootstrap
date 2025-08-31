@@ -7,7 +7,7 @@ async function fieldset () {
     }
 
     build = async () => {
-      const { omit } = this.plugin.lib._
+      const { omit } = this.app.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['grid', 'legend', 'card'])
       if (group.grid && !this.params.attr.card && !group.grid.margin) group.grid.margin = 'bottom-3'

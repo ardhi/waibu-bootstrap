@@ -2,7 +2,7 @@ import { aligns, widths, parseSimple } from './_lib.js'
 const types = ['circle', 'pill', ...aligns]
 
 function rounded ({ key, params }) {
-  const { uniq } = this.plugin.lib._
+  const { uniq } = this.app.lib._
   if (params.attr.rounded === true) {
     params.attr.class.push('rounded')
     return

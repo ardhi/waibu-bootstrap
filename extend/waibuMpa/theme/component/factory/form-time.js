@@ -7,7 +7,7 @@ async function formTime () {
     static inlineScript = inlineScript(this.component.req)
 
     build = async () => {
-      const { set } = this.plugin.lib._
+      const { set } = this.app.lib._
       const opts = {}
       set(opts, 'display.components.calendar', false)
       set(opts, 'localization.format', 'LTS')

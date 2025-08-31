@@ -16,7 +16,7 @@ async function img () {
     }
 
     build = async () => {
-      const { isString } = this.plugin.lib._
+      const { isString } = this.app.lib._
       const mouseenter = []
       const mouseleave = []
       if (isString(this.params.attr['@mouseenter'])) mouseenter.push(...this.params.attr['@mouseenter'].split('\n'))

@@ -8,7 +8,7 @@ async function scrollspy () {
     }
 
     build = async () => {
-      const { isString } = this.plugin.lib._
+      const { isString } = this.app.lib._
       const { generateId } = this.plugin.app.bajo
       const target = isString(this.params.attr.target) ? this.params.attr.target : generateId()
       this.component.normalizeAttr(this.params, {

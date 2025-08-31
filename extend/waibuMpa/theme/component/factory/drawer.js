@@ -10,7 +10,7 @@ async function drawer () {
     }
 
     build = async () => {
-      const { isString, omit, trim } = this.plugin.lib._
+      const { isString, omit, trim } = this.app.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['trigger'])

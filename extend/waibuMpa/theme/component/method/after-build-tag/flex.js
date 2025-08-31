@@ -14,7 +14,7 @@ const type = {
 }
 
 function flex ({ key, params }) {
-  const { uniq, isEmpty } = this.plugin.lib._
+  const { uniq, isEmpty } = this.app.lib._
   if (params.attr[key] === true) {
     params.attr.class.push('d-flex')
     return

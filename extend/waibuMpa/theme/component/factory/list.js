@@ -10,7 +10,7 @@ async function list () {
     }
 
     build = async () => {
-      const { isString, omit } = this.plugin.lib._
+      const { isString, omit } = this.app.lib._
       const { attribsStringify } = this.plugin.app.waibuMpa
       const { $ } = this.component
       const me = this

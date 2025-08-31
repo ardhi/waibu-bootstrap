@@ -45,7 +45,7 @@ async function formSelectExt () {
 
     build = async () => {
       const { generateId } = this.plugin.app.bajo
-      const { omit, merge, has } = this.plugin.lib._
+      const { omit, merge, has } = this.app.lib._
       const { routePath } = this.plugin.app.waibu
       const { jsonStringify, base64JsonDecode, groupAttrs } = this.plugin.app.waibuMpa
       const { req } = this.component

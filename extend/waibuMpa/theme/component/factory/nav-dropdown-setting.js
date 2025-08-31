@@ -1,12 +1,12 @@
 async function navDropdownSetting () {
   return class NavDropdownSetting extends this.baseFactory {
     build = async () => {
-      const { set, camelCase } = this.plugin.lib._
+      const { set, camelCase } = this.app.lib._
       const { supported } = this.plugin.app.bajo.config.intl
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { generateId } = this.plugin.app.bajo
       const { routePath } = this.plugin.app.waibu
-      const { isSet } = this.plugin.lib.aneka
+      const { isSet } = this.app.lib.aneka
       const { req } = this.component
       const cfgWmpa = this.plugin.app.waibuMpa.config
 

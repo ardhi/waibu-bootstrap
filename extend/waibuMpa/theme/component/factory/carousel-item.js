@@ -9,7 +9,7 @@ async function carouselItem () {
     }
 
     build = async () => {
-      const { isString } = this.plugin.lib._
+      const { isString } = this.app.lib._
       if (isString(this.params.attr.caption)) {
         const captions = ['<div class="carousel-caption d-none d-md-block">']
         captions.push(`<h5>${this.params.attr.caption}</h5>`)

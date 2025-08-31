@@ -65,7 +65,7 @@ async function formDatetime () {
     static inlineScript = inlineScript(this.component.req)
 
     build = async () => {
-      const { set } = this.plugin.lib._
+      const { set } = this.app.lib._
       const opts = {}
       if (this.params.attr.sideBySide) set(opts, 'display.sideBySide', true)
       if (this.params.attr.calendarWeeks) set(opts, 'display.calendarWeeks', true)

@@ -2,7 +2,7 @@ import { positions, aligns, poses, parseVariant } from './_lib.js'
 const zes = ['n1', '0', '1', '2', '3']
 
 function position ({ key, params }) {
-  const { without } = this.plugin.lib._
+  const { without } = this.app.lib._
   if (params.attr[key].includes(':')) {
     const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
     for (const attr of attrs) {

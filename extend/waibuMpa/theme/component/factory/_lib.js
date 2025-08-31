@@ -1,7 +1,7 @@
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, isPlainObject, isArray, isString, has, forOwn } = this.plugin.lib._
+  const { omit, get, isPlainObject, isArray, isString, has, forOwn } = this.app.lib._
   const { escape } = this.plugin.app.waibu
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
@@ -38,7 +38,7 @@ export async function buildFormHint (group, tag, cls) {
 }
 
 export async function buildFormLabel (group, tag, cls) {
-  const { omit } = this.plugin.lib._
+  const { omit } = this.app.lib._
   group.label.for = group._.id
   if (!group.label.floating) group.label.class.push(cls ?? 'form-label')
   group.label = omit(group.label, ['floating'])
@@ -51,7 +51,7 @@ export async function buildFormInput (group, params) {
 }
 
 export async function buildFormCheck (group, params) {
-  const { has, get } = this.plugin.lib._
+  const { has, get } = this.app.lib._
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
@@ -61,7 +61,7 @@ export async function buildFormCheck (group, params) {
 }
 
 export async function buildFormSwitch (group, params) {
-  const { has, get } = this.plugin.lib._
+  const { has, get } = this.app.lib._
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
@@ -134,7 +134,7 @@ export async function buildFormTextarea (group, params) {
 }
 
 export async function buildFormSelect (group, params) {
-  const { omit, trim } = this.plugin.lib._
+  const { omit, trim } = this.app.lib._
   const { $ } = this.component
   let attr = getInputAttr.call(this, group, false)
   attr.value = attr.value + ''

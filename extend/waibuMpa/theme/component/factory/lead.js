@@ -5,7 +5,7 @@ async function lead () {
     constructor (options) {
       super(options)
       this.selector = '.' + cls
-      const { isString } = this.plugin.lib._
+      const { isString } = this.app.lib._
       const tag = isString(this.params.attr.tag) ? this.params.attr.tag : 'p'
       this.component.normalizeAttr(this.params, { tag, cls })
     }

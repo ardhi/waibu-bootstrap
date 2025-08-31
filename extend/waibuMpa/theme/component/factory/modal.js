@@ -12,7 +12,7 @@ async function modal () {
     }
 
     build = async () => {
-      const { isString, omit } = this.plugin.lib._
+      const { isString, omit } = this.app.lib._
       const { groupAttrs } = this.plugin.app.waibuMpa
       const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['trigger'])

@@ -4,7 +4,7 @@ const xwidths = ['0', ...widths]
 const prefixes = ['x', 'y', '']
 
 function gutter ({ key, params }) {
-  const { isString } = this.plugin.lib._
+  const { isString } = this.app.lib._
   const { attrToArray } = this.plugin.app.waibuMpa
   if (isString(params.attr.gutter)) {
     const items = attrToArray(params.attr.gutter)

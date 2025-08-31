@@ -10,7 +10,7 @@ async function container () {
     }
 
     build = async () => {
-      const { has, omit } = this.plugin.lib._
+      const { has, omit } = this.app.lib._
       if (has(this.params.attr, 'responsive')) this.params.attr.class.push(`${cls}-fluid`)
       else if (has(this.params.attr, 'breakpoint')) this.params.attr.class.push(parseSimple({ cls, value: this.params.attr.breakpoint, values: breakpoints }))
       else this.params.attr.class.push(cls)

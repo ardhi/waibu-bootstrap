@@ -2,7 +2,7 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/ardhi/waibu-bootstrap) ![NPM Version](https://img.shields.io/npm/v/waibu-bootstrap)
 
-> <br />**Attention**: I do NOT accept any pull request at the moment, thanks! ([Why?](CONTRIBUTING.md))<br /><br />
+> <br />**Attention**: I do NOT accept any pull request at the moment, thanks! ([Why?](wiki/CONTRIBUTING.md))<br /><br />
 
 Bootstrap theme for [Waibu Web Framework](https://github.com/ardhi/waibu)
 
@@ -18,9 +18,9 @@ Next, open the file located at ```{data-dir}/config/.plugins``` and add ```waibu
 
 ## Documentations
 
-- [Config Object](tutorial/00-config.md)
+- [Config Object](wiki/CONFIG.md)
 - [API](https://ardhi.github.io/waibu-bootstrap)
-- [Contributing](CONTRIBUTING.md)
+- [Contributing](wiki/CONTRIBUTING.md)
 
 ## Hire Me
 

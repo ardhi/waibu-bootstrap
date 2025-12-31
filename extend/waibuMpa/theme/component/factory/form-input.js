@@ -3,7 +3,7 @@ import { sizes } from '../method/after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, group, params } = {}) {
   const { trim, filter, has, omit, pull, find, get } = this.app.lib._
-  const { attrToArray } = this.plugin.app.waibuMpa
+  const { attrToArray } = this.app.waibuMpa
   const { $ } = this.component
   const addons = []
   const isLabel = has(this.params.attr, 'label')
@@ -84,8 +84,8 @@ export async function handleInput ({ handler, group, params } = {}) {
 }
 
 export async function build (handler, params = {}) {
-  const { generateId } = this.plugin.app.bajo
-  const { groupAttrs } = this.plugin.app.waibuMpa
+  const { generateId } = this.app.lib.aneka
+  const { groupAttrs } = this.app.waibuMpa
   this.component.normalizeAttr(this.params, { autoId: true, type: this.params.attr.type ?? 'text' })
   if (!this.params.attr.label && this.params.attr.name) this.params.attr.label = this.component.req.t(`field.${this.params.attr.name}`)
   if (this.params.attr.noLabel) delete this.params.attr.label

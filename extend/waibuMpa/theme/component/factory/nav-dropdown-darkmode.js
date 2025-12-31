@@ -3,9 +3,9 @@ async function navDropdownDarkmode () {
     build = async () => {
       const { titleize, isSet } = this.app.lib.aneka
       const { set, omit } = this.app.lib._
-      const cfgWmpa = this.plugin.app.waibuMpa.config
+      const cfgWmpa = this.app.waibuMpa.config
       this.params.noTag = true
-      if (isSet(this.plugin.app.waibuMpa.config.darkMode.set)) {
+      if (isSet(this.app.waibuMpa.config.darkMode.set)) {
         this.params.html = ''
         return
       }

@@ -44,13 +44,13 @@ async function formSelectExt () {
     static inlineCss = inlineCss
 
     build = async () => {
-      const { generateId } = this.plugin.app.bajo
+      const { generateId } = this.app.lib.aneka
       const { omit, merge, has } = this.app.lib._
-      const { routePath } = this.plugin.app.waibu
-      const { jsonStringify, base64JsonDecode, groupAttrs } = this.plugin.app.waibuMpa
+      const { routePath } = this.app.waibu
+      const { jsonStringify, base64JsonDecode, groupAttrs } = this.app.waibuMpa
       const { req } = this.component
       let apiKey = ''
-      if (req.user && this.plugin.app.sumba) apiKey = await this.plugin.app.sumba.getApiKeyFromUserId(req.user.id)
+      if (req.user && this.app.sumba) apiKey = await this.app.sumba.getApiKeyFromUserId(req.user.id)
       const xref = this.params.attr['x-ref'] ?? 'select'
       this.params.attr.id = this.params.attr.id ?? generateId('alpha')
       this.params.attr['x-ref'] = xref

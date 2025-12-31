@@ -11,8 +11,9 @@ async function navbar () {
 
     build = async () => {
       const { omit, cloneDeep, has } = this.app.lib._
-      const { generateId, numUnit } = this.plugin.app.bajo
-      const { groupAttrs } = this.plugin.app.waibuMpa
+      const { numUnit } = this.app.bajo
+      const { generateId } = this.app.lib.aneka
+      const { groupAttrs } = this.app.waibuMpa
       const { $ } = this.component
 
       this.params.group = groupAttrs(this.params.attr, ['container', 'drawer'])

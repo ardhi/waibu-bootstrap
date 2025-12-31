@@ -11,7 +11,7 @@ async function list () {
 
     build = async () => {
       const { isString, omit } = this.app.lib._
-      const { attribsStringify } = this.plugin.app.waibuMpa
+      const { stringifyAttribs } = this.app.waibuMpa
       const { $ } = this.component
       const me = this
       if (this.params.attr.hover) this.params.tag = 'div'
@@ -46,7 +46,7 @@ async function list () {
           }
           if (me.params.attr.hover) {
             if (me.params.attr.type === 'group') this.attribs.class += ' list-group-item-action'
-            const attrs = attribsStringify(this.attribs)
+            const attrs = stringifyAttribs(this.attribs)
             const item = $(this).html()
             if (($(item)[0] ?? {}).name === 'a') html.push($(item).addClass(this.attribs.class).prop('outerHTML'))
             else html.push(`<a href="#" ${attrs}>${$(this).html()}</a>`)

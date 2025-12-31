@@ -10,7 +10,7 @@ async function masonry () {
 
     build = async () => {
       const { pick } = this.app.lib._
-      const { attribsStringify } = this.plugin.app.waibuMpa
+      const { stringifyAttribs } = this.app.waibuMpa
       const { $ } = this.component
 
       const gparams = { attr: pick(this.params.attr, ['gutter']) }
@@ -18,7 +18,7 @@ async function masonry () {
       gutter.call(this, { params: gparams })
       delete gparams.attr.gutter
 
-      this.params.prepend = `<div ${attribsStringify(gparams.attr)} data-masonry='{ "percentPosition": true }'>`
+      this.params.prepend = `<div ${stringifyAttribs(gparams.attr)} data-masonry='{ "percentPosition": true }'>`
       this.params.append = '</div>'
       const html = []
       $(`<div>${this.params.html}</div>`).children().each(function () {

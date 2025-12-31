@@ -10,8 +10,8 @@ async function form () {
       this.component.locals.form = this.component.locals.form ?? {}
       const { pascalCase } = this.app.lib.aneka
       const { isEmpty, omit, has } = this.app.lib._
-      const { attrToArray } = this.plugin.app.waibuMpa
-      const { groupAttrs } = this.plugin.app.waibuMpa
+      const { attrToArray } = this.app.waibuMpa
+      const { groupAttrs } = this.app.waibuMpa
       if (!has(this.params.attr, 'autocomplete')) this.params.attr.autocomplete = 'off'
       if (!has(this.params.attr, 'method')) this.params.attr.method = 'POST'
       if (this.params.attr.referer) {

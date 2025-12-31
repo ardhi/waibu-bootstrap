@@ -11,7 +11,7 @@ export function scripts (req) {
   return items
 }
 export function inlineScript (req) {
-  const { jsonStringify } = this.plugin.app.waibuMpa
+  const { jsonStringify } = this.app.waibuMpa
   const opts = {
     display: {
       icons: {
@@ -45,7 +45,7 @@ export function inlineScript (req) {
 }
 
 export async function handler (opts, params = {}) {
-  const { jsonStringify } = this.plugin.app.waibuMpa
+  const { jsonStringify } = this.app.waibuMpa
   this.params.attr['x-ref'] = 'self'
   this.params.attr['x-data'] = `{
     instance: null,

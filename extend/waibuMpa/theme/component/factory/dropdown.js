@@ -5,7 +5,7 @@ const variants = ['center']
 export const autoCloses = ['true', 'false', 'inside', 'outside']
 
 export async function buildMenu (params = {}) { // scope: component
-  const { numUnit } = this.plugin.app.bajo
+  const { numUnit } = this.app.bajo
   const { isString } = this.app.lib._
   const $ = this.$
   let menuHtml = params.html
@@ -73,8 +73,8 @@ async function dropdown () {
 
     build = async () => {
       const { merge, cloneDeep, omit } = this.app.lib._
-      const { groupAttrs } = this.plugin.app.waibuMpa
-      const alpinejs = this.plugin.app.waibuAlpinejs
+      const { groupAttrs } = this.app.waibuMpa
+      const alpinejs = this.app.waibuAlpinejs
       const [dir, variant] = (this.params.attr.dir ?? 'down').split('-')
       const xcls = ['drop' + parseSimple.call(this, { value: dir, values: dirs })]
       if (variants.includes(variant)) xcls.push(`${xcls[0]}-${variant}`)

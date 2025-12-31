@@ -9,7 +9,7 @@ async function scrollspy () {
 
     build = async () => {
       const { isString } = this.app.lib._
-      const { generateId } = this.plugin.app.bajo
+      const { generateId } = this.app.lib.aneka
       const target = isString(this.params.attr.target) ? this.params.attr.target : generateId()
       this.component.normalizeAttr(this.params, {
         tag: 'div',

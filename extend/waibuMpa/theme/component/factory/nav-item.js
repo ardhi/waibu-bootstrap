@@ -11,13 +11,13 @@ async function navItem () {
 
     build = async () => {
       const { isString } = this.app.lib._
-      const { groupAttrs } = this.plugin.app.waibuMpa
-      const { routePath, findRoute } = this.plugin.app.waibu
-      const { breakNsPath, buildNsPath } = this.plugin.app.bajo
+      const { groupAttrs } = this.app.waibuMpa
+      const { routePath, findRoute } = this.app.waibu
+      const { breakNsPath, buildNsPath } = this.app.bajo
       const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['dropdown', 'badge'])
       this.params.attr = group._
-      if (this.plugin.app.waibu &&
+      if (this.app.waibu &&
         this.params.attr.href &&
         this.params.attr.ohref &&
         !this.params.attr.ohref.startsWith('/') &&

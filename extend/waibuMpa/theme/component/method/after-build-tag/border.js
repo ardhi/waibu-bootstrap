@@ -5,7 +5,7 @@ const variants = ['subtle', 'secondary', 'tertiary']
 function border ({ tag, key, params }) {
   if (['table'].includes(tag)) return
   const { uniq } = this.app.lib._
-  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
+  const attrs = this.app.waibuMpa.attrToArray(params.attr[key])
   const borderColors = ['body', 'black', 'white', ...colors]
   let hasSide
   for (const attr of attrs) {

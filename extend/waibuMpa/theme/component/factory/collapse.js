@@ -9,9 +9,9 @@ function collectAttr (group, item) {
 async function collapse () {
   return class Collapse extends this.baseFactory {
     build = async () => {
-      const { generateId } = this.plugin.app.bajo
+      const { generateId } = this.app.lib.aneka
       const { merge, isString } = this.app.lib._
-      const { attrToArray, groupAttrs } = this.plugin.app.waibuMpa
+      const { attrToArray, groupAttrs } = this.app.waibuMpa
       const items = []
       const { $ } = this.component
       const me = this

@@ -2,14 +2,15 @@ import { buildFormHint, buildFormLabel, buildFormCheck } from './_lib.js'
 
 export async function build (handler, params = {}) {
   const { isEmpty, get, find } = this.app.lib._
-  const { groupAttrs } = this.plugin.app.waibuMpa
+  const { groupAttrs } = this.app.waibuMpa
+  const { generateId } = this.app.lib.aneka
   const { $ } = this.component
   this.component.normalizeAttr(this.params)
   if (!this.params.attr.label && this.params.attr.name) this.params.attr.label = this.component.req.t(`field.${this.params.attr.name}`)
   if (this.params.attr.noLabel) this.params.attr.label = undefined
   const group = groupAttrs(this.params.attr, ['label', 'hint', 'wrapper', 'col'], false)
   const contents = []
-  group._.id = this.params.attr.id ?? this.plugin.app.bajo.generateId()
+  group._.id = this.params.attr.id ?? generateId()
   if (!isEmpty(group._.label)) {
     group.wrapper.class.push('form-check')
     if (group.wrapper.inline) group.wrapper.class.push('form-check-inline')

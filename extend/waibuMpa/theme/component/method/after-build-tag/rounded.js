@@ -7,7 +7,7 @@ function rounded ({ key, params }) {
     params.attr.class.push('rounded')
     return
   }
-  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
+  const attrs = this.app.waibuMpa.attrToArray(params.attr[key])
   let hasType
   for (const attr of attrs) {
     const [item, val] = attr.split(':')

@@ -4,7 +4,7 @@ const zes = ['n1', '0', '1', '2', '3']
 function position ({ key, params }) {
   const { without } = this.app.lib._
   if (params.attr[key].includes(':')) {
-    const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
+    const attrs = this.app.waibuMpa.attrToArray(params.attr[key])
     for (const attr of attrs) {
       const [item, val] = attr.split(':')
       /*
@@ -19,7 +19,7 @@ function position ({ key, params }) {
       }
     }
   } else {
-    const [type, arrangeStart, arrangeEnd, translateMiddle] = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
+    const [type, arrangeStart, arrangeEnd, translateMiddle] = this.app.waibuMpa.attrToArray(params.attr[key])
     if (positions.includes(type)) {
       params.attr.class.push(`position-${type}`)
       if (without(positions, 'static').includes(type) && arrangeStart &&

@@ -38,8 +38,8 @@ async function breadcrumb () {
 
     build = async () => {
       const { isString, omit } = this.app.lib._
-      const { routePath } = this.plugin.app.waibu
-      const { urlToBreadcrumb, attrToArray } = this.plugin.app.waibuMpa
+      const { routePath } = this.app.waibu
+      const { urlToBreadcrumb, attrToArray } = this.app.waibuMpa
       let divider = ''
       if (this.params.attr.noDivider) divider = ' style="--bs-breadcrumb-divider: \'\';"'
       else if (isString(this.params.attr.divider)) divider = ` style="--bs-breadcrumb-divider: '${this.params.attr.divider}';"`

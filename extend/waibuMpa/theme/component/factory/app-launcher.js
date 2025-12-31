@@ -2,7 +2,7 @@ async function appLauncher () {
   return class AppLauncher extends this.baseFactory {
     constructor (options) {
       super(options)
-      const { generateId } = this.plugin.app.bajo
+      const { generateId } = this.app.lib.aneka
       this.params.noTag = true
       this.params.attr.id = this.params.attr.id ?? generateId('alpha')
       this.params.attr.type = this.params.attr.type ?? 'drawer'
@@ -25,7 +25,7 @@ async function appLauncher () {
         launcher += '</c:nav>\n<c:nav tag="ul">\n'
         for (const t of toolbar) {
           if (t === 'home') launcher += '<c:nav-item href="/" icon="house" padding="end-2" />\n'
-          if (t === 'user' && this.plugin.app.sumba) launcher += '<c:sumba-nav-dropdown-user padding="end-2" />\n'
+          if (t === 'user' && this.app.sumba) launcher += '<c:sumba-nav-dropdown-user padding="end-2" />\n'
           if (t === '-') launcher += '<c:nav-divider />\n'
           if (t === 'fullscreen') launcher += '<c:nav-toggle-fullscreen padding="end-2" />\n'
           if (t === 'darkmode') launcher += '<c:nav-dropdown-darkmode padding="end-2" dropdown-menudir="end" />\n'

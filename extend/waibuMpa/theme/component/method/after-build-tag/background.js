@@ -5,7 +5,7 @@ const variants = ['subtle', 'secondary', 'tertiary']
 
 function background ({ key, params }) {
   const { uniq } = this.app.lib._
-  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
+  const attrs = this.app.waibuMpa.attrToArray(params.attr[key])
   const bgColors = ['body', 'black', 'white', 'transparent', ...colors]
   for (const attr of attrs) {
     const [item, val] = attr.split(':')

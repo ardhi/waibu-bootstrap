@@ -2,7 +2,7 @@ async function navDropdownLanguage () {
   return class NavDropdownLanguage extends this.baseFactory {
     build = async () => {
       const { camelCase, cloneDeep, omit } = this.app.lib._
-      const { supported } = this.plugin.app.bajo.config.intl
+      const { supported } = this.app.bajo.config.intl
       const lang = this.component.req.lang
       const attr = cloneDeep(this.params.attr)
       this.params.attr = omit(this.params.attr, ['text'])

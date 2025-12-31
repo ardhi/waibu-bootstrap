@@ -21,13 +21,13 @@ async function appLauncherTrigger () {
 
     build = async () => {
       const { fastGlob } = this.app.lib
-      const { groupAttrs, attribsStringify } = this.plugin.app.waibuMpa
+      const { groupAttrs, stringifyAttribs } = this.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['img'])
       this.params.attr = group._
       let src = group.img.src
       if (!src) {
         let logo = 'waibu'
-        const files = await fastGlob(`${this.plugin.app.main.dir.pkg}/logo.*`)
+        const files = await fastGlob(`${this.app.main.dir.pkg}/logo.*`)
         if (files.length > 0) logo = 'main'
         src = `waibuMpa:/logo/${logo}`
       }
@@ -36,7 +36,7 @@ async function appLauncherTrigger () {
         `<c:img src="${src}"`,
         `width="${group.img.dimWidth}" height="${group.img.dimHeight}"`
       ]
-      if (group.img.style) sentence.push(`style="${attribsStringify(group.img.style)}"`)
+      if (group.img.style) sentence.push(`style="${stringifyAttribs(group.img.style)}"`)
       sentence.push('/>')
       this.params.html = await this.component.buildSentence(sentence)
     }

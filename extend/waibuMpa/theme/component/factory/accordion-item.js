@@ -11,12 +11,12 @@ async function accordionItem () {
 
     build = async () => {
       const { omit, without } = this.app.lib._
-      const { groupAttrs, attribsStringify } = this.plugin.app.waibuMpa
+      const { groupAttrs, stringifyAttribs } = this.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['body', 'header'])
       if (!group.body.noPadding) group.body.class.push('accordion-body')
       const clsList = without(this.params.attr.class, cls)
       group.header.class.push('accordion-header')
-      const header = [`<c:h2 ${attribsStringify(group.header)}>`,
+      const header = [`<c:h2 ${stringifyAttribs(group.header)}>`,
         `<button class="${this.params.attr.narrowHeader ? 'px-3 py-2 ' : ''}accordion-button${this.params.attr.showOnStart ? '' : ' collapsed'}"`,
         `type="button" data-bs-toggle="collapse" data-bs-target="#${this.params.attr.id}"`,
         `aria-expanded="${this.params.attr.showOnStart}"`,

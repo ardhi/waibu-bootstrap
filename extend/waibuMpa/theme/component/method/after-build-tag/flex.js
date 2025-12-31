@@ -19,7 +19,7 @@ function flex ({ key, params }) {
     params.attr.class.push('d-flex')
     return
   }
-  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
+  const attrs = this.app.waibuMpa.attrToArray(params.attr[key])
   const inline = attrs.includes('inline')
   let hasFlex = false
   for (const attr of attrs) {

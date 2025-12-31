@@ -14,7 +14,7 @@ async function carousel () {
     }
 
     build = async () => {
-      const { attrToArray } = this.plugin.app.waibuMpa
+      const { attrToArray } = this.app.waibuMpa
       const { $ } = this.component
       let activeItem = 0
       $(this.params.html).children().each(function (idx) {

@@ -5,7 +5,7 @@ const ovariants = ['hover']
 
 function link ({ key, params }) {
   const { uniq } = this.app.lib._
-  const attrs = this.plugin.app.waibuMpa.attrToArray(params.attr[key])
+  const attrs = this.app.waibuMpa.attrToArray(params.attr[key])
   const linkColors = ['body', 'black', 'white', ...colors]
   for (const attr of attrs) {
     const [item, val] = attr.split(':')

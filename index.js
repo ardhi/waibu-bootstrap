@@ -12,7 +12,7 @@ async function factory (pkgName) {
    *
    * @class
    */
-  class WaibuBootstrap extends this.app.pluginClass.base {
+  class WaibuBootstrap extends this.app.baseClass.Base {
     static alias = 'wbs'
     static dependencies = ['waibu-mpa', 'waibu-extra']
 

@@ -9,7 +9,7 @@ async function progress () {
 
     build = async () => {
       const { omit, isString } = this.app.lib._
-      const { numUnit } = this.plugin.app.bajo
+      const { numUnit } = this.app.bajo
       const min = Number(this.params.attr.min) || 0
       const max = Number(this.params.attr.max) || 100
       const value = Number(this.params.attr.value) || 0

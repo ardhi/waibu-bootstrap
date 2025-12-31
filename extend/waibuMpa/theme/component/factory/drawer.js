@@ -11,7 +11,7 @@ async function drawer () {
 
     build = async () => {
       const { isString, omit, trim } = this.app.lib._
-      const { groupAttrs } = this.plugin.app.waibuMpa
+      const { groupAttrs } = this.app.waibuMpa
       const { $ } = this.component
       const group = groupAttrs(this.params.attr, ['trigger'])
       this.params.attr.responsive = this.params.attr.responsive ?? true

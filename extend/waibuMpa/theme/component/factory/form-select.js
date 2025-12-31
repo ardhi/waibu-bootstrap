@@ -11,7 +11,7 @@ async function formSelect () {
     }
 
     build = async () => {
-      const { groupAttrs } = this.plugin.app.waibuMpa
+      const { groupAttrs } = this.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['label', 'hint', 'wrapper', 'col'], false)
       const contents = await handleInput.call(this, { handler: buildFormSelect, params: this.params, group })
       if (this.params.attr.noWrapper) this.params.noTag = true

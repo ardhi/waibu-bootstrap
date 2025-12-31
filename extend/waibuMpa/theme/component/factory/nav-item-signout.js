@@ -2,8 +2,8 @@ async function navItemSignout () {
   return class NavItemSignout extends this.baseFactory {
     build = async () => {
       if (!this.component.req.user) return
-      const { generateId } = this.plugin.app.bajo
-      const { routePath } = this.plugin.app.waibu
+      const { generateId } = this.app.lib.aneka
+      const { routePath } = this.app.waibu
       this.params.attr.id = generateId('alpha')
       this.params.attr.href = '#'
       this.params.attr['x-data'] = `{

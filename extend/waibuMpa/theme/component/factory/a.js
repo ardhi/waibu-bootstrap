@@ -4,7 +4,7 @@ async function a () {
       super(options)
       this.component.normalizeAttr(this.params, { tag: 'a' })
       if (!this.params.attr.href) this.params.attr.href = '#'
-      if (this.params.html.includes('<i class="')) this.params.attr.class.push('icon-link')
+      if (this.params.html.includes('<i class="') && !this.params.attr.noIconLink) this.params.attr.class.push('icon-link')
     }
   }
 }

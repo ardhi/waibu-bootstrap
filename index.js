@@ -14,7 +14,7 @@ async function factory (pkgName) {
    */
   class WaibuBootstrap extends this.app.baseClass.Base {
     static alias = 'wbs'
-    static dependencies = ['waibu-mpa', 'waibu-extra']
+    static dependencies = ['waibu-mpa', 'waibu-extra', 'waibu-alpinejs']
 
     constructor () {
       super(pkgName, me.app)

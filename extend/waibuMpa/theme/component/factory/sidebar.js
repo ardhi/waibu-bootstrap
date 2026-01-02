@@ -36,6 +36,7 @@ async function sidebar () {
     build = async () => {
       const { generateId } = this.app.lib.aneka
       const { omit, filter } = this.app.lib._
+      this.component.locals.sidebar = this.component.locals.sidebar ?? []
       this.params.attr.margin = this.params.attr.margin ?? 'all-3'
       this.params.attr.style.position = 'sticky'
       this.params.attr.style.top = 0

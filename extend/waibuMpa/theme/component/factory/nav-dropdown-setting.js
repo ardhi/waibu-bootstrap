@@ -16,26 +16,30 @@ async function navDropdownSetting () {
       const icon = this.component.req.iconset ? await this.component.buildTag({ tag: 'icon', attr: group.icon }) : ''
       this.params.attr.dropdown = true
       this.params.attr.content = icon
-      let profile = `
-        <c:dropdown-item href="sumba:/your-stuff/profile" t:content="yourProfile" />
-        <c:dropdown-item href="sumba:/your-stuff/change-password" t:content="changePassword" />
-      `
-      if (this.params.attr.fancyProfile) {
-        profile = await this.component.buildSentence(`
-          <div>
-            <c:dropdown-item href="sumba:/your-stuff/profile">
-              <c:img src="dobo:/attachment/SumbaUser/${req.user.id}/profile/main.png" responsive rounded />
-              <c:div margin="top-1">${req.user.firstName} ${req.user.lastName}</c:div>
-            </c:dropdown-item>
-          </div>
-        `)
+      let profile = ''
+      if (req.user) {
+        profile = `
+          <c:dropdown-item href="sumba:/your-stuff/profile" t:content="yourProfile" />
+          <c:dropdown-item href="sumba:/your-stuff/change-password" t:content="changePassword" />
+        `
+        if (this.params.attr.fancyProfile) {
+          profile = await this.component.buildSentence(`
+            <div>
+              <c:dropdown-item href="sumba:/your-stuff/profile">
+                <c:img src="dobo:/attachment/SumbaUser/${req.user.id}/profile/main.png" responsive rounded />
+                <c:div margin="top-1">${req.user.firstName} ${req.user.lastName}</c:div>
+              </c:dropdown-item>
+            </div>
+          `)
+        }
+        profile += '<c:dropdown-item divider />'
       }
       let darkMode = ''
       if (!isSet(cfgWmpa.darkMode.set)) {
         darkMode = `
-          <c:dropdown-item divider />
           <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'false') })}" ${this.component.req.darkMode ? '' : 'active'} t:content="bright" />
           <c:dropdown-item href="${this.component.buildUrl({ params: set({}, cfgWmpa.darkMode.qsKey, 'true') })}" ${!this.component.req.darkMode ? '' : 'active'} t:content="dark" />
+          <c:dropdown-item divider />
         `
       }
       let html = `
@@ -43,9 +47,6 @@ async function navDropdownSetting () {
         ${darkMode}
       `
       if (supported.length > 0) {
-        html += `
-          <c:dropdown-item divider />
-        `
         for (const s of supported) {
           html += `<c:dropdown-item href="${this.component.buildUrl({ params: { lang: s } })}" ${this.component.req.lang === s ? 'active' : ''} t:content="${camelCase('lang ' + s)}" />`
         }

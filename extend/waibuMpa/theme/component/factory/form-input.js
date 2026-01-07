@@ -29,9 +29,8 @@ export async function handleInput ({ handler, group, params } = {}) {
     const details = get(this, 'component.locals.error.details', [])
     const err = find(details, { field: group._.name })
     if (err) {
-      const ext = err.ext ?? {}
       result.input = $(result.input).addClass('is-invalid').prop('outerHTML')
-      result.input += `\n<div class="invalid-feedback">${this.component.req.t(ext.type ? `validation.${ext.type}` : err.error, ext.context)}</div>`
+      result.input += `\n<div class="invalid-feedback">${err.error}</div>`
     }
   }
   const el = {

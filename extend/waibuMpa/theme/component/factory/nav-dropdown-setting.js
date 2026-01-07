@@ -20,7 +20,6 @@ async function navDropdownSetting () {
       if (req.user) {
         profile = `
           <c:dropdown-item href="sumba:/your-stuff/profile" t:content="yourProfile" />
-          <c:dropdown-item href="sumba:/your-stuff/change-password" t:content="changePassword" />
         `
         if (this.params.attr.fancyProfile) {
           profile = await this.component.buildSentence(`

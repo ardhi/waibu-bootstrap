@@ -1,7 +1,9 @@
 import { sizes } from '../method/after-build-tag/_lib.js'
 
+const trueValues = ['true', 'on', 'yes', '1', 1, true]
+
 function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, isPlainObject, isArray, isString, has, forOwn } = this.app.lib._
+  const { omit, get, set, isPlainObject, isArray, isString, has, forOwn } = this.app.lib._
   const { escape } = this.app.waibu
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
@@ -10,17 +12,21 @@ function getInputAttr (group, formControl = true, ro) {
       attr.href = attr.href.replace(`%7B${k}%7D`, v)
     })
   }
-  if (has(attr, 'name') && !attr.value && this.component.locals.form) {
+  if (has(attr, 'name') && !has(attr, 'value') && this.component.locals.form) {
     attr.dataType = attr.dataType ?? 'auto'
-    const val = get(this, `component.locals.form.${attr.name}`)
+    let val = get(this, `component.locals.form.${attr.name}`)
+    if (attr.dataType === 'boolean') {
+      val = trueValues.includes(val)
+      set(this, `component.locals.form.${attr.name}`, val)
+    }
     if (isPlainObject(val) || isArray(val)) attr.dataValue = escape(JSON.stringify(val))
     else if (isString(val)) attr.dataValue = escape(val)
     else attr.dataValue = val
     if (ro) {
-      if (attr.rel) {
-        const [rel, fieldName = 'id'] = attr.rel.split(':')
-        attr.value = get(this, `component.locals.form._rel.${rel}.${fieldName}`, val)
-      } else if (attr.dataType === 'boolean') attr.value = this.component.req.t(val ? 'Yes' : 'No')
+      if (attr.ref) {
+        const [ref, fieldName = 'id'] = attr.ref.split(':')
+        attr.value = get(this, `component.locals.form._ref.${ref}.${fieldName}`, val)
+      } else if (attr.dataType === 'boolean') attr.value = this.component.req.t(val ? 'true' : 'false')
       else if (has(attr, 'name') === 'lat') attr.value = escape(this.component.req.format(val, attr.dataType, { latitude: true }))
       else if (has(attr, 'name') === 'lng') attr.value = escape(this.component.req.format(val, attr.dataType, { longitude: true }))
       else attr.value = escape(this.component.req.format(val, attr.dataType))
@@ -55,19 +61,19 @@ export async function buildFormCheck (group, params) {
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
-  if (has(attr, 'name') && !attr.value) attr.value = 'true'
-  if (has(attr, 'name') && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
+  if (has(attr, 'name') && !has(attr, 'value')) attr.value = 'true'
+  if (has(attr, 'name') && !has(attr, 'checked') && attr.value === get(this, `component.locals.form.${attr.name}`)) attr.checked = true
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
 export async function buildFormSwitch (group, params) {
-  const { has, get } = this.app.lib._
+  const { has } = this.app.lib._
   const attr = getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
   attr.role = 'switch'
-  if (has(attr, 'name') && !attr.value) attr.value = 'true'
-  if (has(attr, 'name') && !has(attr, 'checked') && attr.value === get(this, `locals.form.${attr.name}`)) attr.checked = true
+  if (has(attr, 'name')) attr.value = 'true'
+  if (has(attr, 'name') && !has(attr, 'checked') && attr.dataValue) attr.checked = 'true'
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 

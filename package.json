@@ -9,7 +9,13 @@
   },
   "type": "module",
   "bajo": {
-    "type": "plugin"
+    "type": "plugin",
+    "alias": "wbs",
+    "dependencies": [
+      "waibu-mpa",
+      "waibu-extra",
+      "waibu-alpinejs"
+    ]
   },
   "repository": {
     "type": "git",

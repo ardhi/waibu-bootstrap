@@ -47,7 +47,7 @@ async function sidebar () {
       this.params.attr.id = generateId('alpha')
       const html = []
       if (this.params.attr.mini) {
-        this.params.attr.style.width = this.params.attr.style.width ?? '60px'
+        // this.params.attr.style.width = this.params.attr.style.width ?? '60px'
         this.params.attr.align = this.params.attr.align ?? 'center'
         this.params.attr.margin = 'all-0'
         if (this.params.attr.autoFill) {

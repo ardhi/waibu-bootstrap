@@ -1,18 +1,19 @@
-/* global bootstrap, wmpa, _ */
+/* global wmpa, _ */
 
 class Wbs {
   constructor () {
+    this.engine = window.mdb ?? window.bootstrap
     this.init()
   }
 
   init () {
     window.addEventListener('load', evt => {
       const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-      const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl)) // eslint-disable-line no-unused-vars
+      const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new this.engine.Popover(popoverTriggerEl)) // eslint-disable-line no-unused-vars
       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl)) // eslint-disable-line no-unused-vars
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new this.engine.Tooltip(tooltipTriggerEl)) // eslint-disable-line no-unused-vars
       const toastElList = document.querySelectorAll('.toast')
-      const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl))
+      const toastList = [...toastElList].map(toastEl => new this.engine.Toast(toastEl))
       toastList.forEach(toast => toast.show())
     })
   }
@@ -20,7 +21,7 @@ class Wbs {
   getInstance (type, id) {
     if (type === 'Drawer') type = 'Offcanvas'
     const el = typeof id === 'string' ? document.getElementById(id) : id
-    return bootstrap[type].getOrCreateInstance(el)
+    return this.engine[type].getOrCreateInstance(el)
   }
 
   notifyHtml (id, html) {
@@ -110,8 +111,9 @@ class Wbs {
     const menuId = menu ? `menu="${menu}"` : ''
     const body = [`<c:app-launcher id="${id}" ${toolbar} ${menuId} />`]
     await wmpa.addComponent(body.join('\n'), 'body')
-    const item = new bootstrap.Offcanvas(`#${id}`)
+    const item = new this.engine.Offcanvas(`#${id}`)
     const itemEl = document.getElementById(id)
+    if (window.mdb) this.engine.Collapse.getOrCreateInstance(itemEl)
     itemEl.addEventListener('hidden.bs.offcanvas', evt => {
       itemEl.remove()
     })
@@ -155,7 +157,7 @@ class Wbs {
     body.push(...buttons)
     body.push('</c:div></c:modal>')
     await wmpa.addComponent(body.join('\n'), 'body')
-    const modal = new bootstrap.Modal(`#${id}`)
+    const modal = new this.engine.Modal(`#${id}`)
     const modalEl = document.getElementById(id)
     modalEl.addEventListener('hidden.bs.modal', evt => {
       modalEl.remove()
@@ -198,7 +200,7 @@ class Wbs {
     if (_.isArray(body)) body = body.join('\n')
     if (!['modal', 'offcanvas'].includes(type)) type = 'modal'
     await wmpa.addComponent(body)
-    const item = new bootstrap[_.upperFirst(type)](`#${id}`)
+    const item = new this.engine[_.upperFirst(type)](`#${id}`)
     const itemEl = document.getElementById(id)
     itemEl.addEventListener(`hidden.bs.${type}`, evt => {
       itemEl.remove()

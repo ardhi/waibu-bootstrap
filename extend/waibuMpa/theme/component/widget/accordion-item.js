@@ -16,13 +16,18 @@ async function accordionItem () {
       if (!group.body.noPadding) group.body.class.push('accordion-body')
       const clsList = without(this.params.attr.class, cls)
       group.header.class.push('accordion-header')
-      const header = [`<c:h2 ${stringifyAttribs(group.header)}>`,
-        `<button class="${this.params.attr.narrowHeader ? 'px-3 py-2 ' : ''}accordion-button${this.params.attr.showOnStart ? '' : ' collapsed'}"`,
-        `type="button" data-bs-toggle="collapse" data-bs-target="#${this.params.attr.id}"`,
-        `aria-expanded="${this.params.attr.showOnStart}"`,
-        'x-data',
-        `@click="$dispatch('accordion-item', { id: $el.closest('.accordion').id, cls: '${clsList.join(' ')}' })"`,
-        `aria-controls="${this.params.attr.id}"><c:span margin="end-2">${this.params.attr.header}</c:span></button></c:h2>`]
+      const btnAttr = {
+        class: `${this.params.attr.narrowHeader ? 'px-3 py-2 ' : ''}accordion-button${this.params.attr.showOnStart ? '' : ' collapsed'}`,
+        type: 'button',
+        dataBsToggle: 'collapse',
+        dataBsTarget: `#${this.params.attr.id}`,
+        ariaExpanded: this.params.attr.showOnStart,
+        ariaControls: this.params.attr.id,
+        'x-data': true,
+        '@click': `$dispatch('accordion-item', { id: $el.closest('.accordion').id,  cls: '${clsList.join(' ')}' })`
+      }
+      const btn = await this.component.buildTag({ tag: 'button', attr: btnAttr, html: `<c:span margin="end-2">${this.params.attr.header}</c:span>` })
+      const header = [`<c:h2 ${stringifyAttribs(group.header)}>`, btn, '</c:h2>']
       const body = await this.component.buildTag({ tag: 'div', attr: group.body, html: this.params.html })
       const details = [`<div id="${this.params.attr.id}" class="accordion-collapse collapse${this.params.attr.showOnStart ? ' show' : ''}">`,
         body, '</div']

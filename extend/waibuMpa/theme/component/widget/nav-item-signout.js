@@ -8,7 +8,12 @@ async function navItemSignout () {
       this.params.attr.href = '#'
       this.params.attr['x-data'] = `{
         async signout () {
-          await wbs.confirmation(\`${this.component.req.t('signoutWarning')}\`, { ok: '${this.params.attr.id}:post', close: 'y' })
+          await wbs.confirmation(\`${this.component.req.t('signoutWarning')}\`, {
+            ok: '${this.params.attr.id}:post',
+            close: 'y',
+            theme: '${this.component.theme.name}',
+            iconset: '${this.component.iconset.name}'
+          })
         },
         post () {
           wmpa.postForm({}, '${routePath('sumba:/signout')}')

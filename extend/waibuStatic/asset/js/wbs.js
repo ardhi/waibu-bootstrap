@@ -104,13 +104,13 @@ class Wbs {
     return await this.alert(msg, opts.title ?? 'Prompt', opts)
   }
 
-  async appLauncher (params, menu) {
+  async appLauncher (params, menu, qs = {}) {
     document.body.click()
     const id = wmpa.randomId()
     const toolbar = params ? `toolbar="${params}"` : ''
     const menuId = menu ? `menu="${menu}"` : ''
     const body = [`<c:app-launcher id="${id}" ${toolbar} ${menuId} />`]
-    await wmpa.addComponent(body.join('\n'), 'body')
+    await wmpa.addComponent(body.join('\n'), 'body', undefined, undefined, qs)
     const item = new this.engine.Offcanvas(`#${id}`)
     const itemEl = document.getElementById(id)
     if (window.mdb) this.engine.Collapse.getOrCreateInstance(itemEl)
@@ -156,7 +156,7 @@ class Wbs {
     body.push('<c:div flex="justify-content:end" margin="top-3">')
     body.push(...buttons)
     body.push('</c:div></c:modal>')
-    await wmpa.addComponent(body.join('\n'), 'body')
+    await wmpa.addComponent(body.join('\n'), 'body', undefined, undefined, _.pick(opts, ['theme', 'iconset']))
     const modal = new this.engine.Modal(`#${id}`)
     const modalEl = document.getElementById(id)
     modalEl.addEventListener('hidden.bs.modal', evt => {
@@ -196,10 +196,11 @@ class Wbs {
     else console.error(`Function not found '${name}'`)
   }
 
-  async openModal (id, body, type = 'modal') {
+  async openModal (id, body, opts = {}) {
+    let { type = 'modal' } = opts
     if (_.isArray(body)) body = body.join('\n')
     if (!['modal', 'offcanvas'].includes(type)) type = 'modal'
-    await wmpa.addComponent(body)
+    await wmpa.addComponent(body, undefined, undefined, undefined, _.pick(opts, ['theme', 'iconset']))
     const item = new this.engine[_.upperFirst(type)](`#${id}`)
     const itemEl = document.getElementById(id)
     itemEl.addEventListener(`hidden.bs.${type}`, evt => {

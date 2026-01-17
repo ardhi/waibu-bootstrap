@@ -88,7 +88,12 @@ async function navDropdownSetting () {
             id="${id}"
             x-data="{
               async signout () {
-                await wbs.confirmation(\`${this.component.req.t('signoutWarning')}\`, { ok: '${id}:post', close: 'y' })
+                await wbs.confirmation(\`${this.component.req.t('signoutWarning')}\`, {
+                  ok: '${id}:post',
+                  close: 'y',
+                  theme: '${this.component.theme.name}',
+                  iconset: '${this.component.iconset.name}'
+                })
               },
               post () {
                 wmpa.postForm({}, '${routePath('sumba:/signout')}')

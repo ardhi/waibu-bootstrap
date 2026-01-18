@@ -113,7 +113,6 @@ class Wbs {
     await wmpa.addComponent(body.join('\n'), 'body', undefined, undefined, qs)
     const item = new this.engine.Offcanvas(`#${id}`)
     const itemEl = document.getElementById(id)
-    if (window.mdb) this.engine.Collapse.getOrCreateInstance(itemEl)
     itemEl.addEventListener('hidden.bs.offcanvas', evt => {
       itemEl.remove()
     })

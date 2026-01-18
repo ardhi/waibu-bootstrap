@@ -13,6 +13,7 @@ async function fieldset () {
       if (group.grid && !this.params.attr.card && !group.grid.margin) group.grid.margin = 'bottom-3'
       if (group.grid) this.params.html = await this.component.buildTag({ tag: 'gridRow', attr: group.grid, html: this.params.html })
       if (group.card) {
+        group.card.border = true
         if (!group.card.margin) group.card.margin = 'bottom-4'
         let sentence = `
           <c:card-header>

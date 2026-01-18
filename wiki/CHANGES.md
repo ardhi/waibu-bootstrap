@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-01-18
+
+- [2.1.5] Darkmode handling
+- [2.1.5] Put border around fieldset if its type is a card
+
 ## 2026-01-17
 
 - [2.1.3] Sidebar buttons in inactive state should be transparent

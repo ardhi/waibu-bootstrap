@@ -10,19 +10,19 @@ export async function buildMenu (params = {}) { // scope: component
   const $ = this.$
   let menuHtml = params.html
   let style = params.attr.menuOnly ? 'display:block;' : ''
-  if (isString(params.attr.menuMax)) {
+  if (params.attr.menuMax) {
     const max = parseInt(params.attr.menuMax)
     if (max > 0) {
       const items = []
       $(`<div>${params.html}</div>`).children().each(function () {
         items.push($(this).prop('outerHTML'))
       })
-      const maxCols = Math.floor(items.length / max)
+      const maxCols = Math.ceil(items.length / max)
       let els = ''
       for (let i = 0; i < maxCols; i++) {
         els += '<c:grid-col>'
         for (let j = 0; j < parseInt(params.attr.menuMax); j++) {
-          els += items[max * i + j]
+          els += items[max * i + j] ?? ''
         }
         els += '</c:grid-col>'
       }
@@ -41,6 +41,8 @@ export async function buildMenu (params = {}) { // scope: component
     })
     menuHtml = items.join('\n')
   }
+  if (isString(params.attr.menuPrepend)) menuHtml = `${Buffer.from(params.attr.menuPrepend, 'base64').toString()}\n${menuHtml}`
+  if (isString(params.attr.menuAppend)) menuHtml = `${menuHtml}\n${Buffer.from(params.attr.menuAppend, 'base64').toString()}`
 
   if (params.attr.menuScroll) {
     const minHeight = isString(params.attr.menuScroll) ? numUnit(params.attr.menuScroll, 'px') : '80px'
@@ -51,7 +53,7 @@ export async function buildMenu (params = {}) { // scope: component
     attr: {
       class: [
         'dropdown-menu',
-        parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.menudir, values: dirs, variants: breakpoints, prepend: true })
+        parseVariant.call(this, { cls: 'dropdown-menu', value: params.attr.menuDir, values: dirs, variants: breakpoints, prepend: true })
       ],
       style
     },

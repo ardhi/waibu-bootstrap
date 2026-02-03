@@ -28,8 +28,8 @@ async function appLauncher () {
           if (t === 'user' && this.app.sumba) launcher += '<c:sumba-nav-dropdown-user padding="end-2" />\n'
           if (t === '-') launcher += '<c:nav-divider />\n'
           if (t === 'fullscreen') launcher += '<c:nav-toggle-fullscreen padding="end-2" />\n'
-          if (t === 'darkmode') launcher += '<c:nav-dropdown-darkmode padding="end-2" dropdown-menudir="end" />\n'
-          if (t === 'language') launcher += '<c:nav-dropdown-language padding="end-2" dropdown-menudir="end" />\n'
+          if (t === 'darkmode') launcher += '<c:nav-dropdown-darkmode padding="end-2" dropdown-menu-dir="end" />\n'
+          if (t === 'language') launcher += '<c:nav-dropdown-language padding="end-2" dropdown-menu-dir="end" />\n'
         }
         launcher += '</c:nav></c:navbar></c:div>\n'
       }

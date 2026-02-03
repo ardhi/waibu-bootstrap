@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-02-03
+
+- [2.1.7] Bug fix on menu direction
+- [2.1.7] Bug fix on ```dropdown``` widget
+
 ## 2026-01-18
 
 - [2.1.5] Darkmode handling

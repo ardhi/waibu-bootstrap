@@ -30,7 +30,10 @@ async function navDropdownSetting () {
               </c:dropdown-item>
             </div>
           `)
+          if (this.params.attr.changePassword || this.params.attr.downloadList) profile += '<c:dropdown-item divider />'
         }
+        if (this.params.attr.changePassword) profile += '<c:dropdown-item href="sumba:/your-stuff/change-password" t:content="changePassword" />'
+        if (this.params.attr.downloadList) profile += '<c:dropdown-item href="sumba:/your-stuff/download/list" t:content="downloadList" />'
         profile += '<c:dropdown-item divider />'
       }
       let darkMode = ''

@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-04
+
+- [2.1.8] Bug fix on ```<c:nav-dropdown-setting>```
+
 ## 2026-02-03
 
 - [2.1.7] Bug fix on menu direction

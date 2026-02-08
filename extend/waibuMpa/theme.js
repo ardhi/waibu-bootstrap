@@ -1,4 +1,4 @@
-async function theme (ctx) {
+async function theme () {
   const css = [
     'waibuBootstrap.virtual:/bootstrap/css/bootstrap.min.css',
     '$waibuBootstrap.asset:/css/wbs.css'

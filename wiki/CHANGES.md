@@ -3,6 +3,7 @@
 ## 2026-02-09
 
 - [2.2.0] Start using simplified ```webAppCtx```
+- [2.2.1] Bug fix on ```sidebar``` widget
 
 ## 2026-02-04
 

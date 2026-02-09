@@ -1,5 +1,7 @@
 function formatSentence (item, params) {
   const { kebabCase, omit, merge } = this.app.lib._
+  const { isSet } = this.app.lib.aneka
+  if (item.divider) return '<c:li class="nav-item"><c:hr margin="y-2"/></c:li>'
   const cmp = kebabCase(item.component ?? 'navItem')
   const icon = item.icon
   const html = item.html ?? ''
@@ -8,6 +10,7 @@ function formatSentence (item, params) {
   if (this.params.attr.expanded) attr.rounded = 'width:0'
   merge(attr, omit(item, ['component', 'icon', 'ohref', 'html']))
   if (this.params.attr.text && !attr.active) attr.text = this.params.attr.text
+  if (!isSet(attr.active)) attr.active = this.component.req.url.startsWith(attr.href)
   if (!attr.active) attr.background = 'color:transparent'
   const result = [`<c:${cmp}`]
   for (const k in attr) {
@@ -52,22 +55,20 @@ async function sidebar () {
         this.params.attr.align = this.params.attr.align ?? 'center'
         this.params.attr.margin = 'all-0'
         if (this.params.attr.autoFill) {
+          // top
           let items = filter(this.component.locals.sidebar ?? [], s => !s.bottom)
-          if (items.length > 0) {
-            html.push(`<c:nav tag="ul" flex="column" margin="bottom-auto" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'}>`)
-            for (const item of items) {
-              html.push(formatSentence.call(this, item, this.params))
-            }
-            html.push('</c:nav>')
+          html.push(`<c:nav tag="ul" flex="column" margin="bottom-auto" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'}>`)
+          for (const item of items) {
+            html.push(formatSentence.call(this, item, this.params))
           }
+          html.push('</c:nav>')
+          // bottom
+          html.push(`<c:nav tag="ul" flex="column" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'} ${this.params.attr.fancyProfile ? 'fancy-profile' : ''}>`)
           items = filter(this.component.locals.sidebar ?? [], s => s.bottom)
-          if (items.length > 0) {
-            html.push(`<c:nav tag="ul" flex="column" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'} ${this.params.attr.fancyProfile ? 'fancy-profile' : ''}>`)
-            for (const item of items) {
-              html.push(formatSentence.call(this, item, this.params))
-            }
-            html.push('</c:nav>')
+          for (const item of items) {
+            html.push(formatSentence.call(this, item, this.params))
           }
+          html.push('</c:nav>')
         }
       } else {
         this.params.attr.style.width = this.params.attr.style.width ?? '280px'

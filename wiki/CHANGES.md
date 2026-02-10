@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-02-11
+
+- [2.2.3] Bug fix on widget attribute ```rounded```
+- [2.2.3] Bug fix on widget ```<c:nav-item />```
+
 ## 2026-02-09
 
 - [2.2.0] Start using simplified ```webAppCtx```

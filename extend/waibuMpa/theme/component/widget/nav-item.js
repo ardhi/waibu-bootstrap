@@ -25,13 +25,10 @@ async function navItem () {
         !this.params.attr.href.startsWith('http://') &&
         !this.params.attr.href.startsWith('https://')) {
         const route = findRoute(this.params.attr.ohref)
-        if (!route) {
-          this.params.html = ''
-          this.params.noTag = true
-          return
+        if (route) {
+          const { ns, subNs, subSubNs, realFullPath } = breakNsPath(this.params.attr.ohref)
+          this.params.attr.href = routePath(buildNsPath({ ns, subNs, subSubNs, path: realFullPath }))
         }
-        const { ns, subNs, subSubNs, realFullPath } = breakNsPath(this.params.attr.ohref)
-        this.params.attr.href = routePath(buildNsPath({ ns, subNs, subSubNs, path: realFullPath }))
       }
       if (group.dropdown) {
         this.params.attr.class.push('dropdown-toggle')

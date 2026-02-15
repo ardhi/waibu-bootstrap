@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-02-15
+
+- [2.3.0] Add capability to use custom tag on ```select```
+- [2.3.0] Now you can hide caret on ```<c:form-select-ext />``` with ```no-caret``` attribute
+- [2.3.0] Add ```value-store="name:key"``` to read/write value to Alpine's store
+
 ## 2026-02-11
 
 - [2.2.3] Bug fix on widget attribute ```rounded```

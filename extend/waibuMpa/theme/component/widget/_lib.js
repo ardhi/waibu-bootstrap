@@ -156,7 +156,7 @@ export async function buildFormSelect (group, params) {
     html = items.join('\n')
   }
   attr = omit(attr, ['size', 'type', 'options', 'value'])
-  return await this.component.buildTag({ tag: 'select', attr, html })
+  return await this.component.buildTag({ tag: attr.tag ?? 'select', attr, html })
 }
 
 export async function buildFormRange (group, params) {

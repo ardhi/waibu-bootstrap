@@ -1,12 +1,9 @@
-import { inlineCss, css, scripts } from './form-select-ext.js'
+import { css, scripts } from './form-select-ext.js'
 
 async function formSelectCountry () {
   return class FormSelectCountry extends this.app.baseClass.MpaWidget {
     static css = [...super.css, css]
-
     static scripts = [...super.scripts, scripts]
-
-    static inlineCss = inlineCss
 
     constructor (options) {
       super(options)

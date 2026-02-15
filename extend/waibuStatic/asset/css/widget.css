@@ -1,0 +1,34 @@
+.ts-dropdown {
+  min-width: 242px;
+}
+.ts-control {
+  padding-top: 0px;
+}
+.ts-wrapper {
+  margin-left: calc(var(--bs-border-width) * -1) !important;
+  border-top-left-radius: var(--bs-border-radius) !important;
+  border-bottom-left-radius: var(--bs-border-radius) !important;
+  white-space: nowrap !important;
+}
+.ts-control, .ts-control input, .ts-dropdown {
+  color: inherit;
+}
+.form-floating > .ts-wrapper {
+  padding-top: 1.625rem !important;
+}
+
+.ts-wrapper.focus {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.focus .ts-control {
+  box-shadow: none;
+  border: none;
+  box-shadow: none;
+}
+
+.form-select.no-caret {
+  --bs-form-select-bg-img: none !important;
+}

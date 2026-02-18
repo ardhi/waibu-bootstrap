@@ -5,6 +5,9 @@
 - [2.4.0] Update attribute functions from ```waibu```
 - [2.4.0] Bug fix on ```FormSelectExt``` 's static css
 - [2.4.0] Bug fix on ```FormSelectCountry``` 's static css
+- [2.5.0] Remove ```FormSelectCountry``` alltogther
+- [2.5.0] Bug fix on ```FormSelectExt```'s options
+- [2.5.0] In read only mode, auto detect value from model's values
 
 ## 2026-02-15
 

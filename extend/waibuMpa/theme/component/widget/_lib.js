@@ -3,8 +3,9 @@ import { sizes } from '../method/after-build-tag/_lib.js'
 const trueValues = ['true', 'on', 'yes', '1', 1, true]
 
 function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, set, isPlainObject, isArray, isString, has, forOwn } = this.app.lib._
+  const { omit, get, set, isPlainObject, isArray, isString, has, forOwn, find } = this.app.lib._
   const { escape } = this.app.waibu
+  const { req } = this.component
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
   if (attr.href) {
@@ -13,7 +14,10 @@ function getInputAttr (group, formControl = true, ro) {
     })
   }
   if (has(attr, 'name') && !has(attr, 'value') && this.component.locals.form) {
-    attr.dataType = attr.dataType ?? 'auto'
+    let prop = {}
+    const schema = get(this, 'component.locals.schema')
+    if (schema) prop = find(schema.properties, { name: attr.name }) ?? {}
+    attr.dataType = attr.dataType ?? prop.type ?? 'auto'
     let val = get(this, `component.locals.form.${attr.name}`)
     if (attr.dataType === 'boolean') {
       val = trueValues.includes(val)
@@ -26,10 +30,13 @@ function getInputAttr (group, formControl = true, ro) {
       if (attr.ref) {
         const [ref, fieldName = 'id'] = attr.ref.split(':')
         attr.value = get(this, `component.locals.form._ref.${ref}.${fieldName}`, val)
-      } else if (attr.dataType === 'boolean') attr.value = this.component.req.t(val ? 'true' : 'false')
-      else if (has(attr, 'name') === 'lat') attr.value = escape(this.component.req.format(val, attr.dataType, { latitude: true }))
-      else if (has(attr, 'name') === 'lng') attr.value = escape(this.component.req.format(val, attr.dataType, { longitude: true }))
-      else attr.value = escape(this.component.req.format(val, attr.dataType))
+      } else if (attr.dataType === 'boolean') attr.value = req.t(val ? 'true' : 'false')
+      else if (has(attr, 'name') === 'lat') attr.value = escape(req.format(val, attr.dataType, { latitude: true }))
+      else if (has(attr, 'name') === 'lng') attr.value = escape(req.format(val, attr.dataType, { longitude: true }))
+      else if (prop.values) {
+        const item = find(prop.values, { value: val })
+        attr.value = escape(req.format(item ? req.t(item.text) : val, attr.dataType))
+      } else attr.value = escape(req.format(val, attr.dataType))
     } else attr.value = attr.dataValue
     if (isArray(val)) attr.value = val.join(' ')
   }
@@ -110,7 +117,7 @@ export async function buildFormPlaintext (group, params) {
     return await this.component.buildTag({ tag: 'textarea', attr, html: attr.value })
   }
   if (attr.href) {
-    const content = attr.value ? this.component.req.t(attr.value) : attr.href
+    const content = attr.value ? attr.value : attr.href
     const html = await this.component.buildTag({ tag: 'a', attr: { href: attr.href, content } })
     return await this.component.buildTag({ tag: 'div', attr, html })
   }

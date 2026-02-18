@@ -36,9 +36,7 @@ async function formSelectExt () {
         try {
           options = base64JsonDecode(this.params.attr.options)
         } catch (err) {
-          options = this.params.attr.options.split(' ').map(item => {
-            return { value: item, text: item }
-          })
+          options = this.params.attr.options
         }
       }
       let opts = { plugins }
@@ -132,7 +130,7 @@ async function formSelectExt () {
       this.params.attr['x-data'] = `{ ${xData.join(',\n')} }`
       // this.params.attr['@load.window'] = 'onLoad()'
       this.params.attr['x-init'] = 'onLoad()'
-      this.params.attr.options = options
+      if (options.length > 0) this.params.attr.options = options
       this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl', 'remoteSearchField', 'remoteLabelField', 'remoteValueField'])
       await build.call(this, buildFormSelect, this.params)
     }

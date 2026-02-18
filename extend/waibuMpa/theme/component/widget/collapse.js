@@ -11,7 +11,8 @@ async function collapse () {
     build = async () => {
       const { generateId } = this.app.lib.aneka
       const { merge, isString } = this.app.lib._
-      const { attrToArray, groupAttrs } = this.app.waibuMpa
+      const { attrToArray } = this.app.waibu
+      const { groupAttrs } = this.app.waibuMpa
       const items = []
       const { $ } = this.component
       const me = this

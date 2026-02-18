@@ -2,7 +2,7 @@ import { css, scripts } from './form-select-ext.js'
 
 async function formSelectCountry () {
   return class FormSelectCountry extends this.app.baseClass.MpaWidget {
-    static css = [...super.css, css]
+    static css = [...super.css, ...css]
     static scripts = [...super.scripts, scripts]
 
     constructor (options) {
@@ -13,7 +13,7 @@ async function formSelectCountry () {
     build = async () => {
       const { readConfig } = this.app.bajo
       const { map } = this.app.lib._
-      const { base64JsonEncode } = this.app.waibuMpa
+      const { base64JsonEncode } = this.app.waibu
       const countries = await readConfig('bajoCommonDb:/extend/dobo/fixture/country.json', { ignoreError: true, defValue: [] })
       this.params.attr.options = base64JsonEncode(map(countries, c => {
         return { value: c.id, text: c.name.replaceAll('\'', '') }

@@ -10,8 +10,8 @@ async function appLauncher () {
 
     build = async () => {
       const { locals } = this.component
-      const { routePath } = this.app.waibu
-      const { groupAttrs, attrToArray } = this.app.waibuMpa
+      const { routePath, attrToArray } = this.app.waibu
+      const { groupAttrs } = this.app.waibuMpa
       const menu = this.params.attr.menu ?? 'pages'
       const group = groupAttrs(this.params.attr, ['trigger'])
       let launcher = `<c:drawer id="${this.params.attr.id}" t:title="Modules" no-padding style="${menu === 'pages' ? 'width:350px' : ''}">\n`

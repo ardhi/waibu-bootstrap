@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-02-18
+
+- [2.4.0] Update attribute functions from ```waibu```
+- [2.4.0] Bug fix on ```FormSelectExt``` 's static css
+- [2.4.0] Bug fix on ```FormSelectCountry``` 's static css
+
 ## 2026-02-15
 
 - [2.3.0] Add capability to use custom tag on ```select```

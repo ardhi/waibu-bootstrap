@@ -3,7 +3,7 @@ import { sizes } from '../method/after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, group, params } = {}) {
   const { trim, filter, has, omit, pull, find, get } = this.app.lib._
-  const { attrToArray } = this.app.waibuMpa
+  const { attrToArray } = this.app.waibu
   const { $ } = this.component
   const addons = []
   const isLabel = has(this.params.attr, 'label')

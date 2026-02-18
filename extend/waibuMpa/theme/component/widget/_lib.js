@@ -147,7 +147,7 @@ export async function buildFormSelect (group, params) {
   attr.class.push('form-select')
   let html = params.html
   if (sizes.includes(attr.size)) attr.class.push(`form-select-${attr.size}`)
-  if (attr.options) html = this.component.buildOptions({ attr, html: '' })
+  if (attr.options) html = this.component.buildOptions({ attr })
   else {
     const items = []
     $(`<div>${trim(html ?? '')}</div>`).find('option').each(function () {

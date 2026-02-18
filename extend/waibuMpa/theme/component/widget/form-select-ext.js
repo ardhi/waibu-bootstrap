@@ -9,14 +9,15 @@ export const scripts = 'waibuExtra.virtual:/tom-select/js/tom-select.complete.mi
 
 async function formSelectExt () {
   return class FormSelectExt extends this.app.baseClass.MpaWidget {
-    static css = [...super.css, css]
+    static css = [...super.css, ...css]
     static scripts = [...super.scripts, scripts]
 
     build = async () => {
       const { generateId } = this.app.lib.aneka
       const { omit, merge, has } = this.app.lib._
       const { routePath } = this.app.waibu
-      const { jsonStringify, base64JsonDecode, groupAttrs } = this.app.waibuMpa
+      const { jsonStringify, groupAttrs } = this.app.waibuMpa
+      const { base64JsonDecode } = this.app.waibu
       const { req } = this.component
       let apiKey = ''
       if (req.user && this.app.sumba) apiKey = await this.app.sumba.getApiKeyFromUserId(req.user.id)

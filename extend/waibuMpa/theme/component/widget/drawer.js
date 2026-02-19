@@ -12,7 +12,8 @@ async function drawer () {
     build = async () => {
       const { isString, omit, trim } = this.app.lib._
       const { groupAttrs } = this.app.waibuMpa
-      const { $ } = this.component
+      const { $, req, locals } = this.component
+      const { routePath } = this.app.waibu
       const group = groupAttrs(this.params.attr, ['trigger'])
       this.params.attr.responsive = this.params.attr.responsive ?? true
       this.params.attr.class.push(parseVariant.call(this, { cls, value: this.params.attr.responsive, values: breakpoints }))
@@ -22,6 +23,7 @@ async function drawer () {
       if (this.params.attr.scroll) this.params.attr.dataBsScroll = 'true'
       if (this.params.attr.noDismiss) this.params.attr.dataBsBackdrop = 'static'
       const buttons = []
+      if (locals._meta.isAdmin) buttons.push(await this.component.buildTag({ tag: 'btn', attr: { href: routePath('waibuAdmin:/'), icon: 'lock', text: 'color:danger', tooltip: req.t('adminArea') } }))
       const html = []
       $(`<div>${this.params.html}</div>`).children().each(function () {
         if (this.name === 'drawer-toolbar') buttons.push(trim($(this).prop('innerHTML')))

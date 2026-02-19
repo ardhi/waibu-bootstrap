@@ -2,8 +2,8 @@ import { sizes } from '../method/after-build-tag/_lib.js'
 
 const trueValues = ['true', 'on', 'yes', '1', 1, true]
 
-function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, set, isPlainObject, isArray, isString, has, forOwn, find } = this.app.lib._
+async function getInputAttr (group, formControl = true, ro) {
+  const { omit, get, set, isPlainObject, isArray, isString, has, forOwn, find, camelCase, isEmpty } = this.app.lib._
   const { escape } = this.app.waibu
   const { req } = this.component
   if (formControl) group._.class.push('form-control')
@@ -34,8 +34,11 @@ function getInputAttr (group, formControl = true, ro) {
       else if (has(attr, 'name') === 'lat') attr.value = escape(req.format(val, attr.dataType, { latitude: true }))
       else if (has(attr, 'name') === 'lng') attr.value = escape(req.format(val, attr.dataType, { longitude: true }))
       else if (prop.values) {
-        const item = find(prop.values, { value: val })
-        attr.value = escape(req.format(item ? req.t(item.text) : val, attr.dataType))
+        let items = prop.values
+        if (typeof prop.values === 'string') items = await this.app.bajo.callHandler(prop.values)
+        const item = find(items, { value: val }) ?? {}
+        const ttext = camelCase(`${prop.name} ${item.text}`)
+        attr.value = escape(req.format(!isEmpty(item) ? (req.te(ttext) ? req.t(ttext) : item.text) : val, attr.dataType))
       } else attr.value = escape(req.format(val, attr.dataType))
     } else attr.value = attr.dataValue
     if (isArray(val)) attr.value = val.join(' ')
@@ -59,13 +62,13 @@ export async function buildFormLabel (group, tag, cls) {
 }
 
 export async function buildFormInput (group, params) {
-  const attr = getInputAttr.call(this, group)
+  const attr = await getInputAttr.call(this, group)
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
 export async function buildFormCheck (group, params) {
   const { has, get } = this.app.lib._
-  const attr = getInputAttr.call(this, group, false)
+  const attr = await getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
   if (has(attr, 'name') && !has(attr, 'value')) attr.value = 'true'
@@ -75,7 +78,7 @@ export async function buildFormCheck (group, params) {
 
 export async function buildFormSwitch (group, params) {
   const { has } = this.app.lib._
-  const attr = getInputAttr.call(this, group, false)
+  const attr = await getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.class.push('form-check-input')
   attr.role = 'switch'
@@ -85,14 +88,14 @@ export async function buildFormSwitch (group, params) {
 }
 
 export async function buildFormRadio (group, params) {
-  const attr = getInputAttr.call(this, group, false)
+  const attr = await getInputAttr.call(this, group, false)
   attr.type = 'radio'
   attr.class.push('form-check-input')
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
 export async function buildFormCheckToggle (group, params) {
-  const attr = getInputAttr.call(this, group, false)
+  const attr = await getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.autocomplete = 'off'
   attr.class.push('btn-check')
@@ -100,7 +103,7 @@ export async function buildFormCheckToggle (group, params) {
 }
 
 export async function buildFormRadioToggle (group, params) {
-  const attr = getInputAttr.call(this, group, false)
+  const attr = await getInputAttr.call(this, group, false)
   attr.type = 'radio'
   attr.autocomplete = 'off'
   attr.class.push('btn-check')
@@ -108,7 +111,7 @@ export async function buildFormRadioToggle (group, params) {
 }
 
 export async function buildFormPlaintext (group, params) {
-  const attr = getInputAttr.call(this, group, false, true)
+  const attr = await getInputAttr.call(this, group, false, true)
   delete attr.dataValue
   attr.class.push('form-control-plaintext')
   attr.readonly = ''
@@ -125,7 +128,7 @@ export async function buildFormPlaintext (group, params) {
 }
 
 export async function buildFormColor (group, params) {
-  const attr = getInputAttr.call(this, group)
+  const attr = await getInputAttr.call(this, group)
   attr.class.push('form-control-color')
   attr.type = 'color'
   if (!attr.dim) attr.dim = 'width:100'
@@ -133,13 +136,13 @@ export async function buildFormColor (group, params) {
 }
 
 export async function buildFormFile (group, params) {
-  const attr = getInputAttr.call(this, group)
+  const attr = await getInputAttr.call(this, group)
   attr.type = 'file'
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
 export async function buildFormTextarea (group, params) {
-  const attr = getInputAttr.call(this, group)
+  const attr = await getInputAttr.call(this, group)
   params.html = attr.value
   attr.style.minHeight = '100px'
   delete attr.value
@@ -149,12 +152,12 @@ export async function buildFormTextarea (group, params) {
 export async function buildFormSelect (group, params) {
   const { omit, trim } = this.app.lib._
   const { $ } = this.component
-  let attr = getInputAttr.call(this, group, false)
+  let attr = await getInputAttr.call(this, group, false)
   attr.value = attr.value + ''
   attr.class.push('form-select')
   let html = params.html
   if (sizes.includes(attr.size)) attr.class.push(`form-select-${attr.size}`)
-  if (attr.options) html = this.component.buildOptions({ attr })
+  if (attr.options) html = await this.component.buildOptions({ attr })
   else {
     const items = []
     $(`<div>${trim(html ?? '')}</div>`).find('option').each(function () {
@@ -167,7 +170,7 @@ export async function buildFormSelect (group, params) {
 }
 
 export async function buildFormRange (group, params) {
-  const attr = getInputAttr.call(this, group, false)
+  const attr = await getInputAttr.call(this, group, false)
   attr.type = 'range'
   attr.class.push('form-range')
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })

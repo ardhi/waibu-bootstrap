@@ -9,8 +9,7 @@ async function appLauncher () {
     }
 
     build = async () => {
-      const { locals } = this.component
-      const { routePath, attrToArray } = this.app.waibu
+      const { attrToArray } = this.app.waibu
       const { groupAttrs } = this.app.waibuMpa
       const menu = this.params.attr.menu ?? 'pages'
       const group = groupAttrs(this.params.attr, ['trigger'])
@@ -21,10 +20,11 @@ async function appLauncher () {
         if (menu === 'pages') toolbar.unshift('home')
         launcher += `<c:div padding="x-3 ${menu === 'home' ? 'bottom-3' : ''}">`
         launcher += '<c:navbar padding="y-0"><c:nav tag="ul">\n'
-        if (locals._meta.isAdmin) launcher += '<c:nav-item text="color:danger" href="' + routePath('waibuAdmin:/') + '" icon="lock" padding="start-0" />\n'
-        launcher += '</c:nav>\n<c:nav tag="ul">\n'
         for (const t of toolbar) {
           if (t === 'home') launcher += '<c:nav-item href="/" icon="house" padding="end-2" />\n'
+        }
+        launcher += '</c:nav>\n<c:nav tag="ul">\n'
+        for (const t of toolbar) {
           if (t === 'user' && this.app.sumba) launcher += '<c:sumba-nav-dropdown-user padding="end-2" />\n'
           if (t === '-') launcher += '<c:nav-divider />\n'
           if (t === 'fullscreen') launcher += '<c:nav-toggle-fullscreen padding="end-2" />\n'

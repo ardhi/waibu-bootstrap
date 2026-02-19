@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-02-20
+
+- [2.6.0] Change ```getInputAttr()``` to async function
+- [2.6.0] Update to support a function handler as ```prop.values```
+- [2.6.0] Add button to admin area in ```Drawer``` if user is an admin
+
 ## 2026-02-18
 
 - [2.4.0] Update attribute functions from ```waibu```

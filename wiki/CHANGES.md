@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-06
+
+- [2.6.1] Bug fix on ```wbs.js```
+
 ## 2026-02-20
 
 - [2.6.0] Change ```getInputAttr()``` to async function

@@ -25,7 +25,7 @@ class Wbs {
   }
 
   notifyHtml (id, html) {
-    wmpa.addComponentHtml(html, '.toast-container')
+    wmpa.addComponentHtml(html, { selector: '.toast-container' })
     const el = document.getElementById(id)
     if (!el) return
     el.addEventListener('hidden.bs.toast', () => {
@@ -43,7 +43,7 @@ class Wbs {
     if (title) body += `title="${title}" `
     if (caption) body += `caption="${caption}" `
     body += `><c:t value="${transValue}">${msg}</c:t></c:toast>`
-    await wmpa.addComponent(body, '.toast-container')
+    await wmpa.addComponent(body, { selector: '.toast-container' })
     const el = document.getElementById(id)
     if (!el) return
     el.addEventListener('hidden.bs.toast', () => {
@@ -104,13 +104,13 @@ class Wbs {
     return await this.alert(msg, opts.title ?? 'Prompt', opts)
   }
 
-  async appLauncher (params, menu, qs = {}) {
+  async appLauncher (params, menu, opts = {}) {
     document.body.click()
     const id = wmpa.randomId()
     const toolbar = params ? `toolbar="${params}"` : ''
     const menuId = menu ? `menu="${menu}"` : ''
     const body = [`<c:app-launcher id="${id}" ${toolbar} ${menuId} />`]
-    await wmpa.addComponent(body.join('\n'), 'body', undefined, undefined, qs)
+    await wmpa.addComponent(body.join('\n'), { selector: 'body', ...opts })
     const item = new this.engine.Offcanvas(`#${id}`)
     const itemEl = document.getElementById(id)
     itemEl.addEventListener('hidden.bs.offcanvas', evt => {
@@ -155,7 +155,8 @@ class Wbs {
     body.push('<c:div flex="justify-content:end" margin="top-3">')
     body.push(...buttons)
     body.push('</c:div></c:modal>')
-    await wmpa.addComponent(body.join('\n'), 'body', undefined, undefined, _.pick(opts, ['theme', 'iconset']))
+    const options = _.pick(opts, ['theme', 'iconset'])
+    await wmpa.addComponent(body.join('\n'), { selector: 'body', ...options })
     const modal = new this.engine.Modal(`#${id}`)
     const modalEl = document.getElementById(id)
     modalEl.addEventListener('hidden.bs.modal', evt => {
@@ -199,7 +200,8 @@ class Wbs {
     let { type = 'modal' } = opts
     if (_.isArray(body)) body = body.join('\n')
     if (!['modal', 'offcanvas'].includes(type)) type = 'modal'
-    await wmpa.addComponent(body, undefined, undefined, undefined, _.pick(opts, ['theme', 'iconset']))
+    const options = _.pick(opts, ['theme', 'iconset'])
+    await wmpa.addComponent(body, { ...options })
     const item = new this.engine[_.upperFirst(type)](`#${id}`)
     const itemEl = document.getElementById(id)
     itemEl.addEventListener(`hidden.bs.${type}`, evt => {

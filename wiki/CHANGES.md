@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-07
+
+- [2.6.2] Bug fix on widget ```app-launcher-trigger```
+
 ## 2026-03-06
 
 - [2.6.1] Bug fix on ```wbs.js```

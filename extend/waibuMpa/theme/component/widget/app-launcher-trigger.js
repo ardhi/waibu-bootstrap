@@ -20,17 +20,11 @@ async function appLauncherTrigger () {
     }
 
     build = async () => {
-      const { fastGlob } = this.app.lib
       const { groupAttrs, stringifyAttribs } = this.app.waibuMpa
       const group = groupAttrs(this.params.attr, ['img'])
       this.params.attr = group._
       let src = group.img.src
-      if (!src) {
-        let logo = 'waibu'
-        const files = await fastGlob(`${this.app.main.dir.pkg}/logo.*`)
-        if (files.length > 0) logo = 'main'
-        src = `waibuMpa:/logo/${logo}`
-      }
+      if (!src) src = 'waibuMpa:/logo/main'
       this.params.tag = 'a'
       const sentence = [
         `<c:img src="${src}"`,

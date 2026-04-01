@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-01
+
+- [2.6.3] Bug fix on widget ```form-datetime```
+
 ## 2026-03-07
 
 - [2.6.2] Bug fix on widget ```app-launcher-trigger```

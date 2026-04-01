@@ -2,16 +2,21 @@ import { buildFormInput } from './_lib.js'
 import { build } from './form-input.js'
 
 export const css = ['waibuExtra.virtual:/tempusDominus/css/tempus-dominus.min.css']
-export function scripts (req) {
+export function scripts (cls) {
+  const { isFunction } = this.app.lib._
   const items = [
     'waibuExtra.virtual:/popperjs/umd/popper.min.js',
     'waibuExtra.virtual:/tempusDominus/js/tempus-dominus.min.js'
   ]
-  if (req.lang === 'id') items.push('waibuExtra.asset:/js/tempus-dominus-id.js')
-  return items
+  if (this.req.lang === 'id') items.push('waibuExtra.asset:/js/tempus-dominus-id.js')
+  else if (this.req.lang !== 'en-US') items.push(`waibuExtra.virtual:/tempusDominus/locales/${this.req.lang}.js`)
+
+  if (isFunction(cls.scripts)) return items
+  return [...cls.scripts ?? [], ...items]
 }
-export function inlineScript (req) {
-  const { jsonStringify } = this.app.waibuMpa
+export function inlineScript (cls) {
+  const { jsonStringify } = this.plugin.app.waibuMpa
+  const { isFunction } = this.app.lib._
   const opts = {
     display: {
       icons: {
@@ -28,24 +33,30 @@ export function inlineScript (req) {
       components: {
         seconds: true
       },
-      theme: req.darkMode ? 'dark' : 'light'
+      theme: this.req.darkMode ? 'dark' : 'light'
     },
     localization: {
       format: 'L LTS'
     }
   }
-  const items = [`const tdGlobalOpts = ${jsonStringify(opts, true)}`]
-  if (req.lang === 'id') {
+  let items = [
+    `const tdGlobalOpts = ${jsonStringify(opts, true)}`
+  ]
+  if (this.req.lang !== 'en-US') {
     items.unshift(
-      'tempusDominus.loadLocale(tempusDominus.locales.id)',
-      'tempusDominus.locale(tempusDominus.locales.id.name)'
+      `tempusDominus.loadLocale(tempusDominus.locales.${this.req.lang})`,
+      `tempusDominus.locale(tempusDominus.locales.${this.req.lang}.name)`
     )
   }
-  return items.join('\n')
+  items = items.join('\n')
+  if (isFunction(cls.inlineScript)) return items
+  return (cls.inlineScript ?? '') + '\n' + items
 }
 
 export async function handler (opts, params = {}) {
   const { jsonStringify } = this.app.waibuMpa
+  const { generateId } = this.app.lib.aneka
+  this.params.attr.id = generateId('alpha')
   this.params.attr['x-ref'] = 'self'
   this.params.attr['x-data'] = `{
     instance: null,
@@ -54,6 +65,11 @@ export async function handler (opts, params = {}) {
   this.params.attr['@load.window'] = `
     const options = _.merge({}, tdGlobalOpts, opts ?? {})
     instance = new tempusDominus.TempusDominus($refs.self, options)
+    instance.subscribe(tempusDominus.Namespace.events.change, (e) => {
+      if (e.type === 'change.td') {
+        $dispatch('input', instance.dates.lastPicked.toISOString())
+      }
+    })
   `
   await build.call(this, buildFormInput, this.params)
 }
@@ -61,8 +77,8 @@ export async function handler (opts, params = {}) {
 async function formDatetime () {
   return class FormDatetime extends this.app.baseClass.MpaWidget {
     static css = [...super.css, ...css]
-    static scripts = [...super.scripts, ...scripts(this.component.req)]
-    static inlineScript = inlineScript(this.component.req)
+    static scripts = scripts
+    static inlineScript = inlineScript
 
     build = async () => {
       const { set } = this.app.lib._

@@ -3,8 +3,8 @@ import { css, scripts, inlineScript, handler } from './form-datetime.js'
 async function formDate () {
   return class FormDate extends this.app.baseClass.MpaWidget {
     static css = [...super.css, ...css]
-    static scripts = [...super.scripts, ...scripts(this.component.req)]
-    static inlineScript = inlineScript(this.component.req)
+    static scripts = scripts
+    static inlineScript = inlineScript
 
     build = async () => {
       const { set } = this.app.lib._

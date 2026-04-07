@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-04-07
+
+- [2.6.4] Bug fix on widget ```form-select-ext```
+- [2.6.4] Bug fix on ```buildFormSelect()```
+
 ## 2026-04-01
 
 - [2.6.3] Bug fix on widget ```form-datetime```

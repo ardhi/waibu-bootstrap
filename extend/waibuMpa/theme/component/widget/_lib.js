@@ -28,8 +28,8 @@ async function getInputAttr (group, formControl = true, ro) {
     else attr.dataValue = val
     if (ro) {
       if (attr.ref) {
-        const [ref, fieldName = 'id'] = attr.ref.split(':')
-        attr.value = get(this, `component.locals.form._ref.${ref}.${fieldName}`, val)
+        const [ref, field = 'id'] = attr.ref.split(':')
+        attr.value = get(this, `component.locals.form._ref.${ref}.${field}`, val)
       } else if (attr.dataType === 'boolean') attr.value = req.t(val ? 'true' : 'false')
       else if (has(attr, 'name') === 'lat') attr.value = escape(req.format(val, attr.dataType, { latitude: true }))
       else if (has(attr, 'name') === 'lng') attr.value = escape(req.format(val, attr.dataType, { longitude: true }))
@@ -151,9 +151,10 @@ export async function buildFormTextarea (group, params) {
 
 export async function buildFormSelect (group, params) {
   const { omit, trim } = this.app.lib._
+  const { isSet } = this.app.lib.aneka
   const { $ } = this.component
   let attr = await getInputAttr.call(this, group, false)
-  attr.value = attr.value + ''
+  attr.value = isSet(attr.value) ? (attr.value + '') : undefined
   attr.class.push('form-select')
   let html = params.html
   if (sizes.includes(attr.size)) attr.class.push(`form-select-${attr.size}`)

@@ -14,7 +14,7 @@ async function formSelectExt () {
 
     build = async () => {
       const { generateId } = this.app.lib.aneka
-      const { omit, merge, has } = this.app.lib._
+      const { omit, merge, has, isString } = this.app.lib._
       const { routePath } = this.app.waibu
       const { jsonStringify, groupAttrs } = this.app.waibuMpa
       const { base64JsonDecode } = this.app.waibu
@@ -55,6 +55,13 @@ async function formSelectExt () {
         group.remote.searchField = group.remote.searchField ?? 'id'
         group.remote.labelField = group.remote.labelField ?? 'id'
         group.remote.valueField = group.remote.valueField ?? 'id'
+        let query = `${group.remote.searchField}:~\\'{searchItem}\\'`
+        if (isString(group.remote.query)) {
+          const q = base64JsonDecode(group.remote.query)
+          const u = new URLSearchParams()
+          u.set('q', JSON.stringify(q))
+          query = u.toString().slice(2)
+        }
         if (has(group.remote, 'apiKey')) {
           if (group.remote.apiKey === true) fetchOpts.headers.Authorization = `Bearer ${apiKey}` // TODO: get it from wmpa
           else fetchOpts.headers.Authorization = `Bearer ${group.remote.apiKey}`
@@ -63,8 +70,9 @@ async function formSelectExt () {
           searchField: '${group.remote.searchField}',
           labelField: '${group.remote.labelField}',
           valueField: '${group.remote.valueField}',
-          load: (query, callback) => {
-            fetch('${group.remote.url}?query=${group.remote.searchField}:~\\'' + query + '\\'', ${jsonStringify(fetchOpts, true)})
+          load: (search, callback) => {
+            const query = '${query}'.replace('{searchItem}', search).replace('%7BsearchItem%7D', search)
+            fetch('${group.remote.url}?query=' + query, ${jsonStringify(fetchOpts, true)})
               .then(resp => resp.json())
               .then(json => {
                 callback(json.data)
@@ -88,6 +96,7 @@ async function formSelectExt () {
         const opts = ${opts}
         this.instance = new TomSelect($refs.${xref}, opts)
         const val = $refs.${xref}.dataset.value
+        console.log(val)
         if (!_.isEmpty(val)) {
           this.value = val.split('|')
         }
@@ -131,7 +140,7 @@ async function formSelectExt () {
       // this.params.attr['@load.window'] = 'onLoad()'
       this.params.attr['x-init'] = 'onLoad()'
       if (options.length > 0) this.params.attr.options = options
-      this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl', 'remoteSearchField', 'remoteLabelField', 'remoteValueField'])
+      this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl', 'remoteSearchField', 'remoteLabelField', 'remoteValueField', 'remoteQuery', 'remoteApiKey'])
       await build.call(this, buildFormSelect, this.params)
     }
   }

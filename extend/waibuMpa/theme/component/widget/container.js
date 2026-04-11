@@ -12,7 +12,7 @@ async function container () {
     build = async () => {
       const { has, omit } = this.app.lib._
       if (has(this.params.attr, 'responsive')) this.params.attr.class.push(`${cls}-fluid`)
-      else if (has(this.params.attr, 'breakpoint')) this.params.attr.class.push(parseSimple({ cls, value: this.params.attr.breakpoint, values: breakpoints }))
+      else if (has(this.params.attr, 'breakpoint')) this.params.attr.class.push(parseSimple.call(this, { cls, value: this.params.attr.breakpoint, values: breakpoints }))
       else this.params.attr.class.push(cls)
       this.params.attr = omit(this.params.attr, ['responsive', 'breakpoint'])
     }

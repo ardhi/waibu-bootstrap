@@ -1,11 +1,8 @@
 import { sizes } from '../method/after-build-tag/_lib.js'
 
-const trueValues = ['true', 'on', 'yes', '1', 1, true]
-
 async function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, set, isPlainObject, isArray, isString, has, forOwn, find, camelCase, isEmpty } = this.app.lib._
+  const { omit, get, isPlainObject, isArray, has, forOwn, find } = this.app.lib._
   const { escape } = this.app.waibu
-  const { req } = this.component
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
   if (attr.href) {
@@ -17,31 +14,11 @@ async function getInputAttr (group, formControl = true, ro) {
     let prop = {}
     const schema = get(this, 'component.locals.schema')
     if (schema) prop = find(schema.properties, { name: attr.name }) ?? {}
-    attr.dataType = attr.dataType ?? prop.type ?? 'auto'
-    let val = get(this, `component.locals.form.${attr.name}`)
-    if (attr.dataType === 'boolean') {
-      val = trueValues.includes(val)
-      set(this, `component.locals.form.${attr.name}`, val)
-    }
-    if (isPlainObject(val) || isArray(val)) attr.dataValue = escape(JSON.stringify(val))
-    else if (isString(val)) attr.dataValue = escape(val)
-    else attr.dataValue = val
-    if (ro) {
-      if (attr.ref) {
-        const [ref, field = 'id'] = attr.ref.split(':')
-        attr.value = get(this, `component.locals.form._ref.${ref}.${field}`, val)
-      } else if (attr.dataType === 'boolean') attr.value = req.t(val ? 'true' : 'false')
-      else if (has(attr, 'name') === 'lat') attr.value = escape(req.format(val, attr.dataType, { latitude: true }))
-      else if (has(attr, 'name') === 'lng') attr.value = escape(req.format(val, attr.dataType, { longitude: true }))
-      else if (prop.values) {
-        let items = prop.values
-        if (typeof prop.values === 'string') items = await this.app.bajo.callHandler(prop.values)
-        const item = find(items, { value: val }) ?? {}
-        const ttext = camelCase(`${prop.name} ${item.text}`)
-        attr.value = escape(req.format(!isEmpty(item) ? (req.te(ttext) ? req.t(ttext) : item.text) : val, attr.dataType))
-      } else attr.value = escape(req.format(val, attr.dataType))
-    } else attr.value = attr.dataValue
-    if (isArray(val)) attr.value = val.join(' ')
+    attr.dataType = attr.dataType ?? prop.type
+    attr.dataValue = get(this, `component.locals.form._orig.${attr.name}`)
+    if (isPlainObject(attr.dataValue) || isArray(attr.dataValue)) attr.dataValue = JSON.stringify(attr.dataValue)
+    attr.dataValue = escape(attr.dataValue)
+    attr.value = escape(get(this, `component.locals.form.${attr.name}`))
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
   return omit(attr, ['size', 'col'])
@@ -112,7 +89,7 @@ export async function buildFormRadioToggle (group, params) {
 
 export async function buildFormPlaintext (group, params) {
   const attr = await getInputAttr.call(this, group, false, true)
-  delete attr.dataValue
+  // delete attr.dataValue
   attr.class.push('form-control-plaintext')
   attr.readonly = ''
   if (['object', 'array', 'text'].includes(attr.dataType)) {

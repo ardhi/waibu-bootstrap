@@ -96,7 +96,6 @@ async function formSelectExt () {
         const opts = ${opts}
         this.instance = new TomSelect($refs.${xref}, opts)
         const val = $refs.${xref}.dataset.value
-        console.log(val)
         if (!_.isEmpty(val)) {
           this.value = val.split('|')
         }

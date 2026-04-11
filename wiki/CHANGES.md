@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-04-11
+
+- [2.6.5] Bug fix in ```form-select-ext``` widget
+- [2.6.5] Bug fix in ```container``` widget
+- [2.6.5] Bug fix in ```getInputAttr()```
+- [2.6.5] Bug fix in ```parseVariant()```
+- [2.6.5] Bug fix in ```parseSimple()```
+
 ## 2026-04-07
 
 - [2.6.4] Bug fix on widget ```form-select-ext```

@@ -1,24 +1,13 @@
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 async function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, isPlainObject, isArray, has, forOwn, find } = this.app.lib._
-  const { escape } = this.app.waibu
+  const { omit, get, forOwn } = this.app.lib._
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
   if (attr.href) {
-    forOwn(this.component.locals.form, (v, k) => {
+    forOwn(get(this, 'component.locals.form', {}), (v, k) => {
       attr.href = attr.href.replace(`%7B${k}%7D`, v)
     })
-  }
-  if (has(attr, 'name') && !has(attr, 'value') && this.component.locals.form) {
-    let prop = {}
-    const schema = get(this, 'component.locals.schema')
-    if (schema) prop = find(schema.properties, { name: attr.name }) ?? {}
-    attr.dataType = attr.dataType ?? prop.type
-    attr.dataValue = get(this, `component.locals.form._orig.${attr.name}`)
-    if (isPlainObject(attr.dataValue) || isArray(attr.dataValue)) attr.dataValue = JSON.stringify(attr.dataValue)
-    attr.dataValue = escape(attr.dataValue)
-    attr.value = escape(get(this, `component.locals.form.${attr.name}`))
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
   return omit(attr, ['size', 'col'])
@@ -89,7 +78,6 @@ export async function buildFormRadioToggle (group, params) {
 
 export async function buildFormPlaintext (group, params) {
   const attr = await getInputAttr.call(this, group, false, true)
-  // delete attr.dataValue
   attr.class.push('form-control-plaintext')
   attr.readonly = ''
   if (['object', 'array', 'text'].includes(attr.dataType)) {
@@ -97,7 +85,7 @@ export async function buildFormPlaintext (group, params) {
     return await this.component.buildTag({ tag: 'textarea', attr, html: attr.value })
   }
   if (attr.href) {
-    const content = attr.value ? attr.value : attr.href
+    const content = attr.value ? this.component.req.t(attr.value) : attr.href
     const html = await this.component.buildTag({ tag: 'a', attr: { href: attr.href, content } })
     return await this.component.buildTag({ tag: 'div', attr, html })
   }

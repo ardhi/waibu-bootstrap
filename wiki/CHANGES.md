@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-13
+
+- [2.7.0] Rewrite ```getInputAttr()``` to not dependent to any template data, rather only depend on attributes
+
 ## 2026-04-11
 
 - [2.6.5] Bug fix in ```form-select-ext``` widget

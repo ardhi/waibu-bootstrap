@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-04-17
+
+- [2.7.1] Bug fix in ```getInputAttr()```
+- [2.7.1] Bug fix in ```FormPlaintext``` widget
+
 ## 2026-04-13
 
 - [2.7.0] Rewrite ```getInputAttr()``` to not dependent to any template data, rather only depend on attributes

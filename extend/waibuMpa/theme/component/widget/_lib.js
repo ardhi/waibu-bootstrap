@@ -1,11 +1,36 @@
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 async function getInputAttr (group, formControl = true, ro) {
-  const { omit, get, forOwn } = this.app.lib._
+  const { has, omit, forOwn, isPlainObject, isArray, get, isString } = this.app.lib._
+  const { callHandler } = this.app.bajo
+  const { req } = this.component
+  const { escape } = this.app.waibu
+
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
+  if (has(attr, 'name') && !has(attr, 'value')) {
+    if (ro) attr.value = this.formData[attr.name]
+    else {
+      const prop = this.getProp(attr.name)
+      attr.dataType = attr.dataType ?? prop.type
+      attr.dataValue = get(this.formData, `_orig.${attr.name}`, get(this.formData, attr.name))
+      if (isPlainObject(attr.dataValue) || isArray(attr.dataValue)) attr.dataValue = JSON.stringify(attr.dataValue)
+      attr.dataValue = escape(attr.dataValue)
+      attr.value = attr.dataValue
+      if (prop.values) {
+        const values = (isString(prop.values) ? await callHandler(prop.values) : [...prop.values]).map(v => {
+          if (isString(v)) v = { value: v, text: v }
+          const { camelCase } = this.app.lib._
+          const key = camelCase(`${prop.name} ${v.text}`)
+          if (req.te(key)) v.text = req.t(key)
+          return v
+        })
+        attr.options = values
+      }
+    }
+  }
   if (attr.href) {
-    forOwn(get(this, 'component.locals.form', {}), (v, k) => {
+    forOwn(this.formData, (v, k) => {
       attr.href = attr.href.replace(`%7B${k}%7D`, v)
     })
   }

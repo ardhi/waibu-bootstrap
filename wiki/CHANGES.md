@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-04-18
+
+- [2.7.2] Bug fix in ```getInputAttr()``` of ```_lib.js```
+
+
 ## 2026-04-17
 
 - [2.7.1] Bug fix in ```getInputAttr()```

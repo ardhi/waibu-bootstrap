@@ -31,7 +31,7 @@ async function getInputAttr (group, formControl = true, ro) {
   }
   if (attr.href) {
     forOwn(this.formData, (v, k) => {
-      attr.href = attr.href.replace(`%7B${k}%7D`, v)
+      attr.href = attr.href.replace(`{${k}}`, v)
     })
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)

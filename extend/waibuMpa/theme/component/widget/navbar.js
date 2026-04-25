@@ -37,7 +37,7 @@ async function navbar () {
         if (this.params.attr.scroll) el.prop('style', `--bs-scroll-height: ${numUnit(this.params.attr.scroll, 'px')};`)
         html = el.removeClass('nav').parent().html()
         this.params.attr.class.push(parseSimple.call(this, { cls: `${cls}-expand`, value: this.params.attr.expandable, values: breakpoints }))
-        const id = generateId()
+        const id = generateId('alpha')
         if (this.params.group.drawer) this.params.group.drawer.id = id
         const btn = `<button class="navbar-toggler" type="button" data-bs-toggle="${type}" ` +
           `data-bs-target="#${id}" aria-controls="${id}"${this.params.attr.drawer ? '' : ' aria-expanded="false"'} aria-label="${this.component.req.t('toggleNavigation')}">` +

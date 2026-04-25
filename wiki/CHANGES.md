@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-04-25
+
+- [2.8.0] Change options to format value using the new key set by dobo
+- [2.8.0] Use ```generateId('alpha')``` to make sure all generated id in widget doesn;t start with number
+
 ## 2026-04-18
 
 - [2.7.2] Bug fix in ```getInputAttr()``` of ```_lib.js```

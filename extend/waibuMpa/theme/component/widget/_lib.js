@@ -13,10 +13,10 @@ async function getInputAttr (group, formControl = true, ro) {
     else {
       const prop = this.getProp(attr.name)
       attr.dataType = attr.dataType ?? prop.type
-      attr.dataValue = get(this.formData, `_orig.${attr.name}`, get(this.formData, attr.name))
+      attr.dataValue = this.formData[attr.name]
       if (isPlainObject(attr.dataValue) || isArray(attr.dataValue)) attr.dataValue = JSON.stringify(attr.dataValue)
+      attr.value = escape(get(this.formData, `_fmt.${attr.name}`, attr.dataValue))
       attr.dataValue = escape(attr.dataValue)
-      attr.value = attr.dataValue
       if (prop.values) {
         const values = (isString(prop.values) ? await callHandler(prop.values) : [...prop.values]).map(v => {
           if (isString(v)) v = { value: v, text: v }

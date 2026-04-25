@@ -98,7 +98,7 @@ export async function build (handler, params = {}) {
 
   if (group._.datalist && !['password', 'file', 'checkbox', 'radio'].includes(group._.type)) {
     datalist = group._.datalist
-    group._.list = generateId()
+    group._.list = generateId('alpha')
   }
   const contents = await handleInput.call(this, { handler, params, group })
   if (datalist) {

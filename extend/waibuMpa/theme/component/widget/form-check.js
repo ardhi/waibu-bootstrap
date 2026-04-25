@@ -10,7 +10,7 @@ export async function build (handler, params = {}) {
   if (this.params.attr.noLabel) this.params.attr.label = undefined
   const group = groupAttrs(this.params.attr, ['label', 'hint', 'wrapper', 'col'], false)
   const contents = []
-  group._.id = this.params.attr.id ?? generateId()
+  group._.id = this.params.attr.id ?? generateId('alpha')
   if (!isEmpty(group._.label)) {
     group.wrapper.class.push('form-check')
     if (group.wrapper.inline) group.wrapper.class.push('form-check-inline')

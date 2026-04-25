@@ -12,13 +12,11 @@ async function formPlaintext () {
       if (this.params.attr.labelFloating) this.params.attr.class.push('border', 'rounded')
       if (!isEmpty(name) && isEmpty(this.params.attr.value)) {
         const prop = this.getProp(name)
-        const dataValue = get(this.formData, `_orig.${name}`, '')
-        let value = get(this.oldData, name, get(this.formData, name, ''))
+        const dataValue = this.formData[name] ?? ''
+        let value = get(this.oldData, `_fmt.${name}`, get(this.formData, `_fmt.${name}`, dataValue))
         const format = get(this.schema, `view.format.${name}`)
-        const formatValue = get(this.schema, `view.formatValue.${name}`)
         const labelField = get(this.schema, `view.widget.${name}.attr.labelField`)
-        if (formatValue) value = await formatValue.call(this, value, this.formData, { req })
-        else if (prop.ref) {
+        if (prop.ref) {
           value = this.getRefValue({ field: name, labelField, refName: this.getRefName(name) })
           if (format && !isEmpty(value)) this.params.attr.href = await format.call(this, value, this.formData, { linkOnly: true })
         } else if (format && !isEmpty(value)) value = await format.call(this, value, this.formData)

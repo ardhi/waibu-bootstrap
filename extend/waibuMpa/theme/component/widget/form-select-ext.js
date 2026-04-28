@@ -21,7 +21,7 @@ async function formSelectExt () {
       const { req } = this.component
       let apiKey = ''
       if (req.user && this.app.sumba) apiKey = await this.app.sumba.getApiKeyFromUserId(req.user.id)
-      const xref = this.params.attr['x-ref'] ?? 'select'
+      const xref = this.params.attr['x-ref'] ?? this.params.attr.name
       this.params.attr.id = this.params.attr.id ?? generateId('alpha')
       this.params.attr['x-ref'] = xref
       const xData = ['instance: null', 'value: null']
@@ -31,14 +31,6 @@ async function formSelectExt () {
       if (this.params.attr.clearBtn) plugins.push('clear_button')
       if (this.params.attr.optgroupColumns) plugins.push('optgroup_columns')
       if (this.params.attr.noCaret) this.params.attr.class.push('no-caret') // TODO: no caret remove caret on ALL instances, need to make it instance specific
-      let options = []
-      if (this.params.attr.options) {
-        try {
-          options = base64JsonDecode(this.params.attr.options)
-        } catch (err) {
-          options = this.params.attr.options
-        }
-      }
       let opts = { plugins }
       let cOpts = {}
       if (this.params.attr.cOpts) {
@@ -138,9 +130,17 @@ async function formSelectExt () {
       this.params.attr['x-data'] = `{ ${xData.join(',\n')} }`
       // this.params.attr['@load.window'] = 'onLoad()'
       this.params.attr['x-init'] = 'onLoad()'
+      await build.call(this, buildFormSelect, this.params)
+      let options = []
+      if (this.params.attr.options) {
+        try {
+          options = base64JsonDecode(this.params.attr.options)
+        } catch (err) {
+          options = this.params.attr.options
+        }
+      }
       if (options.length > 0) this.params.attr.options = options
       this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl', 'remoteSearchField', 'remoteLabelField', 'remoteValueField', 'remoteQuery', 'remoteApiKey'])
-      await build.call(this, buildFormSelect, this.params)
     }
   }
 }

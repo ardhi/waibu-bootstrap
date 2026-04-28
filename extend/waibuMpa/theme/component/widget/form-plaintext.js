@@ -5,7 +5,6 @@ async function formPlaintext () {
   return class FormPlaintext extends this.app.baseClass.MpaWidget {
     build = async () => {
       const { isEmpty, get } = this.app.lib._
-      const { req } = this.component
       const { escape } = this.app.waibu
       this.params.attr.disabled = true
       const { name } = this.params.attr
@@ -17,8 +16,8 @@ async function formPlaintext () {
         const format = get(this.schema, `view.format.${name}`)
         const labelField = get(this.schema, `view.widget.${name}.attr.labelField`)
         if (prop.ref) {
-          value = this.getRefValue({ field: name, labelField, refName: this.getRefName(name) })
-          if (format && !isEmpty(value)) this.params.attr.href = await format.call(this, value, this.formData, { linkOnly: true })
+          const newValue = this.getRefValue({ field: name, labelField, refName: this.getRefName(name) })
+          if (format && !isEmpty(newValue)) this.params.attr.href = await format.call(this, newValue, this.formData, { linkOnly: true })
         } else if (format && !isEmpty(value)) value = await format.call(this, value, this.formData)
         this.params.attr.dataValue = escape(dataValue)
         this.params.attr.value = escape(value)

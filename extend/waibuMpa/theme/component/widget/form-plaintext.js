@@ -6,6 +6,7 @@ async function formPlaintext () {
     build = async () => {
       const { isEmpty, get } = this.app.lib._
       const { escape } = this.app.waibu
+      const { isHtmlLink } = this.app.bajoExtra
       this.params.attr.disabled = true
       const { name } = this.params.attr
       if (this.params.attr.labelFloating) this.params.attr.class.push('border', 'rounded')
@@ -20,7 +21,7 @@ async function formPlaintext () {
           if (format && !isEmpty(newValue)) this.params.attr.href = await format.call(this, newValue, this.formData, { linkOnly: true })
         } else if (format && !isEmpty(value)) value = await format.call(this, value, this.formData)
         this.params.attr.dataValue = escape(dataValue)
-        this.params.attr.value = escape(value)
+        if (!isHtmlLink(value)) this.params.attr.value = escape(value)
         this.params.attr.dataType = prop.type
       }
       await build.call(this, buildFormPlaintext, this.params)

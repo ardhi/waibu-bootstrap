@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-05-03
+
+- [2.8.2] Bug fix in ```form-plaintext``` widgets
+
 ## 2026-04-25
 
 - [2.8.0] Change options to format value using the new key set by dobo

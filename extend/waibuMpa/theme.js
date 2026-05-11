@@ -7,7 +7,10 @@ async function theme () {
     'waibuBootstrap.virtual:/bootstrap/js/bootstrap.bundle.min.js',
     'bajo.virtual:/lodash/lodash.min.js',
     '$waibuMpa:/wmpa.js',
-    '$waibuBootstrap.asset:/js/wbs.js'
+    {
+      src: '$waibuBootstrap.asset:/js/wbs.js',
+      defer: true
+    }
   ]
   const meta = [{
     name: 'viewport',

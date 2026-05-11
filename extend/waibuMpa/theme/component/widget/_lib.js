@@ -1,7 +1,7 @@
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 async function getInputAttr (group, formControl = true, ro) {
-  const { has, omit, forOwn, isPlainObject, isArray, get, isString } = this.app.lib._
+  const { has, omit, isPlainObject, isArray, isString } = this.app.lib._
   const { callHandler } = this.app.bajo
   const { req } = this.component
   const { escape } = this.app.waibu
@@ -15,8 +15,9 @@ async function getInputAttr (group, formControl = true, ro) {
       attr.dataType = attr.dataType ?? prop.type
       attr.dataValue = this.formData[attr.name]
       if (isPlainObject(attr.dataValue) || isArray(attr.dataValue)) attr.dataValue = JSON.stringify(attr.dataValue)
-      attr.value = escape(get(this.formData, `_fmt.${attr.name}`, attr.dataValue))
+      // attr.value = escape(get(this.formData, `_fmt.${attr.name}`, attr.dataValue))
       attr.dataValue = escape(attr.dataValue)
+      attr.value = attr.dataValue
       if (prop.values) {
         const values = (isString(prop.values) ? await callHandler(prop.values) : [...prop.values]).map(v => {
           if (isString(v)) v = { value: v, text: v }
@@ -28,11 +29,6 @@ async function getInputAttr (group, formControl = true, ro) {
         attr.options = values
       }
     }
-  }
-  if (attr.href) {
-    forOwn(this.formData, (v, k) => {
-      attr.href = attr.href.replace(`{${k}}`, v)
-    })
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
   return omit(attr, ['size', 'col'])
@@ -102,19 +98,11 @@ export async function buildFormRadioToggle (group, params) {
 }
 
 export async function buildFormPlaintext (group, params) {
+  const { omit } = this.app.lib._
   const attr = await getInputAttr.call(this, group, false, true)
   attr.class.push('form-control-plaintext')
   attr.readonly = ''
-  if (['object', 'array', 'text'].includes(attr.dataType)) {
-    attr.style.minHeight = '100px'
-    return await this.component.buildTag({ tag: 'textarea', attr, html: attr.value })
-  }
-  if (attr.href) {
-    const content = attr.value ? this.component.req.t(attr.value) : attr.href
-    const html = await this.component.buildTag({ tag: 'a', attr: { href: attr.href, content } })
-    return await this.component.buildTag({ tag: 'div', attr, html })
-  }
-  return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
+  return await this.component.buildTag({ tag: 'div', attr: omit(attr, ['value']), html: attr.value })
 }
 
 export async function buildFormColor (group, params) {
@@ -143,7 +131,11 @@ export async function buildFormSelect (group, params) {
   const { omit, trim } = this.app.lib._
   const { isSet } = this.app.lib.aneka
   const { $ } = this.component
+  const { unescape } = this.app.waibu
   let attr = await getInputAttr.call(this, group, false)
+  try {
+    attr.dataValue = JSON.parse(unescape(attr.dataValue)).join('|')
+  } catch (err) {}
   attr.value = isSet(attr.value) ? (attr.value + '') : undefined
   attr.class.push('form-select')
   let html = params.html

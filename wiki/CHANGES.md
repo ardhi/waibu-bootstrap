@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-05-11
+
+- [2.9.0] Updates to match ```dobo@2.23.0``` specs
+- [2.9.0] Bug fix in ```theme.js```
+- [2.9.0] Auto link for widget bound to database with refs
+
 ## 2026-05-03
 
 - [2.8.2] Bug fix in ```form-plaintext``` widgets

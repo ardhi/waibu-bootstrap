@@ -3,10 +3,6 @@
 class Wbs {
   constructor () {
     this.engine = window.mdb ?? window.bootstrap
-    this.init()
-  }
-
-  init () {
     window.addEventListener('load', evt => {
       const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
       const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new this.engine.Popover(popoverTriggerEl)) // eslint-disable-line no-unused-vars

@@ -6,6 +6,14 @@ async function getInputAttr (group, formControl = true, ro) {
   const { req } = this.component
   const { escape } = this.app.waibu
 
+  const buildOptions = (v, prop) => {
+    if (isString(v)) v = { value: v, text: v }
+    const { camelCase } = this.app.lib._
+    const key = camelCase(`${prop.name} ${v.text}`)
+    if (req.te(key)) v.text = req.t(key)
+    return v
+  }
+
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
   if (has(attr, 'name') && !has(attr, 'value')) {
@@ -14,20 +22,17 @@ async function getInputAttr (group, formControl = true, ro) {
       const prop = this.getProp(attr.name)
       attr.dataType = attr.dataType ?? prop.type
       attr.dataValue = this.formData[attr.name]
-      if (isPlainObject(attr.dataValue) || isArray(attr.dataValue)) attr.dataValue = JSON.stringify(attr.dataValue)
-      // attr.value = escape(get(this.formData, `_fmt.${attr.name}`, attr.dataValue))
-      attr.dataValue = escape(attr.dataValue)
-      attr.value = attr.dataValue
       if (prop.values) {
-        const values = (isString(prop.values) ? await callHandler(prop.values) : [...prop.values]).map(v => {
-          if (isString(v)) v = { value: v, text: v }
-          const { camelCase } = this.app.lib._
-          const key = camelCase(`${prop.name} ${v.text}`)
-          if (req.te(key)) v.text = req.t(key)
-          return v
-        })
-        attr.options = values
+        attr.options = (isString(prop.values) ? await callHandler(prop.values) : [...prop.values]).map(v => buildOptions(v, prop))
+      } else if (isPlainObject(attr.dataValue)) {
+        attr.dataValue = JSON.stringify(attr.dataValue)
+        attr.value = attr.dataValue
+      } else if (isArray(attr.dataValue)) {
+        attr.options = attr.dataValue.map(v => buildOptions(v, prop))
+      } else {
+        attr.value = attr.dataValue
       }
+      attr.dataValue = escape(attr.dataValue)
     }
   }
   if (sizes.includes(attr.size) && formControl) attr.class.push(`form-control-${attr.size}`)
@@ -133,6 +138,7 @@ export async function buildFormSelect (group, params) {
   const { $ } = this.component
   const { unescape } = this.app.waibu
   let attr = await getInputAttr.call(this, group, false)
+  if (attr.remoteUrl) delete attr.options
   try {
     attr.dataValue = JSON.parse(unescape(attr.dataValue)).join('|')
   } catch (err) {}

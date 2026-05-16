@@ -25,13 +25,20 @@ async function formSelectExt () {
       this.params.attr.id = this.params.attr.id ?? generateId('alpha')
       this.params.attr['x-ref'] = xref
       const xData = ['instance: null', 'value: null']
-      const plugins = ['drag_drop']
-      if (!this.params.attr.noDropdownInput) plugins.push('dropdown_input')
-      if (this.params.attr.removeBtn) plugins.push('remove_button')
-      if (this.params.attr.clearBtn) plugins.push('clear_button')
-      if (this.params.attr.optgroupColumns) plugins.push('optgroup_columns')
+      const plugins = {
+        drag_drop: {}
+      }
+      if (!this.params.attr.noDropdownInput) plugins.dropdown_input = {}
+      // if (this.params.attr.removeBtn) plugins.remove_button = {}
+      if (this.params.attr.clearBtn) plugins.clear_button = {}
+      if (this.params.attr.optgroupColumns) plugins.optgroup_columns = {}
+      if (this.params.attr.multiple) {
+        plugins.checkbox_options = {}
+        plugins.clear_button = {}
+      }
       if (this.params.attr.noCaret) this.params.attr.class.push('no-caret') // TODO: no caret remove caret on ALL instances, need to make it instance specific
       let opts = { plugins }
+      if (this.params.attr.allowCreate) opts.create = true
       let cOpts = {}
       if (this.params.attr.cOpts) {
         try {
@@ -124,6 +131,11 @@ async function formSelectExt () {
               })
           }
         `
+      } else {
+        text += `if (!_.isEmpty(this.value)) {
+          if (!_.isArray(this.value)) this.value = [this.value]
+          this.instance.setValue(this.value)
+        }`
       }
       text += '}'
       xData.push(text)
@@ -131,6 +143,7 @@ async function formSelectExt () {
       // this.params.attr['@load.window'] = 'onLoad()'
       this.params.attr['x-init'] = 'onLoad()'
       await build.call(this, buildFormSelect, this.params)
+      /*
       let options = []
       if (this.params.attr.options) {
         try {
@@ -140,6 +153,7 @@ async function formSelectExt () {
         }
       }
       if (options.length > 0) this.params.attr.options = options
+      */
       this.params.attr = omit(this.params.attr, ['noDropdownInput', 'removeBtn', 'clearBtn', 'c-opts', 'remoteUrl', 'remoteSearchField', 'remoteLabelField', 'remoteValueField', 'remoteQuery', 'remoteApiKey'])
     }
   }

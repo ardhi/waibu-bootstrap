@@ -10,7 +10,7 @@ async function drawer () {
     }
 
     build = async () => {
-      const { isString, omit, trim } = this.app.lib._
+      const { isString, omit, trim, get } = this.app.lib._
       const { groupAttrs } = this.app.waibuMpa
       const { $, req, locals } = this.component
       const { routePath } = this.app.waibu
@@ -23,7 +23,7 @@ async function drawer () {
       if (this.params.attr.scroll) this.params.attr.dataBsScroll = 'true'
       if (this.params.attr.noDismiss) this.params.attr.dataBsBackdrop = 'static'
       const buttons = []
-      if (locals._meta.isAdmin) buttons.push(await this.component.buildTag({ tag: 'btn', attr: { href: routePath('waibuAdmin:/'), icon: 'lock', text: 'color:danger', tooltip: req.t('adminArea') } }))
+      if (get(locals, '_meta.user.isAdmin')) buttons.push(await this.component.buildTag({ tag: 'btn', attr: { href: routePath('waibuAdmin:/'), icon: 'lock', text: 'color:danger', tooltip: req.t('adminArea') } }))
       const html = []
       $(`<div>${this.params.html}</div>`).children().each(function () {
         if (this.name === 'drawer-toolbar') buttons.push(trim($(this).prop('innerHTML')))

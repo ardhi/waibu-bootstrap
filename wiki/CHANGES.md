@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-05-22
+
+- [2.9.2] Bug fix in ```drawer``` widget
+
 ## 2026-05-16
 
 - [2.9.1] Bug fix in ```form-select-ext``` widget

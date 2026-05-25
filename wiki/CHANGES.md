@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-05-25
+
+- [2.10.0] Bug fix in ```_lib.js```
+- [2.10.0] Add dimmed background for ```form-plaintext``` widget
+- [2.10.0] Auto detect theme & iconset
+
 ## 2026-05-22
 
 - [2.9.2] Bug fix in ```drawer``` widget

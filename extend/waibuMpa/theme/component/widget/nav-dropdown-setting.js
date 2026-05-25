@@ -93,9 +93,7 @@ async function navDropdownSetting () {
               async signout () {
                 await wbs.confirmation(\`${this.component.req.t('signoutWarning')}\`, {
                   ok: '${id}:post',
-                  close: 'y',
-                  theme: '${this.component.theme.name}',
-                  iconset: '${this.component.iconset.name}'
+                  close: 'y'
                 })
               },
               post () {

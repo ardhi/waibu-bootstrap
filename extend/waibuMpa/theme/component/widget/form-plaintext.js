@@ -8,6 +8,7 @@ async function formPlaintext () {
       const { isEmpty, get } = this.app.lib._
       const { escape } = this.app.waibu
       this.params.attr.disabled = true
+      this.params.attr.background = 'color:secondary opacity:10'
       const { name } = this.params.attr
       if (this.params.attr.labelFloating) this.params.attr.class.push('border', 'rounded')
       if (!isEmpty(name) && isEmpty(this.params.attr.value)) {

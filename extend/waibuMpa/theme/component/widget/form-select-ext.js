@@ -142,7 +142,7 @@ async function formSelectExt () {
       this.params.attr['x-data'] = `{ ${xData.join(',\n')} }`
       // this.params.attr['@load.window'] = 'onLoad()'
       this.params.attr['x-init'] = 'onLoad()'
-      await build.call(this, buildFormSelect, this.params)
+      await build.call(this, buildFormSelect)
       /*
       let options = []
       if (this.params.attr.options) {

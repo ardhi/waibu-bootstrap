@@ -53,7 +53,7 @@ export function inlineScript (cls) {
   return (cls.inlineScript ?? '') + '\n' + items
 }
 
-export async function handler (opts, params = {}) {
+export async function handler (opts) {
   const { jsonStringify } = this.app.waibuMpa
   const { generateId } = this.app.lib.aneka
   this.params.attr.id = generateId('alpha')
@@ -71,7 +71,7 @@ export async function handler (opts, params = {}) {
       }
     })
   `
-  await build.call(this, buildFormInput, this.params)
+  await build.call(this, buildFormInput)
 }
 
 async function formDatetime () {
@@ -88,7 +88,7 @@ async function formDatetime () {
       set(opts, 'display.buttons.today', true)
       set(opts, 'display.buttons.clear', true)
       if (this.params.attr.dateRange) set(opts, 'dateRange', true)
-      await handler.call(this, opts, this.params)
+      await handler.call(this, opts)
     }
   }
 }

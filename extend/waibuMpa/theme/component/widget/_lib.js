@@ -53,12 +53,12 @@ export async function buildFormLabel (group, tag, cls) {
   return await this.component.buildTag({ tag: tag ?? 'label', attr: group.label, html: group._.label })
 }
 
-export async function buildFormInput (group, params) {
+export async function buildFormInput (group) {
   const attr = await getInputAttr.call(this, group)
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormCheck (group, params) {
+export async function buildFormCheck (group) {
   const { has, get } = this.app.lib._
   const attr = await getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
@@ -68,7 +68,7 @@ export async function buildFormCheck (group, params) {
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormSwitch (group, params) {
+export async function buildFormSwitch (group) {
   const { has } = this.app.lib._
   const attr = await getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
@@ -79,14 +79,14 @@ export async function buildFormSwitch (group, params) {
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormRadio (group, params) {
+export async function buildFormRadio (group) {
   const attr = await getInputAttr.call(this, group, false)
   attr.type = 'radio'
   attr.class.push('form-check-input')
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormCheckToggle (group, params) {
+export async function buildFormCheckToggle (group) {
   const attr = await getInputAttr.call(this, group, false)
   attr.type = 'checkbox'
   attr.autocomplete = 'off'
@@ -94,7 +94,7 @@ export async function buildFormCheckToggle (group, params) {
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormRadioToggle (group, params) {
+export async function buildFormRadioToggle (group) {
   const attr = await getInputAttr.call(this, group, false)
   attr.type = 'radio'
   attr.autocomplete = 'off'
@@ -102,7 +102,7 @@ export async function buildFormRadioToggle (group, params) {
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormPlaintext (group, params) {
+export async function buildFormPlaintext (group) {
   const { omit } = this.app.lib._
   const attr = await getInputAttr.call(this, group, false, true)
   attr.class.push('form-control-plaintext')
@@ -110,7 +110,7 @@ export async function buildFormPlaintext (group, params) {
   return await this.component.buildTag({ tag: 'div', attr: omit(attr, ['value']), html: attr.value })
 }
 
-export async function buildFormColor (group, params) {
+export async function buildFormColor (group) {
   const attr = await getInputAttr.call(this, group)
   attr.class.push('form-control-color')
   attr.type = 'color'
@@ -118,21 +118,21 @@ export async function buildFormColor (group, params) {
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormFile (group, params) {
+export async function buildFormFile (group) {
   const attr = await getInputAttr.call(this, group)
   attr.type = 'file'
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormTextarea (group, params) {
+export async function buildFormTextarea (group) {
   const attr = await getInputAttr.call(this, group)
-  params.html = attr.value
+  this.params.html = attr.value
   attr.style.minHeight = '100px'
   delete attr.value
-  return await this.component.buildTag({ tag: 'textarea', attr, html: params.html })
+  return await this.component.buildTag({ tag: 'textarea', attr, html: this.params.html })
 }
 
-export async function buildFormSelect (group, params) {
+export async function buildFormSelect (group) {
   const { omit, trim } = this.app.lib._
   const { isSet } = this.app.lib.aneka
   const { $ } = this.component
@@ -144,7 +144,7 @@ export async function buildFormSelect (group, params) {
   } catch (err) {}
   attr.value = isSet(attr.value) ? (attr.value + '') : undefined
   attr.class.push('form-select')
-  let html = params.html
+  let html = this.params.html
   if (sizes.includes(attr.size)) attr.class.push(`form-select-${attr.size}`)
   if (attr.options) html = await this.component.buildOptions({ attr })
   else {
@@ -158,7 +158,7 @@ export async function buildFormSelect (group, params) {
   return await this.component.buildTag({ tag: attr.tag ?? 'select', attr, html })
 }
 
-export async function buildFormRange (group, params) {
+export async function buildFormRange (group) {
   const attr = await getInputAttr.call(this, group, false)
   attr.type = 'range'
   attr.class.push('form-range')

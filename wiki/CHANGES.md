@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-01
+
+- [2.11.0] Remove ```params``` on all widget since it already there through ```this.params```
+- [2.11.0] Add feature to add addons on all form inputs through schema
+
 ## 2026-05-25
 
 - [2.10.0] Bug fix in ```_lib.js```

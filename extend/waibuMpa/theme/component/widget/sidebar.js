@@ -1,4 +1,4 @@
-function formatSentence (item, params) {
+function formatSentence (item) {
   const { kebabCase, omit, merge } = this.app.lib._
   const { isSet } = this.app.lib.aneka
   if (item.divider) return '<c:li class="nav-item"><c:hr margin="y-2"/></c:li>'
@@ -59,14 +59,14 @@ async function sidebar () {
           let items = filter(this.component.locals.sidebar ?? [], s => !s.bottom)
           html.push(`<c:nav tag="ul" flex="column" margin="bottom-auto" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'}>`)
           for (const item of items) {
-            html.push(formatSentence.call(this, item, this.params))
+            html.push(formatSentence.call(this, item))
           }
           html.push('</c:nav>')
           // bottom
           html.push(`<c:nav tag="ul" flex="column" text="align:${this.params.attr.align}" type="pills" ${this.params.attr.expanded ? '' : 'padding="all-1"'} ${this.params.attr.fancyProfile ? 'fancy-profile' : ''}>`)
           items = filter(this.component.locals.sidebar ?? [], s => s.bottom)
           for (const item of items) {
-            html.push(formatSentence.call(this, item, this.params))
+            html.push(formatSentence.call(this, item))
           }
           html.push('</c:nav>')
         }

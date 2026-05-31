@@ -1,6 +1,6 @@
 import { buildFormHint, buildFormLabel, buildFormCheck } from './_lib.js'
 
-export async function build (handler, params = {}) {
+export async function build (handler) {
   const { isEmpty, get, find } = this.app.lib._
   const { groupAttrs } = this.app.waibuMpa
   const { generateId } = this.app.lib.aneka
@@ -49,7 +49,7 @@ export async function build (handler, params = {}) {
 async function formCheck () {
   return class FormCheck extends this.app.baseClass.MpaWidget {
     build = async () => {
-      await build.call(this, buildFormCheck, this.params)
+      await build.call(this, buildFormCheck)
     }
   }
 }

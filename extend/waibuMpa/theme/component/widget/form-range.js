@@ -6,7 +6,7 @@ async function formRange () {
     build = async () => {
       this.params.attr.type = 'range'
       delete this.params.attr.labelFloating
-      await build.call(this, buildFormRange, this.params)
+      await build.call(this, buildFormRange)
     }
   }
 }

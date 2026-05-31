@@ -2,7 +2,7 @@ import { buildFormLabel, buildFormCheckToggle } from './_lib.js'
 import { parseVariant, colors } from '../method/after-build-tag/_lib.js'
 const variants = ['outline']
 
-export async function build (handler, params = {}) {
+export async function build (handler) {
   const { groupAttrs } = this.app.waibuMpa
   const { generateId } = this.app.lib.aneka
   this.component.normalizeAttr(this.params)
@@ -26,7 +26,7 @@ async function formCheckToggle () {
       const { has } = this.app.lib._
       const { req } = this.component
       if (!has(this.params.attr, 'label')) this.params.attr.label = req.t('Toggle Check')
-      await build.call(this, buildFormCheckToggle, this.params)
+      await build.call(this, buildFormCheckToggle)
     }
   }
 }

@@ -10,7 +10,7 @@ async function formSwitch () {
     }
 
     build = async () => {
-      await build.call(this, buildFormSwitch, this.params)
+      await build.call(this, buildFormSwitch)
     }
   }
 }

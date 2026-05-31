@@ -9,7 +9,7 @@ async function formFile () {
     }
 
     build = async () => {
-      await build.call(this, buildFormFile, this.params)
+      await build.call(this, buildFormFile)
     }
   }
 }

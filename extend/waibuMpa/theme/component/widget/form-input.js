@@ -1,11 +1,11 @@
 import { buildFormHint, buildFormLabel, buildFormInput } from './_lib.js'
 import { sizes } from '../method/after-build-tag/_lib.js'
 
-export async function handleInput ({ handler, group, params } = {}) {
+export async function handleInput ({ handler, group } = {}) {
   const { trim, filter, has, omit, pull, find, get } = this.app.lib._
   const { attrToArray } = this.app.waibu
   const { $ } = this.component
-  const addons = []
+  const addons = [...(this.params.addons ?? [])]
   const isLabel = has(this.params.attr, 'label')
   const isLabelFloating = group.label && group.label.floating && isLabel
   if (isLabelFloating) {
@@ -23,7 +23,7 @@ export async function handleInput ({ handler, group, params } = {}) {
   const result = {
     prepend: [],
     append: [],
-    input: await handler.call(this, group, this.params)
+    input: await handler.call(this, group)
   }
   if (group._.name) {
     const details = get(this, 'component.locals.error.details', [])
@@ -82,7 +82,7 @@ export async function handleInput ({ handler, group, params } = {}) {
   return contents
 }
 
-export async function build (handler, params = {}) {
+export async function build (handler) {
   const { generateId } = this.app.lib.aneka
   const { groupAttrs } = this.app.waibuMpa
   this.component.normalizeAttr(this.params, { autoId: true, type: this.params.attr.type ?? 'text' })
@@ -100,7 +100,7 @@ export async function build (handler, params = {}) {
     datalist = group._.datalist
     group._.list = generateId('alpha')
   }
-  const contents = await handleInput.call(this, { handler, params, group })
+  const contents = await handleInput.call(this, { handler, group })
   if (datalist) {
     const args = { tag: 'datalist', attr: { id: group._.list, options: datalist }, html: '' }
     const cmp = await this.component.buildTag(args)
@@ -124,7 +124,7 @@ export async function build (handler, params = {}) {
 async function formInput () {
   return class FormInput extends this.app.baseClass.MpaWidget {
     build = async () => {
-      await build.call(this, buildFormInput, this.params)
+      await build.call(this, buildFormInput)
     }
   }
 }

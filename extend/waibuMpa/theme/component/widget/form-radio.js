@@ -4,7 +4,7 @@ import { build } from './form-check.js'
 async function formRadio () {
   return class FormRadio extends this.app.baseClass.MpaWidget {
     build = async () => {
-      await build.call(this, buildFormRadio, this.params)
+      await build.call(this, buildFormRadio)
     }
   }
 }

@@ -4,7 +4,7 @@ import { build } from './form-input.js'
 async function formColor () {
   return class FormColor extends this.app.baseClass.MpaWidget {
     build = async () => {
-      await build.call(this, buildFormColor, this.params)
+      await build.call(this, buildFormColor)
     }
   }
 }

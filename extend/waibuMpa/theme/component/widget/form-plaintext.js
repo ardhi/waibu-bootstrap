@@ -27,7 +27,7 @@ async function formPlaintext () {
         this.params.attr.value = value
         this.params.attr.dataType = prop.type
       }
-      await build.call(this, buildFormPlaintext, this.params)
+      await build.call(this, buildFormPlaintext)
     }
   }
 }

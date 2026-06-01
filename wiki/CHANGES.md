@@ -4,6 +4,7 @@
 
 - [2.11.0] Remove ```params``` on all widget since it already there through ```this.params```
 - [2.11.0] Add feature to add addons on all form inputs through schema
+- [2.12.0] Tranform ```form-plaintext``` html as href addon if it contains link information
 
 ## 2026-05-25
 

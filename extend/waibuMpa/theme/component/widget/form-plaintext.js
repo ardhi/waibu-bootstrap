@@ -3,8 +3,29 @@ import { build } from './form-input.js'
 
 async function formPlaintext () {
   return class FormPlaintext extends this.app.baseClass.MpaWidget {
-    build = async () => {
+    reformat = async (format, value) => {
+      if (!format) return value
+      const { isPlainObject } = this.app.lib._
       const { req } = this.component
+      const formatted = await format.call(this, value, this.formData, { req })
+      if (isPlainObject(formatted)) {
+        value = formatted.value
+        if (formatted.href) {
+          this.params.addons = this.params.addons ?? []
+          const position = 'append'
+          const attr = {
+            icon: formatted.icon ?? 'link',
+            'x-data': true,
+            '@click': `location.href='${formatted.href}'`
+          }
+          const html = await this.component.buildTag({ tag: 'btn', attr })
+          this.params.addons.push({ position, html })
+        }
+      } else value = formatted
+      return value
+    }
+
+    build = async () => {
       const { isEmpty, get } = this.app.lib._
       const { escape } = this.app.waibu
       this.params.attr.disabled = true
@@ -19,10 +40,8 @@ async function formPlaintext () {
         const labelField = get(this.schema, `view.widget.${name}.attr.labelField`)
         if (prop.ref) {
           const result = this.getRefValue({ field: name, labelField, refName: this.getRefName(name) })
-          if (result) {
-            value = format ? await format.call(this, value, this.formData, { req }) : result
-          }
-        } else if (format) value = await format.call(this, value, this.formData, { req })
+          if (result) value = await this.reformat(format, result)
+        } else if (format) value = await this.reformat(format, value)
         this.params.attr.dataValue = escape(dataValue)
         this.params.attr.value = value
         this.params.attr.dataType = prop.type

@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-03
+
+- [2.12.1] Bug fix in ```_lib.getInputAttr()```
+- [2.12.1] Bug fix in ```form-input``` widget
+
 ## 2026-06-01
 
 - [2.11.0] Remove ```params``` on all widget since it already there through ```this.params```

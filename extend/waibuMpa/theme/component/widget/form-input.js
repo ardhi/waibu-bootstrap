@@ -2,7 +2,7 @@ import { buildFormHint, buildFormLabel, buildFormInput } from './_lib.js'
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, group } = {}) {
-  const { trim, filter, has, omit, pull, find, get } = this.app.lib._
+  const { trim, filter, has, omit, pull, find, get, isEmpty } = this.app.lib._
   const { attrToArray } = this.app.waibu
   const { $ } = this.component
   const addons = [...(this.params.addons ?? [])]
@@ -12,6 +12,14 @@ export async function handleInput ({ handler, group } = {}) {
     group.wrapper.class.push('form-floating')
     group._.placeholder = group._.label
     group._ = omit(group._, ['rows'])
+  }
+  let errMsg = ''
+  if (group._.name) {
+    const details = get(this, 'component.locals.error.details', [])
+    const err = find(details, { field: group._.name })
+    if (err) {
+      errMsg = `\n<div class="invalid-feedback d-block">${err.error}</div>`
+    }
   }
   $(`<div>${trim(this.params.html ?? '')}</div>`).find('[addon]').each(function () {
     const position = this.attribs.addon
@@ -25,14 +33,7 @@ export async function handleInput ({ handler, group } = {}) {
     append: [],
     input: await handler.call(this, group)
   }
-  if (group._.name) {
-    const details = get(this, 'component.locals.error.details', [])
-    const err = find(details, { field: group._.name })
-    if (err) {
-      result.input = $(result.input).addClass('is-invalid').prop('outerHTML')
-      result.input += `\n<div class="invalid-feedback">${err.error}</div>`
-    }
-  }
+  if (!isEmpty(errMsg)) result.input = $(result.input).addClass('is-invalid').prop('outerHTML')
   const el = {
     prepend: filter(addons, { position: 'prepend' }),
     append: filter(addons, { position: 'append' })
@@ -62,6 +63,7 @@ export async function handleInput ({ handler, group } = {}) {
   if (isLabelFloating) {
     pull(group.wrapper.class, 'form-floating')
     group.wrapper.class.push('input-group')
+    if (!isEmpty(errMsg)) group.wrapper.class.push('has-validation')
     if (group._.size && sizes.includes(group._.size)) group.wrapper.class.push(`input-group-${group._.size}`)
     const _attr = { class: ['form-floating'] }
     const html = []
@@ -69,15 +71,18 @@ export async function handleInput ({ handler, group } = {}) {
     if (result.prepend.length > 0) html.push(result.prepend.join('\n'))
     html.push(await this.component.render({ tag: 'div', attr: _attr, html: `${result.input}\n${label}\n${hint}` }))
     if (result.append.length > 0) html.push(result.append.join('\n'))
+    html.push(errMsg)
     contents.push(html.join('\n'))
   } else {
     const _attr = { class: ['input-group'] }
+    if (!isEmpty(errMsg)) _attr.class.push('has-validation')
     if (group._.size && sizes.includes(group._.size)) _attr.class.push(`input-group-${group._.size}`)
     const html = []
     if (result.prepend.length > 0) html.push(result.prepend.join('\n'))
     html.push(result.input)
     if (result.append.length > 0) html.push(result.append.join('\n'))
-    contents.push(await this.component.render({ tag: 'div', attr: _attr, html: html.join('\n') }), hint)
+    const item = await this.component.render({ tag: 'div', attr: _attr, html: html.join('\n') + '\n' + hint })
+    contents.push(item, errMsg)
   }
   return contents
 }

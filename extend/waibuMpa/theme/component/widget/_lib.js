@@ -19,11 +19,13 @@ async function getInputAttr (group, formControl = true, ro) {
   if (has(attr, 'name') && !has(attr, 'value')) {
     if (ro) attr.value = this.formData[attr.name]
     else {
-      const prop = this.getProp(attr.name)
+      const prop = this.getProp(attr.name) ?? {}
       attr.dataType = attr.dataType ?? prop.type
       attr.dataValue = this.formData[attr.name]
       if (prop.values) {
-        attr.options = (isString(prop.values) ? await callHandler(prop.values) : [...prop.values]).map(v => buildOptions(v, prop))
+        if (this.model) attr.options = await this.model.buildPropValues(prop, { req })
+        else attr.options = (isString(prop.values) ? await callHandler(prop.values) : [...prop.values]).map(v => buildOptions(v, prop))
+        attr.options = attr.options.map(v => buildOptions(v, prop))
       } else if (isPlainObject(attr.dataValue)) {
         attr.dataValue = JSON.stringify(attr.dataValue)
         attr.value = attr.dataValue

@@ -12,7 +12,7 @@ async function toast () {
       const { isString, omit, has, get } = this.app.lib._
       const header = []
       if (this.params.attr.noHide) this.params.attr.dataBsAutohide = 'false'
-      let delay = get(this, 'component.req.site.setting.waibuBootstrap.toastAutohideDelayDur', 5000)
+      let delay = get(this, 'component.req.site.setting.waibuBootstrap.toastAutohideDelayDur', 8000)
       if (has(this.params.attr, 'autohideDelay')) delay = Number(this.params.attr.autohideDelay) || delay
       this.params.attr.dataBsDelay = delay
       if (isString(this.params.attr.title)) {

@@ -18,7 +18,7 @@ export async function handleInput ({ handler, group } = {}) {
     const details = get(this, 'component.locals.error.details', [])
     const err = find(details, { field: group._.name })
     if (err) {
-      errMsg = `\n<div class="invalid-feedback d-block">${err.error}</div>`
+      errMsg = `\n<div class="invalid-feedback d-block">${this.component.req.t(err.error)}</div>`
     }
   }
   $(`<div>${trim(this.params.html ?? '')}</div>`).find('[addon]').each(function () {

@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-05
+
+- [2.12.2] Bug fix in ```form-input``` widget
+- [2.12.2] Bug fix in ```toast``` widget
+
 ## 2026-06-03
 
 - [2.12.1] Bug fix in ```_lib.getInputAttr()```

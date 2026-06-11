@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-06-11
+
+- [2.12.3] Bug fix in ```form-select-ext``` widget
+
 ## 2026-06-05
 
 - [2.12.2] Bug fix in ```form-input``` widget

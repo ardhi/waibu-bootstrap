@@ -20,7 +20,7 @@ async function formSelectExt () {
       const { base64JsonDecode } = this.app.waibu
       const { req } = this.component
       let apiKey = ''
-      if (req.user && this.app.sumba) apiKey = await this.app.sumba.getApiKeyFromUserId(req.user.id)
+      if (req.user && req.user.id && this.app.sumba) apiKey = await this.app.sumba.getApiKeyFromUserId(req.user.id)
       const xref = this.params.attr['x-ref'] ?? this.params.attr.name
       this.params.attr.id = this.params.attr.id ?? generateId('alpha')
       this.params.attr['x-ref'] = xref

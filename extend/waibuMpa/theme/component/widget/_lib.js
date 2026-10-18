@@ -16,6 +16,7 @@ async function getInputAttr (group, formControl = true, ro) {
 
   if (formControl) group._.class.push('form-control')
   const attr = omit(group._, ['hint', 'label', 'wrapper'])
+
   if (has(attr, 'name') && !has(attr, 'value')) {
     if (ro) attr.value = this.formData[attr.name]
     else {
@@ -126,10 +127,15 @@ export async function buildFormFile (group) {
   return await this.component.buildTag({ tag: 'input', attr, selfClosing: true })
 }
 
-export async function buildFormTextarea (group) {
+export async function buildFormTextarea (group, opts = {}) {
   const attr = await getInputAttr.call(this, group)
   this.params.html = attr.value
-  attr.style.minHeight = '100px'
+  if (attr.rows) {
+    let height = parseInt(attr.rows) * 1
+    if (opts.isLabelFloating) height += 3
+    attr.style.minHeight = `${height}em`
+  }
+  attr.style.minHeight = attr.style.minHeight ?? '100px'
   delete attr.value
   return await this.component.buildTag({ tag: 'textarea', attr, html: this.params.html })
 }

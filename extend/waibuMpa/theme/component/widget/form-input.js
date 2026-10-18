@@ -2,7 +2,7 @@ import { buildFormHint, buildFormLabel, buildFormInput } from './_lib.js'
 import { sizes } from '../method/after-build-tag/_lib.js'
 
 export async function handleInput ({ handler, group } = {}) {
-  const { trim, filter, has, omit, pull, find, get, isEmpty } = this.app.lib._
+  const { trim, filter, has, pull, find, get, isEmpty } = this.app.lib._
   const { attrToArray } = this.app.waibu
   const { $ } = this.component
   const addons = [...(this.params.addons ?? [])]
@@ -11,7 +11,6 @@ export async function handleInput ({ handler, group } = {}) {
   if (isLabelFloating) {
     group.wrapper.class.push('form-floating')
     group._.placeholder = group._.label
-    group._ = omit(group._, ['rows'])
   }
   let errMsg = ''
   if (group._.name) {
@@ -31,7 +30,7 @@ export async function handleInput ({ handler, group } = {}) {
   const result = {
     prepend: [],
     append: [],
-    input: await handler.call(this, group)
+    input: await handler.call(this, group, { isLabelFloating })
   }
   if (!isEmpty(errMsg)) result.input = $(result.input).addClass('is-invalid').prop('outerHTML')
   const el = {

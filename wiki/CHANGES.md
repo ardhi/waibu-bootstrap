@@ -1,140 +1,145 @@
 # Changes
 
+## 2026-10-19
+
+- [2.12.4] Bug fix in `_lib.js`
+- [2.12.4] Bug fix in `form-input.js`
+
 ## 2026-06-11
 
-- [2.12.3] Bug fix in ```form-select-ext``` widget
+- [2.12.3] Bug fix in `form-select-ext` widget
 
 ## 2026-06-05
 
-- [2.12.2] Bug fix in ```form-input``` widget
-- [2.12.2] Bug fix in ```toast``` widget
+- [2.12.2] Bug fix in `form-input` widget
+- [2.12.2] Bug fix in `toast` widget
 
 ## 2026-06-03
 
-- [2.12.1] Bug fix in ```_lib.getInputAttr()```
-- [2.12.1] Bug fix in ```form-input``` widget
+- [2.12.1] Bug fix in `_lib.getInputAttr()`
+- [2.12.1] Bug fix in `form-input` widget
 
 ## 2026-06-01
 
-- [2.11.0] Remove ```params``` on all widget since it already there through ```this.params```
+- [2.11.0] Remove `params` on all widget since it already there through `this.params`
 - [2.11.0] Add feature to add addons on all form inputs through schema
-- [2.12.0] Tranform ```form-plaintext``` html as href addon if it contains link information
+- [2.12.0] Tranform `form-plaintext` html as href addon if it contains link information
 
 ## 2026-05-25
 
-- [2.10.0] Bug fix in ```_lib.js```
-- [2.10.0] Add dimmed background for ```form-plaintext``` widget
+- [2.10.0] Bug fix in `_lib.js`
+- [2.10.0] Add dimmed background for `form-plaintext` widget
 - [2.10.0] Auto detect theme & iconset
 
 ## 2026-05-22
 
-- [2.9.2] Bug fix in ```drawer``` widget
+- [2.9.2] Bug fix in `drawer` widget
 
 ## 2026-05-16
 
-- [2.9.1] Bug fix in ```form-select-ext``` widget
-- [2.9.1] Bug fix in ```util.getInputAttr``` helper
+- [2.9.1] Bug fix in `form-select-ext` widget
+- [2.9.1] Bug fix in `util.getInputAttr` helper
 
 ## 2026-05-11
 
-- [2.9.0] Updates to match ```dobo@2.23.0``` specs
-- [2.9.0] Bug fix in ```theme.js```
+- [2.9.0] Updates to match `dobo@2.23.0` specs
+- [2.9.0] Bug fix in `theme.js`
 - [2.9.0] Auto link for widget bound to database with refs
 
 ## 2026-05-03
 
-- [2.8.2] Bug fix in ```form-plaintext``` widgets
+- [2.8.2] Bug fix in `form-plaintext` widgets
 
 ## 2026-04-25
 
 - [2.8.0] Change options to format value using the new key set by dobo
-- [2.8.0] Use ```generateId('alpha')``` to make sure all generated id in widget doesn;t start with number
+- [2.8.0] Use `generateId('alpha')` to make sure all generated id in widget doesn;t start with number
 
 ## 2026-04-18
 
-- [2.7.2] Bug fix in ```getInputAttr()``` of ```_lib.js```
+- [2.7.2] Bug fix in `getInputAttr()` of `_lib.js`
 
 
 ## 2026-04-17
 
-- [2.7.1] Bug fix in ```getInputAttr()```
-- [2.7.1] Bug fix in ```FormPlaintext``` widget
+- [2.7.1] Bug fix in `getInputAttr()`
+- [2.7.1] Bug fix in `FormPlaintext` widget
 
 ## 2026-04-13
 
-- [2.7.0] Rewrite ```getInputAttr()``` to not dependent to any template data, rather only depend on attributes
+- [2.7.0] Rewrite `getInputAttr()` to not dependent to any template data, rather only depend on attributes
 
 ## 2026-04-11
 
-- [2.6.5] Bug fix in ```form-select-ext``` widget
-- [2.6.5] Bug fix in ```container``` widget
-- [2.6.5] Bug fix in ```getInputAttr()```
-- [2.6.5] Bug fix in ```parseVariant()```
-- [2.6.5] Bug fix in ```parseSimple()```
+- [2.6.5] Bug fix in `form-select-ext` widget
+- [2.6.5] Bug fix in `container` widget
+- [2.6.5] Bug fix in `getInputAttr()`
+- [2.6.5] Bug fix in `parseVariant()`
+- [2.6.5] Bug fix in `parseSimple()`
 
 ## 2026-04-07
 
-- [2.6.4] Bug fix on widget ```form-select-ext```
-- [2.6.4] Bug fix on ```buildFormSelect()```
+- [2.6.4] Bug fix on widget `form-select-ext`
+- [2.6.4] Bug fix on `buildFormSelect()`
 
 ## 2026-04-01
 
-- [2.6.3] Bug fix on widget ```form-datetime```
+- [2.6.3] Bug fix on widget `form-datetime`
 
 ## 2026-03-07
 
-- [2.6.2] Bug fix on widget ```app-launcher-trigger```
+- [2.6.2] Bug fix on widget `app-launcher-trigger`
 
 ## 2026-03-06
 
-- [2.6.1] Bug fix on ```wbs.js```
+- [2.6.1] Bug fix on `wbs.js`
 
 ## 2026-02-20
 
-- [2.6.0] Change ```getInputAttr()``` to async function
-- [2.6.0] Update to support a function handler as ```prop.values```
-- [2.6.0] Add button to admin area in ```Drawer``` if user is an admin
+- [2.6.0] Change `getInputAttr()` to async function
+- [2.6.0] Update to support a function handler as `prop.values`
+- [2.6.0] Add button to admin area in `Drawer` if user is an admin
 
 ## 2026-02-18
 
-- [2.4.0] Update attribute functions from ```waibu```
-- [2.4.0] Bug fix on ```FormSelectExt``` 's static css
-- [2.4.0] Bug fix on ```FormSelectCountry``` 's static css
-- [2.5.0] Remove ```FormSelectCountry``` alltogther
-- [2.5.0] Bug fix on ```FormSelectExt```'s options
+- [2.4.0] Update attribute functions from `waibu`
+- [2.4.0] Bug fix on `FormSelectExt` 's static css
+- [2.4.0] Bug fix on `FormSelectCountry` 's static css
+- [2.5.0] Remove `FormSelectCountry` alltogther
+- [2.5.0] Bug fix on `FormSelectExt`'s options
 - [2.5.0] In read only mode, auto detect value from model's values
 
 ## 2026-02-15
 
-- [2.3.0] Add capability to use custom tag on ```select```
-- [2.3.0] Now you can hide caret on ```<c:form-select-ext />``` with ```no-caret``` attribute
-- [2.3.0] Add ```value-store="name:key"``` to read/write value to Alpine's store
+- [2.3.0] Add capability to use custom tag on `select`
+- [2.3.0] Now you can hide caret on `<c:form-select-ext />` with `no-caret` attribute
+- [2.3.0] Add `value-store="name:key"` to read/write value to Alpine's store
 
 ## 2026-02-11
 
-- [2.2.3] Bug fix on widget attribute ```rounded```
-- [2.2.3] Bug fix on widget ```<c:nav-item />```
+- [2.2.3] Bug fix on widget attribute `rounded`
+- [2.2.3] Bug fix on widget `<c:nav-item />`
 
 ## 2026-02-09
 
-- [2.2.0] Start using simplified ```webAppCtx```
-- [2.2.1] Bug fix on ```sidebar``` widget
-- [2.2.2] Bug fix on ```sidebar``` widget
+- [2.2.0] Start using simplified `webAppCtx`
+- [2.2.1] Bug fix on `sidebar` widget
+- [2.2.2] Bug fix on `sidebar` widget
 
 ## 2026-02-04
 
-- [2.1.8] Bug fix on ```<c:nav-dropdown-setting>```
+- [2.1.8] Bug fix on `<c:nav-dropdown-setting>`
 
 ## 2026-02-03
 
 - [2.1.7] Bug fix on menu direction
-- [2.1.7] Bug fix on ```dropdown``` widget
+- [2.1.7] Bug fix on `dropdown` widget
 
 ## 2026-01-18
 
 - [2.1.5] Darkmode handling
 - [2.1.5] Put border around fieldset if its type is a card
-- [2.1.6] Remove ```getOrCreateInstance()``` on ```wbs.appLauncher()```
+- [2.1.6] Remove `getOrCreateInstance()` on `wbs.appLauncher()`
 
 ## 2026-01-17
 
@@ -147,5 +152,5 @@
 
 ## 2025-12-31
 
-- [2.1.0] Ported to match ```bajo@2.2.x``` specs
-- [2.1.0] Upgrade to ```bootstrap@5.3.8```
+- [2.1.0] Ported to match `bajo@2.2.x` specs
+- [2.1.0] Upgrade to `bootstrap@5.3.8`

@@ -11,6 +11,8 @@ export async function build (handler) {
   const contents = []
   attr._.id = this.params.attr.id ?? generateId('alpha')
   if (attr._.color) attr.label.class.push(parseVariant.call(this, { cls: 'btn', value: attr._.color, values: colors, variants, prepend: true }))
+  if (attr._.size) attr.label.class.push('btn-' + attr._.size)
+  delete attr._.size
   delete attr._.color
 
   contents.push(await handler.call(this, attr, this.params))

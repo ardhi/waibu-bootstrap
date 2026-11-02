@@ -9,7 +9,8 @@ export async function buildMenu (params = {}) { // scope: component
   const { isString } = this.app.lib._
   const $ = this.$
   let menuHtml = params.html
-  let style = params.attr.menuOnly ? 'display:block;' : ''
+  let style = params.attr.menuStyle ?? ''
+  style += params.attr.menuOnly ? 'display:block;' : ''
   if (params.attr.menuMax) {
     const max = parseInt(params.attr.menuMax)
     if (max > 0) {

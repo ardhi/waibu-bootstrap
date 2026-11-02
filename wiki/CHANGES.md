@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-11-02
+
+- [2.12.5] Bug fix in `dropdown.js`
+- [2.12.5] Bug fix in `table.js`
+- [2.12.5] Bug fix in `form-check-toggle.js`
+
 ## 2026-10-19
 
 - [2.12.4] Bug fix in `_lib.js`

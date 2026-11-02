@@ -10,6 +10,7 @@ function setResponsive (params) {
   const { isString } = this.app.lib._
   let xcls = `${cls}-responsive`
   if (isString(this.params.attr.responsive)) xcls += '-' + this.params.attr.responsive
+  if (this.params.attr.rounded) xcls += ' rounded-3'
   this.params.prepend = `<div class="${xcls}">`
   this.params.append = '</div>'
 }

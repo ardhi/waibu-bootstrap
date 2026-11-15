@@ -8,7 +8,7 @@ async function nav () {
       const { isString } = this.app.lib._
       this.selector = '.' + cls
       this.component.normalizeAttr(this.params, { tag: 'nav', cls })
-      if (!this.params.attr.type) this.params.attr.type = 'tabs'
+      // if (!this.params.attr.type) this.params.attr.type = 'tabs'
       if (types.includes(this.params.attr.type)) this.params.attr.class.push(`nav-${this.params.attr.type}`)
       if (this.params.attr.fill) this.params.attr.class.push('nav-fill')
       if (isString(this.params.attr.tag)) this.params.tag = this.params.attr.tag

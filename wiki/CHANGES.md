@@ -6,6 +6,7 @@
 - [2.12.6] Bug fix in `form-select-ext` widget
 - [2.12.6] Bug fix in `img` widget
 - [2.12.6] Bug fix in `nav` widget
+- [2.12.7] Revert bug fix in `nav` widget
 
 ## 2026-11-02
 

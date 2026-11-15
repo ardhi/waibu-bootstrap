@@ -2,8 +2,7 @@ import { buildFormSelect } from './_lib.js'
 import { build } from './form-input.js'
 
 export const css = [
-  'waibuExtra.virtual:/tom-select/css/tom-select.bootstrap5.min.css',
-  'waibuBootstrap.asset:/css/widget.css'
+  'waibuExtra.virtual:/tom-select/css/tom-select.bootstrap5.min.css'
 ]
 export const scripts = 'waibuExtra.virtual:/tom-select/js/tom-select.complete.min.js'
 

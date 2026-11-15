@@ -41,7 +41,13 @@ async function carousel () {
         const dirs = { prev: 'Previous', next: 'Next' }
         for (const dir in dirs) {
           btns.push(`<button class="${cls}-control-${dir}" type="button" data-bs-target="#${this.params.attr.id}" data-bs-slide="${dir}">`)
-          btns.push(`<span class="${cls}-control-${dir}-icon" aria-hidden="true"></span>`)
+          if (this.params.attr.navigationIcon) {
+            let icon = this.params.attr.navigationIcon
+            if (icon === true) icon = 'arrow'
+            icon += dir === 'prev' ? 'Start' : 'End'
+            const item = await this.component.buildSentence(`<c:icon name="${icon}" aria-hidden="true" style="font-size:xx-large"/>`)
+            btns.push(item)
+          } else btns.push(`<span class="${cls}-control-${dir}-icon" aria-hidden="true"></span>`)
           btns.push(`<span class="visually-hidden">${this.component.req.t(dirs[dir])}</span></button>`)
         }
         this.params.html += '\n' + btns.join('\n')

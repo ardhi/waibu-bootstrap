@@ -18,7 +18,7 @@ async function navbar () {
 
       this.params.group = groupAttrs(this.params.attr, ['container', 'drawer'])
       this.params.attr = cloneDeep(this.params.group._)
-      if (this.params.attr.expandable === true) this.params.attr.expandable = 'lg'
+      if (this.params.attr.expandable === true) this.params.attr.expandable = 'md'
       let type = 'collapse'
       if (this.params.attr.drawer) {
         type = 'offcanvas'

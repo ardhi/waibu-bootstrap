@@ -10,7 +10,7 @@ async function navItem () {
     }
 
     build = async () => {
-      const { isString } = this.app.lib._
+      const { isString, isEmpty } = this.app.lib._
       const { groupAttrs } = this.app.waibuMpa
       const { routePath, findRoute } = this.app.waibu
       const { breakNsPath, buildNsPath } = this.app.bajo
@@ -38,9 +38,12 @@ async function navItem () {
         if (group.dropdown.autoClose && autoCloses.includes(group.dropdown.autoClose)) this.params.attr.dataBsAutoClose = group.dropdown.autoClose
         this.params.dropdownMenu = this.params.html
         // find icon
-        const icon = $(`<div>${this.params.html}</div>`).find('i').prop('outerHTML')
+        const icon = $(`<div>${this.params.html}</div>`).find('i').prop('outerHTML') ?? ''
         this.params.dropdown = group.dropdown
-        this.params.html = icon ?? this.params.attr.content
+        this.params.html = ''
+        if (!isEmpty(icon)) this.params.html += icon + ' '
+        if (!isEmpty(this.params.attr.content)) this.params.html += this.params.attr.content
+        this.params.content = this.params.html.trim()
       }
       if (isString(this.params.attr.open)) {
         const [id, toggle = 'modal'] = this.params.attr.open.split(':')

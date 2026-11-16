@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-16
+
+- [2.12.8] Bug fix in `navItem` widget
+- [2.12.8] Bug fix in `navbar` widget
+
 ## 2026-11-15
 
 - [2.12.6] Bug fix in `carousel` widget

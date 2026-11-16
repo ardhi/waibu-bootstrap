@@ -20,7 +20,7 @@ async function img () {
         this.params.attr['@click'] = 'await click()'
         this.params.attr['x-data'] = `{ async click () { 
           const id = wmpa.randomId()
-          const body = '<c:modal scroll size=\\'lg\\' id=\\'' + id + '\\'><c:img responsive src=\\'${srcPopup}\\' /></c:modal>'
+          const body = '<c:modal scroll size=\\'lg\\' id=\\'' + id + '\\'><c:img responsive src=\\'${srcPopup}\\' dim=\\'height:100 width:100\\' /></c:modal>'
           return await wbs.openModal(id, body) 
         }}`
       }

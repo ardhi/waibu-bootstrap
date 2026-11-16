@@ -4,6 +4,9 @@
 
 - [2.12.8] Bug fix in `navItem` widget
 - [2.12.8] Bug fix in `navbar` widget
+- [2.12.8] Bug fix in `navbar` widget
+- [2.13.0] Bug fix in `img` widget
+- [2.13.0] Add `video` widget
 
 ## 2026-11-15
 

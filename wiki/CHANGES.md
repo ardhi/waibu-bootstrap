@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-11-20
+
+- [2.14.0] Add `media` widget
+- [2.14.0] Refactor `video` widget to support new media handling
+- [2.14.0] Refactor `img` widget to support new media handling
+
 ## 2026-11-16
 
 - [2.13.1] Bug fix in `video` widget

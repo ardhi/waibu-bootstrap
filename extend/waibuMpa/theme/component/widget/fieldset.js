@@ -16,9 +16,7 @@ async function fieldset () {
         group.card.border = true
         if (!group.card.margin) group.card.margin = 'bottom-4'
         let sentence = `
-          <c:card-header>
-            <c:card-title content="${this.params.attr.legend}" />
-          </c:card-header>
+          <c:card-header tag="h6" content="${this.params.attr.legend}" />
           <c:card-body>${this.params.html}</c:card-body>
         `
         if (!this.params.attr.legend) {
